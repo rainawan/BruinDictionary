@@ -14,9 +14,9 @@
 
 - Create `.env.local` in your project root
 
-  ```js
-  VITE_FIREBASE_KEY = "firebase api key here";
-  VITE_FIREBASE_APP_ID = "firebase app id here";
+  ```
+  VITE_FIREBASE_KEY="firebase api key here"
+  VITE_FIREBASE_APP_ID="firebase app id here"
   ```
 
 ## Useful Resources
