@@ -19,12 +19,9 @@ module.exports = {
     ecmaVersion: 12,
     sourceType: 'module'
   },
-  plugins: ['import', 'react', 'prettier'],
+  plugins: ['react', 'prettier', 'import'],
   settings: {
-    react: {
-      // Tells eslint-plugin-react to automatically detect the version of React to use.
-      version: 'detect'
-    },
+    react: { version: 'detect' },
     // Tells eslint how to resolve imports
     'import/resolver': {
       node: {
@@ -90,7 +87,7 @@ module.exports = {
     'max-len': [
       'error',
       {
-        code: 120,
+        code: 100,
         ignoreUrls: true, // Most common reason to disable it
         ignoreStrings: true, // These are not fantastic but necessary for error messages
         ignoreTemplateLiterals: true,

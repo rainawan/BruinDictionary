@@ -8,12 +8,13 @@
 3. **NEVER DO PROP DRILLING** !!
    - Always love custom hooks and context provider
 4. Avoid using useEffect as much as possible. It creates a lot of side-effects and is very expensive
-5. Multiple small components are better than all-in-one component
-6. Since we are not using typescript, be careful of types!
+5. PLEASE ORGANIZE FILES, do not throw them all in src folder
+6. Multiple small components are better than all-in-one component
+7. Since we are not using typescript, be careful of types!
 
 ## Configuring Firebase
 
-- Create `.env.local` in your project root
+- Create `.env.local` in your root
 
   ```
   VITE_FIREBASE_KEY="firebase api key here"
