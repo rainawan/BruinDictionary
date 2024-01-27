@@ -8,7 +8,8 @@
 3. **NEVER DO PROP DRILLING** !!
    - Always love custom hooks and context provider
 4. Avoid using useEffect as much as possible. It creates a lot of side-effects and is very expensive
-5. Since we are not using typescript, be careful of types!
+5. Multiple small components are better than all-in-one component
+6. Since we are not using typescript, be careful of types!
 
 ## Configuring Firebase
 
