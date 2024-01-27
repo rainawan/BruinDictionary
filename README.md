@@ -10,6 +10,15 @@
 4. Avoid using useEffect as much as possible. It creates a lot of side-effects and is very expensive
 5. Since we are not using typescript, be careful of types!
 
+## Configuring Firebase
+
+- Create `.env.local` in your project root
+
+  ```js
+  VITE_FIREBASE_KEY = "firebase api key here";
+  VITE_FIREBASE_APP_ID = "firebase app id here";
+  ```
+
 ## Useful Resources
 
 - https://overreacted.io/before-you-memo/
