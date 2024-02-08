@@ -12,6 +12,7 @@
 5. PLEASE ORGANIZE FILES, do not throw them all in src folder
 6. Multiple small components are better than all-in-one component
 7. Since we are not using typescript, be careful of types!
+8. Use arrow function component; `const ComponentName = () => {}`
 
 ## Configuring Firebase
 
@@ -30,11 +31,12 @@
 
 1. `git checkout main`: move to the main branch
 2. `git pull origin main`: bring all the changes already made on the origin(Github cloud) main branch
-3. `git checkout -u sonya/branch-name`: make a new branch and move to the branch
+3. `git branch -u sonya/branch-name`: make a new branch and move to the branch
 4. work, work, work ..
 5. `git push -u origin sonya/branch-name`: push your local changes to the origin as a branch.
 6. Go to Github repository and create a pull request(PR)
    - Make your PR changes as small as possible
+7. Once merged, repeat from 1-6
 
 ## Useful Resources
 
