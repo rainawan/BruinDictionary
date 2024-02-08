@@ -1,18 +1,34 @@
-import { Routes, Route } from 'react-router-dom';
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import Add from './routes/Add';
+import Home from './routes/Home';
+import Login from './routes/Login';
+import Navbar from './pages/Navbar';
 import './App.css';
-import Home from './pages/Home';
-import Add from './pages/Add';
 
 function App() {
-  return (
-    <Routes>
-      <Route path="/">
-        <Route index path="/" element={<Home />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/add" element={<Add />} />
-      </Route>
-    </Routes>
-  );
+  const router = createBrowserRouter([
+    {
+      path: '/',
+      element: <Navbar />,
+      children: [
+        {
+          index: true,
+          path: '/',
+          element: <Home />
+        },
+        {
+          path: '/login',
+          element: <Login />
+        },
+        {
+          path: '/add',
+          element: <Add />
+        }
+      ]
+    }
+  ]);
+
+  return <RouterProvider router={router} />;
 }
 
 export default App;

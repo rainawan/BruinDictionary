@@ -1,5 +1,3 @@
-import {} from 'react';
-
 const Add = () => {
   return <div className="Add">Add</div>;
 };
