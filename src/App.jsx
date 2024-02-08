@@ -2,7 +2,7 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import Add from './routes/Add';
 import Home from './routes/Home';
 import Login from './routes/Login';
-import Navbar from './pages/Navbar';
+import Navbar from './components/Navbar';
 import './App.css';
 
 function App() {
