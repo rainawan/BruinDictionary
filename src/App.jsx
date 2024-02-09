@@ -2,7 +2,7 @@ import { useState } from 'react';
 import './App.css';
 import Home from './pages/Home';
 import { onAuthStateChanged } from 'firebase/auth';
-import { auth } from '../config.js';
+import { auth } from './utils/firebase.js';
 import SignInButton from './SignInButton';
 import SignOutButton from './SignOutButton';
 
