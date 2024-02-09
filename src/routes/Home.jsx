@@ -7,19 +7,14 @@ const Home = () => {
   const { userData, setUserData } = useCurrentUserData();
   onAuthStateChanged(auth, (user) => {
     if (user) {
-      setUserData({ username: user.displayName, email: user.email, uid: user.uid });
+      setUserData({ username: user.displayName, email: user.email, userid: user.uid });
     } else {
-      setUserData({ username: 'NONE', email: 'NONE', uid: 'NONE' });
+      setUserData(undefined);
     }
   });
   return (
     <div>
-      <button
-        onClick={() => {
-          setUserData({ username: 'John Doe' });
-        }}>
-        {userData?.username ?? 'click to update user name'}
-      </button>
+      <p>Name: {userData?.username ?? 'None'}</p>
       HOME
       <div>
         <SignInButton></SignInButton>
