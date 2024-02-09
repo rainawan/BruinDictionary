@@ -16,7 +16,6 @@ const SearchBar = () => {
         value={searchTerm}
         onChange={(e) => handleSearch(e.target.value)}
         css={css({ input: { color: 'black' } })}
-        placeholder="dd"
       />
     </div>
   );
