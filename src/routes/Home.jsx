@@ -8,7 +8,6 @@ import AuthInfo from './AuthInfo';
 import { onAuthStateChanged } from 'firebase/auth';
 import { auth } from '../utils/firebase';
 
-
 const Home = () => {
   const { userData, setUserData } = useCurrentUserData();
   onAuthStateChanged(auth, (user) => {
@@ -29,7 +28,6 @@ const Home = () => {
         <SignIn></SignIn>
         <SignUp></SignUp>
         <AuthInfo></AuthInfo>
-
       </div>
     </div>
   );
