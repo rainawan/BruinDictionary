@@ -31,6 +31,7 @@ module.exports = {
     }
   },
   rules: {
+    'react/prop-types': 'off',
     // As per React 17 changes! https://reactjs.org/blog/2020/09/22/introducing-the-new-jsx-transform.html
     'react/react-in-jsx-scope': 'off',
     'react/jsx-uses-react': 'off',
