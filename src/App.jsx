@@ -1,5 +1,7 @@
 import { useState } from 'react';
 import './App.css';
+import SignIn from './components/SignIn';
+import SignUp from './components/SignUp';
 import Home from './pages/Home';
 
 function App() {
@@ -7,6 +9,10 @@ function App() {
 
   return (
     <>
+      {/* <SignIn></SignIn> */}
+      <SignIn />
+      <SignUp />
+
       <Home></Home>
       <div></div>
       <h1>Vite + React</h1>
