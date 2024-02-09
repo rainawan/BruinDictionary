@@ -47,7 +47,6 @@ module.exports = {
     'import/no-extraneous-dependencies': [
       'error',
       {
-        optionalDependencies: false, // Disallow importing optional dependencies (those shouldn't be in use in the project)
         peerDependencies: false, // Disallow importing peer dependencies (that aren't also direct dependencies)
         devDependencies: true
       }
@@ -55,15 +54,6 @@ module.exports = {
 
     // Require all imported libraries actually resolve (!!required for import/no-extraneous-dependencies to work!!)
     'import/no-unresolved': ['error'],
-
-    // Require an ordering on all imports
-    'import/order': [
-      'warn',
-      {
-        groups: ['builtin', 'external'],
-        alphabetize: { order: 'asc', caseInsensitive: true }
-      }
-    ],
 
     // Cannot import from the same module twice
     'no-duplicate-imports': ['error'],
