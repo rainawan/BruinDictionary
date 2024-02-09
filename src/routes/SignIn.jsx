@@ -18,12 +18,11 @@ const SignIn = () => {
   };
   return (
     <div className="sign-in-container">
-      <h1>Sign In Page</h1>
+      <h1>Regular Sign In</h1>
       <form onSubmit={signIn}>
-        <h1>Log In</h1>
         <input
           type="email"
-          placeholder="Enter Your Email"
+          placeholder="Enter your email address"
           value={email}
           onChange={(e) => setEmail(e.target.value)}></input>
         <input

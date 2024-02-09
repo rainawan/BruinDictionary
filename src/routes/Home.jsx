@@ -21,14 +21,6 @@ const Home = () => {
     <div>
       <p>Name: {userData?.username ?? 'None'}</p>
       HOME
-      <div>
-        <SignInButton></SignInButton>
-        <SignOutButton></SignOutButton>
-        <Login></Login>
-        <SignIn></SignIn>
-        <SignUp></SignUp>
-        <AuthInfo></AuthInfo>
-      </div>
     </div>
   );
 };
