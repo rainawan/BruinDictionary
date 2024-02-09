@@ -1,8 +1,12 @@
 import { collection, getDocs, doc, getDoc, updateDoc } from 'firebase/firestore';
 import { useState, useEffect } from 'react';
-import './App.css';
-import Home from './pages/Home';
+import { Routes, Route } from 'react-router-dom';
+import Navbar from './components/Navbar';
+import Add from './routes/Add';
+import Home from './routes/Home';
+import Login from './routes/Login';
 import { db } from '../src/utils/firebase';
+import './App.css';
 
 function App() {
   const [entries, setEntries] = useState([]);
@@ -72,40 +76,50 @@ function App() {
   };
 
   return (
-    <>
-      <h1>Bruin Dictionary</h1>
-      {entries.map((entry, index) => (
-        <div key={index}>
-          <h2>{terms[entry.termid]}</h2>
-          <h3>Definition</h3>
-          <p>{entry.definition}</p>
-          <h3>Example</h3>
-          <p>{entry.example}</p>
-        </div>
-      ))}
-      {/* This will be an admin only section once we add authorization */}
-      <section className="add-entry">
-        <h2>Add New Entry</h2>
-        <div className="text-box">
-          <div className="text-box-item">
-            <select id="term-select">
-              {Object.keys(terms).map((key) => (
-                <option key={key} value={terms[key]}>
-                  {terms[key]}
-                </option>
-              ))}
-            </select>
+    <div className="App">
+      <Routes>
+        <Route path="/" element={<Navbar />}>
+          <Route index path="/" element={<Home />} />
+          <Route path="/add" element={<Add />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="*" element={<div>Error</div>} />
+        </Route>
+      </Routes>
+      <>
+        <h1>Bruin Dictionary</h1>
+        {entries.map((entry, index) => (
+          <div key={index}>
+            <h2>{terms[entry.termid]}</h2>
+            <h3>Definition</h3>
+            <p>{entry.definition}</p>
+            <h3>Example</h3>
+            <p>{entry.example}</p>
           </div>
-          <div className="text-box-item">
-            <input className="definition-text-box" placeholder="Example" />
+        ))}
+        {/* This will be an admin only section once we add authorization */}
+        <section className="add-entry">
+          <h2>Add New Entry</h2>
+          <div className="text-box">
+            <div className="text-box-item">
+              <select id="term-select">
+                {Object.keys(terms).map((key) => (
+                  <option key={key} value={terms[key]}>
+                    {terms[key]}
+                  </option>
+                ))}
+              </select>
+            </div>
+            <div className="text-box-item">
+              <input className="definition-text-box" placeholder="Example" />
+            </div>
+            <div className="text-box-item">
+              <textarea className="example-text-box" placeholder="Definition goes here..." />
+            </div>
+            <button onClick={onAddEntry}>Add Entry</button>
           </div>
-          <div className="text-box-item">
-            <textarea className="example-text-box" placeholder="Definition goes here..." />
-          </div>
-          <button onClick={onAddEntry}>Add Entry</button>
-        </div>
-      </section>
-    </>
+        </section>
+      </>
+    </div>
   );
 }
 
