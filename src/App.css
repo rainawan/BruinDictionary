@@ -40,3 +40,35 @@
 .read-the-docs {
   color: #888;
 }
+
+.add-entry {
+  padding: 20px 0;
+}
+
+.text-box {
+  display: block;
+}
+
+.text-box-item select {
+  padding-top: 10px;
+  padding-bottom: 10px;
+  padding-left: 10px;
+  padding-right: 10px;
+  margin-bottom: 10px;
+}
+
+.text-box-item input {
+  padding-top: 10px;
+  padding-left: 20px;
+  padding-bottom: 10px;
+  margin-bottom: 10px;
+  width: 80%;
+}
+
+.text-box-item textarea {
+  padding-top: 10px;
+  padding-left: 20px;
+  padding-bottom: 10px;
+  width: 80%;
+  height: 300px;
+}
