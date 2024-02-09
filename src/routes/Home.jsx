@@ -4,11 +4,10 @@ import useCurrentUserData from '../utils/useCurrentUserData';
 
 const Home = () => {
   const { userData, setUserData } = useCurrentUserData();
-  const [searchTerm, setSearchTerm] = useState('haha');
+  const [searchTerm, setSearchTerm] = useState('');
 
   const handleSearch = (term) => {
     setSearchTerm(() => term);
-    debounce(() => {});
   };
   const debouncedSearch = debounce(handleSearch, 500);
 
