@@ -2,6 +2,7 @@ import { useState } from 'react';
 import './App.css';
 import SignIn from './components/SignIn';
 import SignUp from './components/SignUp';
+import AuthInfo from './components/AuthInfo';
 import Home from './pages/Home';
 
 function App() {
@@ -12,6 +13,7 @@ function App() {
       {/* <SignIn></SignIn> */}
       <SignIn />
       <SignUp />
+      <AuthInfo />
 
       <Home></Home>
       <div></div>
