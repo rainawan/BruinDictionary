@@ -1,17 +1,21 @@
-import useCurrentUserData from './utils/useCurrentUserData';
+import { Routes, Route } from 'react-router-dom';
+import Add from './routes/Add';
+import Home from './routes/Home';
+import Login from './routes/Login';
+import Navbar from './components/Navbar';
 import './App.css';
 
 function App() {
-  const { userData, setUserData } = useCurrentUserData();
-
   return (
     <div className="App">
-      <button
-        onClick={() => {
-          setUserData({ username: 'John Doe' });
-        }}>
-        {userData?.username ?? 'click to update user name'}
-      </button>
+      <Routes>
+        <Route path="/" element={<Navbar />}>
+          <Route index path="/" element={<Home />} />
+          <Route path="/add" element={<Add />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="*" element={<div>Error</div>} />
+        </Route>
+      </Routes>
     </div>
   );
 }
