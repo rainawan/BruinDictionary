@@ -11,7 +11,6 @@ const Home = () => {
         }}>
         {userData?.username ?? 'click to update user name'}
       </button>
-      HOME
     </div>
   );
 };

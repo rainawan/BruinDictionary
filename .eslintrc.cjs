@@ -31,6 +31,7 @@ module.exports = {
     }
   },
   rules: {
+    'react/no-unknown-property': ['error', { ignore: ['css'] }],
     'react/prop-types': 'off',
     // As per React 17 changes! https://reactjs.org/blog/2020/09/22/introducing-the-new-jsx-transform.html
     'react/react-in-jsx-scope': 'off',
@@ -38,7 +39,7 @@ module.exports = {
 
     'linebreak-style': ['error', 'unix'],
 
-    'no-unused-vars': 'off',
+    'no-unused-vars': ['off'],
 
     // Style
     quotes: ['error', 'single', { avoidEscape: true }],

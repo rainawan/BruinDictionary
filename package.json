@@ -12,6 +12,11 @@
     "format": "prettier --write './**/*.{js,jsx,ts,tsx,css,md,json}' --config ./.prettierrc"
   },
   "dependencies": {
+    "@emotion/react": "^11.11.3",
+    "@sumup/circuit-ui": "^8.4.0",
+    "@sumup/design-tokens": "^6.3.0",
+    "@sumup/icons": "^3.5.0",
+    "@sumup/intl": "^1.6.0",
     "eslint-plugin-import": "^2.29.1",
     "firebase": "^10.8.0",
     "firebase-tools": "^13.1.0",
@@ -22,6 +27,7 @@
     "vite-plugin-eslint": "^1.8.1"
   },
   "devDependencies": {
+    "@emotion/babel-plugin": "^11.11.0",
     "@types/react": "^18.2.43",
     "@types/react-dom": "^18.2.17",
     "@vitejs/plugin-react-swc": "^3.5.0",
