@@ -1,3 +1,4 @@
+import SearchBar from '../components/SearchBar';
 import useCurrentUserData from '../utils/useCurrentUserData';
 
 const Home = () => {
@@ -5,6 +6,7 @@ const Home = () => {
 
   return (
     <div>
+      <SearchBar />
       <button
         onClick={() => {
           setUserData({ username: 'John Doe' });

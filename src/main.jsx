@@ -5,7 +5,8 @@ import { CurrentUserDataProvider } from './providers/CurrentUserDataProvider.jsx
 import App from './App.jsx';
 import './index.css';
 import '@sumup/design-tokens/light.css';
-// import '@sumup/circuit-ui/styles.css';
+// // FIXME: import '@sumup/circuit-ui/style.css' doesnt work
+import '../node_modules/@sumup/circuit-ui/dist/style.css';
 import { css } from '@emotion/react';
 
 const Layout = css`
