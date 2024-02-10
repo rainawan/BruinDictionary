@@ -12,9 +12,9 @@
     "format": "prettier --write './**/*.{js,jsx,ts,tsx,css,md,json}' --config ./.prettierrc"
   },
   "dependencies": {
-    "@react-query-firebase/firestore": "^1.0.0-dev.7",
     "@ant-design/icons": "^5.3.0",
     "@nextui-org/react": "^2.2.9",
+    "@react-query-firebase/firestore": "^1.0.0-dev.7",
     "eslint-plugin-import": "^2.29.1",
     "firebase": "^10.8.0",
     "firebase-tools": "^13.1.0",
