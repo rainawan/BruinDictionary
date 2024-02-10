@@ -1,5 +1,5 @@
 import { Routes, Route } from 'react-router-dom';
-import NavBar from './components/Navbar';
+import Navbar from './components/Navbar';
 import Add from './routes/Add';
 import Home from './routes/Home';
 import Login from './routes/Login';
@@ -19,7 +19,7 @@ function App() {
   return (
     <div className="App">
       <Routes>
-        <Route path="/" element={<NavBar />}>
+        <Route path="/" element={<Navbar />}>
           <Route index path="/" element={<Home />} />
           <Route path="/add" element={<Add />} />
           <Route path="/login" element={<Login />} />
