@@ -1,7 +1,7 @@
 import { Autocomplete, AutocompleteItem } from '@nextui-org/react';
 import { SearchOutlined } from '@ant-design/icons';
 
-const SearchBar = () => {
+const Searchbar = () => {
   const items = [
     {
       termid: '0',
@@ -52,4 +52,4 @@ const SearchBar = () => {
   );
 };
 
-export default SearchBar;
+export default Searchbar;
