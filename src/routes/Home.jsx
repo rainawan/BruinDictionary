@@ -1,26 +1,27 @@
-import { useState } from 'react';
-import debounce from 'lodash.debounce';
+import { onAuthStateChanged } from 'firebase/auth';
+import { auth } from '../utils/firebase';
 import useCurrentUserData from '../utils/useCurrentUserData';
+import SignInButton from '../components/SignInButton';
+import SignOutButton from '../components/SignOutButton';
+import Searchbar from '../components/Searchbar';
 
 const Home = () => {
   const { userData, setUserData } = useCurrentUserData();
-  const [searchTerm, setSearchTerm] = useState('');
-
-  const handleSearch = (term) => {
-    setSearchTerm(() => term);
-  };
-  const debouncedSearch = debounce(handleSearch, 500);
-
+  onAuthStateChanged(auth, (user) => {
+    if (user) {
+      setUserData({ username: user.displayName, email: user.email, userid: user.uid });
+    } else {
+      setUserData(undefined);
+    }
+  });
   return (
     <div>
-      HOME
-      <button
-        onClick={() => {
-          setUserData({ username: 'John Doe' });
-        }}>
-        {userData?.username ?? 'click to update user name'}
-      </button>
-      <input type="text" value={searchTerm} onChange={(e) => handleSearch(e.target.value)} />
+      <Searchbar />
+      <p>Name: {userData?.username ?? 'None'}</p>
+      <div>
+        <SignInButton></SignInButton>
+        <SignOutButton></SignOutButton>
+      </div>
     </div>
   );
 };
