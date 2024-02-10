@@ -2,9 +2,9 @@ import { collection, query } from 'firebase/firestore';
 import { db } from './firebase';
 import { useFirestoreQuery } from '@react-query-firebase/firestore';
 
-export const fetchEntries = () => {
+export const fetchEntries = (entryid = 'Entries') => {
   const ref = query(collection(db, 'Entries'));
-  const entriesQuery = useFirestoreQuery(['Entries'], ref);
+  const entriesQuery = useFirestoreQuery([entryid], ref);
   if (entriesQuery.isLoading) {
     return undefined;
   }
@@ -12,9 +12,9 @@ export const fetchEntries = () => {
   return snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
 };
 
-export const fetchTerms = () => {
+export const fetchTerms = (termid = 'Terms') => {
   const ref = query(collection(db, 'Terms'));
-  const termsQuery = useFirestoreQuery(['Terms'], ref);
+  const termsQuery = useFirestoreQuery([termid], ref);
   if (termsQuery.isLoading) {
     return undefined;
   }

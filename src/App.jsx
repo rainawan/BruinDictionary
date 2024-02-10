@@ -23,23 +23,10 @@ function App() {
           <Route index path="/" element={<Home />} />
           <Route path="/add" element={<Add />} />
           <Route path="/login" element={<Login />} />
-          <Route path="*" element={<div>Error</div>} />
         </Route>
+        <Route path="*" element={<div>404: Error</div>} />
       </Routes>
       <>
-        {entries && terms && users ? (
-          entries.map((entry, index) => (
-            <div key={index}>
-              <h2>{terms[entry.termid]}</h2>
-              <h3>Definition</h3>
-              <p>{entry.definition}</p>
-              <h3>Example</h3>
-              <p>{entry.example}</p>
-            </div>
-          ))
-        ) : (
-          <div>loading...</div>
-        )}
         {/* This will be an admin only section once we add authorization */}
         <section className="add-entry">
           <h2>Add New Entry</h2>
