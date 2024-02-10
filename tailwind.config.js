@@ -11,6 +11,6 @@ export default {
     extend: {}
   },
   plugins: [],
-  darkMode: 'class',
+  darkMode: 'media',
   plugins: [nextui()]
 };
