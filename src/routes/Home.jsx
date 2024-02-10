@@ -1,8 +1,10 @@
-import useCurrentUserData from '../utils/useCurrentUserData';
-import SignInButton from '../SignInButton';
-import SignOutButton from '../SignOutButton';
 import { onAuthStateChanged } from 'firebase/auth';
 import { auth } from '../utils/firebase';
+import useCurrentUserData from '../utils/useCurrentUserData';
+import SignInButton from '../components/SignInButton';
+import SignOutButton from '../components/SignOutButton';
+import Searchbar from '../components/Searchbar';
+
 const Home = () => {
   const { userData, setUserData } = useCurrentUserData();
   onAuthStateChanged(auth, (user) => {
@@ -14,8 +16,8 @@ const Home = () => {
   });
   return (
     <div>
+      <Searchbar />
       <p>Name: {userData?.username ?? 'None'}</p>
-      HOME
       <div>
         <SignInButton></SignInButton>
         <SignOutButton></SignOutButton>
