@@ -39,12 +39,12 @@ const SearchBar = () => {
           base: 'transition-opacity'
         }
       }}
-      startContent={<SearchOutlined className="text-xl" />}>
+      endContent={<SearchOutlined className="text-xl mr-2 mt-[-3px]" />}>
       {(item) => (
         <AutocompleteItem key={item.termid} textValue={item.term}>
           <div className="flex gap-2 items-center">
             <div className="font-bold">{item.term}</div>
-            <div>{item.description}</div>
+            <div className="truncate">{item.description}</div>
           </div>
         </AutocompleteItem>
       )}

@@ -1,12 +1,12 @@
 import { Link, Outlet } from 'react-router-dom';
-import { Navbar, NavbarBrand, NavbarContent, NavbarItem, Avatar } from '@nextui-org/react';
+import { Navbar as Nav, NavbarBrand, NavbarContent, NavbarItem, Avatar } from '@nextui-org/react';
 import { PlusOutlined } from '@ant-design/icons';
 import ProfileAvatar from './ProfileAvatar';
 
-const NavBar = () => {
+const Navbar = () => {
   return (
-    <div className="NavBar">
-      <Navbar className="bg-transparent py-2" position="static" height="3rem" shouldHideOnScroll>
+    <div>
+      <Nav className="bg-transparent py-2" position="static" height="3rem" shouldHideOnScroll>
         <NavbarBrand>
           <Link to="/">BRUIN DICTIONARY</Link>
         </NavbarBrand>
@@ -27,10 +27,10 @@ const NavBar = () => {
             </Link>
           </NavbarItem>
         </NavbarContent>
-      </Navbar>
+      </Nav>
       <Outlet />
     </div>
   );
 };
 
-export default NavBar;
+export default Navbar;
