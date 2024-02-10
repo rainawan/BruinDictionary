@@ -1,5 +1,3 @@
-import { collection, getDocs, doc, getDoc, updateDoc, query } from 'firebase/firestore';
-import { useState } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import NavBar from './components/NavBar';
 import Add from './routes/Add';
@@ -7,7 +5,6 @@ import Home from './routes/Home';
 import Login from './routes/Login';
 import './App.css';
 import { fetchEntries, fetchTerms, fetchUsers } from './utils/fetchData';
-import { db } from './utils/firebase';
 
 function App() {
   const entries = fetchEntries();
@@ -16,19 +13,7 @@ function App() {
   console.log('entries: ', entries, '\nterms: ', terms, '\nusers: ', users);
 
   const onAddEntry = async (communityId, selected) => {
-    // const userRef = doc(db, 'Users', userData._id);
-    // const docSnap = await getDoc(userRef);
-
-    // console.log(docSnap.data());
-
     console.log(selected);
-
-    // await updateDoc(userRef, {
-    //   communities: {
-    //     ...docSnap.data().communities,
-    //     [communityId]: selected
-    //   }
-    // });
   };
 
   return (
@@ -42,7 +27,6 @@ function App() {
         </Route>
       </Routes>
       <>
-        <h1>Bruin Dictionary</h1>
         {entries && terms && users ? (
           entries.map((entry, index) => (
             <div key={index}>
