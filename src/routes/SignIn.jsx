@@ -11,15 +11,18 @@ const SignIn = () => {
     signInWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
         console.log(userCredential);
+        setEmail('');
+        setPassword('');
       })
       .catch((error) => {
         console.log(error);
       });
   };
+
   return (
     <div className="sign-in-container">
-      <h1>Regular Sign In</h1>
-      <form onSubmit={signIn}>
+      <h1>Sign In</h1>
+      <form id="myForm" onSubmit={signIn}>
         <input
           type="email"
           placeholder="Enter your email address"

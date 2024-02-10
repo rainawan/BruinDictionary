@@ -1,5 +1,5 @@
 import useCurrentUserData from '../utils/useCurrentUserData';
-import SignInButton from '../SignInButton';
+import GoogleSignIn from '../GoogleSignIn';
 import SignOutButton from '../SignOutButton';
 import Login from './Login';
 import SignIn from './SignIn';

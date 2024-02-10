@@ -6,6 +6,16 @@ const SignUp = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const auth = getAuth();
+  createUserWithEmailAndPassword(auth, email, password)
+    .then((userCredential) => {
+      console.log(userCredential);
+
+      setEmail('');
+      setPassword('');
+    })
+    .catch((error) => {
+      console.log(error);
+    });
 
   const signUp = (e) => {
     e.preventDefault();
@@ -16,14 +26,6 @@ const SignUp = () => {
       .catch((error) => {
         console.log(error);
       });
-
-    // createUserWithEmailAndPassword(auth, email, password)
-    //   .then((userCredential) => {
-    //     console.log(userCredential);
-    //   })
-    //   .catch((error) => {
-    //     console.log(error);
-    //   });
   };
   return (
     <div className="sign-up-container">
