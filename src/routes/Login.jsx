@@ -1,9 +1,9 @@
 import { useEffect } from 'react';
 import { onAuthStateChanged } from 'firebase/auth';
+import { auth } from '../utils/firebase';
 import useCurrentUserData from '../utils/useCurrentUserData';
 import SignInButton from '../components/SignInButton';
 import SignOutButton from '../components/SignOutButton';
-import { auth } from '../utils/firebase';
 
 const Login = () => {
   const { userData, setUserData } = useCurrentUserData();
