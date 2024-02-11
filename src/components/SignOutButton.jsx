@@ -1,10 +1,9 @@
-import { getAuth, signOut } from 'firebase/auth';
+import { signOut } from 'firebase/auth';
 import { auth } from '../utils/firebase';
 import useCurrentUserData from '../utils/useCurrentUserData';
 
 const SignOutButton = () => {
   const { userData, setUserData } = useCurrentUserData();
-  const a = getAuth();
 
   const userSignOut = () => {
     if (userData) {
