@@ -1,9 +1,35 @@
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Autocomplete, AutocompleteItem } from '@nextui-org/react';
 import { SearchOutlined } from '@ant-design/icons';
-import { fetchTerms } from '../utils/fetchData';
+import debounce from 'lodash.debounce';
 
-const Searchbar = ({ items, handleSelection }) => {
+const items = [
+  {
+    termid: '0',
+    term: 'UCLA',
+    description: 'University of California, Los Angeles'
+  },
+  {
+    termid: '1',
+    term: 'YRL',
+    description: 'Young Research Library'
+  }
+];
+
+const Searchbar = () => {
+  const [searchTerm, setSearchTerm] = useState('');
+  const navigate = useNavigate();
+
+  const handleSelection = (term) => {
+    if (term) {
+      navigate(`/?term=${term}`);
+    } else {
+      navigate('/');
+    }
+  };
+  const handleInputChange = debounce(setSearchTerm, 500);
+
   return (
     <Autocomplete
       aria-label="search term"
@@ -12,6 +38,7 @@ const Searchbar = ({ items, handleSelection }) => {
       menuTrigger="input"
       defaultItems={items}
       onSelectionChange={handleSelection}
+      onInputChange={handleInputChange}
       classNames={{ selectorButton: 'hidden' }}
       inputProps={{
         classNames: {

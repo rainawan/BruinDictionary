@@ -4,14 +4,8 @@ import Add from './routes/Add';
 import Home from './routes/Home';
 import Login from './routes/Login';
 import './App.css';
-import { fetchEntries, fetchTerms, fetchUsers } from './utils/fetchData';
 
 function App() {
-  const entries = fetchEntries();
-  const terms = fetchTerms();
-  const users = fetchUsers();
-  console.log('entries: ', entries, '\nterms: ', terms, '\nusers: ', users);
-
   const onAddEntry = async (communityId, selected) => {
     console.log(selected);
   };
@@ -33,12 +27,12 @@ function App() {
           <div className="text-box">
             <div className="text-box-item">
               <select id="term-select">
-                {terms &&
+                {/* {terms &&
                   Object.keys(terms).map((key) => (
                     <option key={key} value={terms[key]}>
                       {terms[key]}
                     </option>
-                  ))}
+                  ))} */}
               </select>
             </div>
             <div className="text-box-item">
