@@ -1,7 +1,7 @@
 import { onAuthStateChanged, signOut } from 'firebase/auth';
 import React, { useEffect, useState } from 'react';
 import { auth } from '../utils/firebase';
-import SignOutButton from '../SignOutButton';
+import SignOutButton from '../components/SignOutButton';
 
 const AuthInfo = () => {
   const [authUser, setAuthUser] = useState(null);

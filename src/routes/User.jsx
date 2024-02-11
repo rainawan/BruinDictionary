@@ -1,5 +1,5 @@
 const User = () => {
-  return <div className="User">User</div>;
+  return <section className="User">User</section>;
 };
 
 export default User;
