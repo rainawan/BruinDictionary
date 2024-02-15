@@ -9,7 +9,7 @@ const Dictionary = () => {
   console.log('location: ', location, '\nsearch term: ', searchTerm);
   const { status, data } = fetchTermEntries();
 
-  if (status == 'SUCCESS') {
+  if (status === 'SUCCESS') {
     const { entries, terms } = data;
     return (
       <div className="Terms">
@@ -25,9 +25,9 @@ const Dictionary = () => {
         ))}
       </div>
     );
-  } else if (status == 'LOADING') {
+  } else if (status === 'LOADING') {
     return <CardLoading />;
-  } else if (status == 'ERROR') {
+  } else if (status === 'ERROR') {
     return <div>error occurred</div>;
   }
   throw new Error('Unhandled status');
