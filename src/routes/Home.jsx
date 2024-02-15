@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import Searchbar from '../components/Searchbar';
 import Dictionary from '../pages/Dictionary';
 

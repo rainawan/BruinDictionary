@@ -35,6 +35,7 @@ export const fetchTerms = (termid = 'Terms') => {
 };
 
 export const fetchUsers = () => {
+  // FIXME: use Authentication instead of Firestore
   const ref = query(collection(db, 'Users'));
   const usersQuery = useFirestoreQuery(['Users'], ref);
 
@@ -51,18 +52,23 @@ export const fetchUsers = () => {
 };
 
 export const fetchTermEntries = () => {
-  const { entriesStatus, entriesData: entries } = fetchEntries();
-  const { termsStatus, termsData: terms } = fetchTerms();
-  console.log('entries: ', entries, '\nterms: ', terms);
+  try {
+    const { entriesStatus, entriesData: entries } = fetchEntries();
+    const { termsStatus, termsData: terms } = fetchTerms();
 
-  switch (entriesStatus && termsStatus) {
-    case 'LOADING':
+    if (entriesStatus === 'LOADING' || termsStatus === 'LOADING') {
       return { status: 'LOADING', data: undefined };
-    case 'ERROR':
+    } else if (entriesStatus === 'ERROR' || termsStatus === 'ERROR') {
       return { status: 'ERROR', data: undefined };
-    case 'SUCCESS':
+    } else if (entriesStatus === 'SUCCESS' && termsStatus === 'SUCCESS') {
       return { status: 'SUCCESS', data: { entries, terms } };
-    default:
-      throw new Error('Unhandled status');
+    } else {
+      throw new Error(
+        `Unhandled status: entriesStatus=${entriesStatus}, termsStatus=${termsStatus}`
+      );
+    }
+  } catch (error) {
+    console.error(error);
+    return { status: 'ERROR', data: undefined };
   }
 };

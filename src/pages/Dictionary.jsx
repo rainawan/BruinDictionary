@@ -1,12 +1,12 @@
 import { useLocation, useSearchParams } from 'react-router-dom';
 import { fetchTermEntries } from '../utils/fetchData';
+import CardLoading from '../components/CardLoading';
 
 const Dictionary = () => {
   const location = useLocation();
   const [searchParams] = useSearchParams();
   const searchTerm = searchParams.get('term');
   console.log('location: ', location, '\nsearch term: ', searchTerm);
-
   const { status, data } = fetchTermEntries();
 
   if (status == 'SUCCESS') {
@@ -26,9 +26,9 @@ const Dictionary = () => {
       </div>
     );
   } else if (status == 'LOADING') {
-    return <div>loading...</div>;
+    return <CardLoading />;
   } else if (status == 'ERROR') {
-    return <div>error...</div>;
+    return <div>error occurred</div>;
   }
   throw new Error('Unhandled status');
 };
