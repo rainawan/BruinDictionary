@@ -2,6 +2,28 @@ import { collection, query } from 'firebase/firestore';
 import { useFirestoreQuery } from '@react-query-firebase/firestore';
 import { db } from './firebase';
 
+export const fetchTermEntries = () => {
+  try {
+    const { entriesStatus, entriesData: entries } = fetchEntries();
+    const { termsStatus, termsData: terms } = fetchTerms();
+
+    if (entriesStatus === 'ERROR' || termsStatus === 'ERROR') {
+      return { status: 'ERROR', data: undefined };
+    } else if (entriesStatus === 'LOADING' || termsStatus === 'LOADING') {
+      return { status: 'LOADING', data: undefined };
+    } else if (entriesStatus === 'SUCCESS' && termsStatus === 'SUCCESS') {
+      return { status: 'SUCCESS', data: { entries, terms } };
+    } else {
+      throw new Error(
+        `Unhandled status: entriesStatus=${entriesStatus}, termsStatus=${termsStatus}`
+      );
+    }
+  } catch (error) {
+    console.error(error);
+    return { status: 'ERROR', data: undefined };
+  }
+};
+
 export const fetchEntries = () => {
   const ref = query(collection(db, 'Entries'));
   const entriesQuery = useFirestoreQuery(['Entries'], ref);
@@ -30,7 +52,6 @@ export const fetchTerms = () => {
     prev[doc.id] = doc.data().name;
     return prev;
   }, {});
-
   return { termsStatus: 'SUCCESS', termsData: data };
 };
 
@@ -40,35 +61,12 @@ export const fetchUsers = () => {
   const usersQuery = useFirestoreQuery(['Users'], ref);
 
   if (usersQuery.isLoading) {
-    return { status: 'LOADING', data: undefined };
+    return { usersStatus: 'LOADING', usersData: undefined };
   } else if (usersQuery.isError) {
-    return { status: 'ERROR', data: undefined };
+    return { usersStatus: 'ERROR', usersData: undefined };
   }
 
   const snapshot = usersQuery.data;
   const data = snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
-
   return { usersStatus: 'SUCCESS', usersData: data };
-};
-
-export const fetchTermEntries = () => {
-  try {
-    const { entriesStatus, entriesData: entries } = fetchEntries();
-    const { termsStatus, termsData: terms } = fetchTerms();
-
-    if (entriesStatus === 'ERROR' || termsStatus === 'ERROR') {
-      return { status: 'ERROR', data: undefined };
-    } else if (entriesStatus === 'LOADING' || termsStatus === 'LOADING') {
-      return { status: 'LOADING', data: undefined };
-    } else if (entriesStatus === 'SUCCESS' && termsStatus === 'SUCCESS') {
-      return { status: 'SUCCESS', data: { entries, terms } };
-    } else {
-      throw new Error(
-        `Unhandled status: entriesStatus=${entriesStatus}, termsStatus=${termsStatus}`
-      );
-    }
-  } catch (error) {
-    console.error(error);
-    return { status: 'ERROR', data: undefined };
-  }
 };
