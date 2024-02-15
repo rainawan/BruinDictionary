@@ -2,9 +2,9 @@ import { collection, query } from 'firebase/firestore';
 import { useFirestoreQuery } from '@react-query-firebase/firestore';
 import { db } from './firebase';
 
-export const fetchEntries = (entryid = 'Entries') => {
+export const fetchEntries = () => {
   const ref = query(collection(db, 'Entries'));
-  const entriesQuery = useFirestoreQuery([entryid], ref);
+  const entriesQuery = useFirestoreQuery(['Entries'], ref);
   if (entriesQuery.isLoading) {
     return { entriesStatus: 'LOADING', entriesData: undefined };
   } else if (entriesQuery.isError) {
@@ -16,9 +16,9 @@ export const fetchEntries = (entryid = 'Entries') => {
   return { entriesStatus: 'SUCCESS', entriesData: data };
 };
 
-export const fetchTerms = (termid = 'Terms') => {
+export const fetchTerms = () => {
   const ref = query(collection(db, 'Terms'));
-  const termsQuery = useFirestoreQuery([termid], ref);
+  const termsQuery = useFirestoreQuery(['Terms'], ref);
   if (termsQuery.isLoading) {
     return { termsStatus: 'LOADING', termsData: undefined };
   } else if (termsQuery.isError) {
