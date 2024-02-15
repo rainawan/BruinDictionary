@@ -56,10 +56,10 @@ export const fetchTermEntries = () => {
     const { entriesStatus, entriesData: entries } = fetchEntries();
     const { termsStatus, termsData: terms } = fetchTerms();
 
-    if (entriesStatus === 'LOADING' || termsStatus === 'LOADING') {
-      return { status: 'LOADING', data: undefined };
-    } else if (entriesStatus === 'ERROR' || termsStatus === 'ERROR') {
+    if (entriesStatus === 'ERROR' || termsStatus === 'ERROR') {
       return { status: 'ERROR', data: undefined };
+    } else if (entriesStatus === 'LOADING' || termsStatus === 'LOADING') {
+      return { status: 'LOADING', data: undefined };
     } else if (entriesStatus === 'SUCCESS' && termsStatus === 'SUCCESS') {
       return { status: 'SUCCESS', data: { entries, terms } };
     } else {
