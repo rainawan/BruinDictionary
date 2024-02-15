@@ -1,4 +1,4 @@
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import { Autocomplete, AutocompleteItem } from '@nextui-org/react';
 import { SearchOutlined } from '@ant-design/icons';
 import { fetchTermEntries } from '../utils/fetchData';
@@ -6,6 +6,8 @@ import { fetchTermEntries } from '../utils/fetchData';
 const Searchbar = () => {
   const { status, data } = fetchTermEntries();
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
+  const searchTerm = searchParams.get('term');
 
   if (status !== 'SUCCESS') {
     return;
@@ -27,6 +29,7 @@ const Searchbar = () => {
       radius="full"
       menuTrigger="input"
       defaultItems={entries}
+      defaultInputValue={searchTerm}
       onSelectionChange={handleSelection}
       classNames={{ selectorButton: 'hidden' }}
       inputProps={{
