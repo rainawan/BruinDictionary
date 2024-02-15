@@ -1,6 +1,6 @@
 import { useNavigate, useSearchParams } from 'react-router-dom';
-import { Autocomplete, AutocompleteItem } from '@nextui-org/react';
-import { SearchOutlined } from '@ant-design/icons';
+import { Autocomplete, AutocompleteItem, Input } from '@nextui-org/react';
+import { SearchOutlined, LoadingOutlined, WarningOutlined } from '@ant-design/icons';
 import { fetchTermEntries } from '../utils/fetchData';
 
 const Searchbar = () => {
@@ -9,8 +9,31 @@ const Searchbar = () => {
   const [searchParams] = useSearchParams();
   const searchTerm = searchParams.get('term');
 
-  if (status !== 'SUCCESS') {
-    return;
+  if (status === 'LOADING') {
+    return (
+      <Input
+        isDisabled
+        classNames={{ inputWrapper: 'h-[3rem]' }}
+        aria-label="searchbar loading"
+        variant="bordered"
+        radius="full"
+        startContent={<LoadingOutlined />}
+        endContent={<SearchOutlined className="text-xl mt-[-3px]" />}
+      />
+    );
+  } else if (status === 'ERROR') {
+    return (
+      <Input
+        isInvalid
+        isDisabled
+        classNames={{ inputWrapper: 'h-[3rem]' }}
+        aria-label="searchbar error"
+        variant="bordered"
+        radius="full"
+        startContent={<WarningOutlined style={{ color: 'red' }} />}
+        endContent={<SearchOutlined className="text-xl mt-[-3px]" />}
+      />
+    );
   }
 
   const { entries, terms } = data;
@@ -24,7 +47,7 @@ const Searchbar = () => {
 
   return (
     <Autocomplete
-      aria-label="search term"
+      aria-label="searchbar"
       variant="bordered"
       radius="full"
       menuTrigger="input"
