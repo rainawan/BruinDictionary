@@ -17,14 +17,6 @@ const SignUp = () => {
       .catch((error) => {
         console.log(error);
       });
-
-    updateEmail(auth.currentUser, 'user@example.com')
-      .then(() => {
-        console.log(auth.currentUser);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
   };
   return (
     <div className="sign-up-container">
