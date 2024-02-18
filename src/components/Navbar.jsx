@@ -7,7 +7,7 @@ import Searchbar from './Searchbar.jsx';
 const Navbar = () => {
   return (
     <div>
-      <div className="bg-gray-700 space-y-1 py-2">
+      <div className="bg-gray-700 space-y-1 pb-4">
         <Nav className="bg-gray-700" position="static" height="3rem" shouldHideOnScroll>
           <NavbarBrand>
             <NavLink to="/" className="font-bold text-lg">
