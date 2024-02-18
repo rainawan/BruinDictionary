@@ -4,7 +4,7 @@ import { auth } from '../utils/firebase';
 const SignInButton = () => {
   const userSignIn = () => {
     const provider = new GoogleAuthProvider();
-    return signInWithPopup(auth, provider);
+    signInWithPopup(auth, provider);
   };
   return <button onClick={userSignIn}>Continue With Google</button>;
 };

@@ -5,6 +5,7 @@ const SignOutButton = () => {
   const userSignOut = () => {
     signOut(auth);
   };
+
   return <button onClick={userSignOut}>Sign Out</button>;
 };
 
