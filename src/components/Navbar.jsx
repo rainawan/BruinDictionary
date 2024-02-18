@@ -5,26 +5,28 @@ import ProfileAvatar from './ProfileAvatar';
 
 const Navbar = () => {
   return (
-    <div>
-      <Nav className="bg-transparent py-2" position="static" height="3rem" shouldHideOnScroll>
+    <div className="bg-gray-700">
+      <Nav className="bg-gray-700 py-2" position="static" height="3rem" shouldHideOnScroll>
         <NavbarBrand>
-          <Link to="/">BRUIN DICTIONARY</Link>
+          <NavLink to="/" className="font-bold text-lg">
+            BRUIN DICTIONARY
+          </NavLink>
         </NavbarBrand>
-        <NavbarContent className="hidden sm:flex gap-4" justify="center">
+        <NavbarContent className="hidden sm:flex gap-4 justify-center">
           <NavbarItem>
-            <Link to="/">HOME</Link>
+            <NavLink to="/">HOME</NavLink>
           </NavbarItem>
         </NavbarContent>
         <NavbarContent justify="end">
           <NavbarItem>
-            <Link to="/add">
+            <NavLink to="/add">
               <Avatar color="primary" icon={<PlusOutlined className="text-base" />} size="sm" />
-            </Link>
+            </NavLink>
           </NavbarItem>
           <NavbarItem>
-            <Link to="/login">
+            <NavLink to="/login">
               <ProfileAvatar />
-            </Link>
+            </NavLink>
           </NavbarItem>
         </NavbarContent>
       </Nav>
@@ -34,3 +36,11 @@ const Navbar = () => {
 };
 
 export default Navbar;
+
+const NavLink = ({ to, className, children }) => {
+  return (
+    <Link to={to}>
+      <a className={`text-white hover:text-gray-300 ${className}`}>{children}</a>
+    </Link>
+  );
+};

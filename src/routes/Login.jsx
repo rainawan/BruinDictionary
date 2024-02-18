@@ -21,9 +21,11 @@ const Login = () => {
 
   return (
     <section className="Login">
-      <p>Name: {userData?.username ?? 'None'}</p>
-      <SignInButton></SignInButton>
-      <SignOutButton></SignOutButton>
+      <div className="space-x-2">
+        <p className="text-white">Name: {userData?.username ?? 'None'}</p>
+        <SignInButton></SignInButton>
+        <SignOutButton></SignOutButton>
+      </div>
     </section>
   );
 };
