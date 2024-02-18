@@ -4,7 +4,6 @@ import { auth } from '../utils/firebase';
 import useCurrentUserData from '../utils/useCurrentUserData';
 import SignIn from './SignIn';
 import SignUp from './SignUp';
-import AuthInfo from './AuthInfo';
 import GoogleSignIn from '../components/GoogleSignIn';
 import SignOutButton from '../components/SignOutButton';
 
@@ -26,11 +25,11 @@ const Login = () => {
     <div className="Login">
       <h1>Log In</h1>
       <p>Name: {userData?.username ?? 'None'}</p>
+      <p>Email: {userData?.email ?? 'None'}</p>
       <GoogleSignIn></GoogleSignIn>
       <SignOutButton></SignOutButton>
       <SignIn></SignIn>
       <SignUp></SignUp>
-      <AuthInfo></AuthInfo>
     </div>
   );
 };
