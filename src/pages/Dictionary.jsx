@@ -1,5 +1,6 @@
 import { useSearchParams } from 'react-router-dom';
-import { unpackEntriesQuery, unpackTermsQuery, getTermsEntriesStatus } from '../utils/unpackQuery';
+import { unpackEntriesQuery, unpackTermsQuery } from '../utils/unpackQuery';
+import { getTermsEntriesStatus } from '../utils/getTermsEntriesStatus';
 import getEntriesQuery from '../utils/getEntriesQuery';
 import getTermsQuery from '../utils/getTermsQuery';
 import CardLoading from '../components/CardLoading';
