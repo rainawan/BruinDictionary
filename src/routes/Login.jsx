@@ -2,8 +2,8 @@ import { useEffect } from 'react';
 import { onAuthStateChanged } from 'firebase/auth';
 import { auth } from '../utils/firebase';
 import useCurrentUserData from '../utils/useCurrentUserData';
-import SignIn from './SignIn';
-import SignUp from './SignUp';
+import SignIn from '../components/SignIn';
+import SignUp from '../components/SignUp';
 import GoogleSignIn from '../components/GoogleSignIn';
 import SignOutButton from '../components/SignOutButton';
 
