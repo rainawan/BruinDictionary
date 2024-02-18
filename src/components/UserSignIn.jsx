@@ -25,7 +25,7 @@ const SignIn = () => {
       <form id="myForm" onSubmit={signIn}>
         <input
           type="email"
-          placeholder="Enter your email address"
+          placeholder="Enter your Email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}></input>
         <input

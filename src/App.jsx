@@ -27,6 +27,25 @@ function App() {
         </Route>
       </Routes>
       <>
+        <section>
+          <h1 className="home-header">Bruin Dictionary</h1>
+          <p className="home-description">
+            Welcome to Bruin Dictionary! A crowdsourced online dictionary for UCLA’s acronyms, slang
+            words, and inside jokes.
+          </p>
+          <a href="#" className="home-button">
+            Continue
+            <svg
+              className="home-button-svg"
+              aria-hidden="true"
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 14 10">
+              <path stroke="currentColor" d="M1 5h12m0 0L9 1m4 4L9 9" />
+            </svg>
+          </a>
+        </section>
+
         {entries && terms && users ? (
           entries.map((entry, index) => (
             <div key={index}>
