@@ -5,7 +5,7 @@ import useCurrentUserData from '../utils/useCurrentUserData';
 import SignIn from './SignIn';
 import SignUp from './SignUp';
 import AuthInfo from './AuthInfo';
-import GoogleSignIn from './GoogleSignIn';
+import GoogleSignIn from '../components/GoogleSignIn';
 import SignOutButton from '../components/SignOutButton';
 
 const Login = () => {

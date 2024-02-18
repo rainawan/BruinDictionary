@@ -1,24 +1,23 @@
 import { getAuth, updateEmail, createUserWithEmailAndPassword } from 'firebase/auth';
 import React, { useState } from 'react';
-import { auth } from '../utils/firebase';
 
 const SignUp = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const auth = getAuth();
 
-  createUserWithEmailAndPassword(auth, email, password)
-    .then((userCredential) => {
-      console.log(userCredential);
-      setEmail('');
-      setPassword('');
-    })
-    .catch((error) => {
-      console.log(error);
-    });
-
   const signUp = (e) => {
     e.preventDefault();
+    createUserWithEmailAndPassword(auth, email, password)
+      .then((userCredential) => {
+        console.log(userCredential);
+        setEmail('');
+        setPassword('');
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+
     updateEmail(auth.currentUser, 'user@example.com')
       .then(() => {
         console.log(auth.currentUser);
