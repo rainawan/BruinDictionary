@@ -4,6 +4,7 @@ import { auth } from '../utils/firebase';
 import useCurrentUserData from '../utils/useCurrentUserData';
 import SignInButton from '../components/SignInButton';
 import SignOutButton from '../components/SignOutButton';
+import { Card, CardBody, CardHeader } from '@nextui-org/react';
 
 const Login = () => {
   const { userData, setUserData } = useCurrentUserData();
@@ -21,11 +22,13 @@ const Login = () => {
 
   return (
     <section className="Login">
-      <div className="space-x-2">
-        <p className="text-white">Name: {userData?.username ?? 'None'}</p>
-        <SignInButton></SignInButton>
-        <SignOutButton></SignOutButton>
-      </div>
+      <Card className="py-4">
+        <div className="space-x-2">
+          <p>Name: {userData?.username ?? 'None'}</p>
+          <SignInButton />
+          <SignOutButton />
+        </div>
+      </Card>
     </section>
   );
 };

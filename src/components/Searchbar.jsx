@@ -25,7 +25,7 @@ const Searchbar = () => {
       inputProps={{
         classNames: {
           input: 'ml-1',
-          inputWrapper: 'bg-white h-[45px]'
+          inputWrapper: 'bg-white h-[45px] w-[1000px]'
         }
       }}
       popoverProps={{

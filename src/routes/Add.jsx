@@ -1,9 +1,13 @@
-import { Card } from '@nextui-org/react';
+import { Card, CardHeader } from '@nextui-org/react';
 
 const Add = () => {
   return (
     <section>
-      <Card>Add</Card>
+      <Card className="py-4">
+        <CardHeader className="flex-col">
+          <p className="font-bold">Add</p>
+        </CardHeader>
+      </Card>
     </section>
   );
 };
