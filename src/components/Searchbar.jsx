@@ -1,36 +1,52 @@
-import { Autocomplete, AutocompleteItem } from '@nextui-org/react';
+import { useNavigate, useSearchParams } from 'react-router-dom';
+import { Autocomplete, AutocompleteItem, Input } from '@nextui-org/react';
 import { SearchOutlined } from '@ant-design/icons';
 
+const items = [
+  {
+    termid: '0',
+    name: 'UCLA',
+    description: 'University of California, Los Angeles'
+  },
+  {
+    termid: '1',
+    name: 'YRL',
+    description: 'Young Research Library'
+  }
+];
+
 const Searchbar = () => {
-  const items = [
-    {
-      termid: '0',
-      term: 'UCLA',
-      description: 'University of California, Los Angeles'
-    },
-    {
-      termid: '1',
-      term: 'YRL',
-      description: 'Young Research Library'
+  const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
+  const searchTerm = searchParams.get('term');
+
+  const handleSelectionChange = (termid) => {
+    if (termid) {
+      navigate(`/?term=${termid}`);
+    } else {
+      navigate('/');
     }
-  ];
+  };
 
   return (
     <Autocomplete
-      aria-label="search term"
+      aria-label="searchbar"
       variant="bordered"
       radius="full"
+      menuTrigger="input"
       defaultItems={items}
+      defaultInputValue={searchTerm}
+      onSelectionChange={handleSelectionChange}
       classNames={{ selectorButton: 'hidden' }}
       inputProps={{
         classNames: {
           input: 'ml-1',
-          inputWrapper: 'h-[45px]'
+          inputWrapper: 'h-[3rem]'
         }
       }}
       popoverProps={{
         classNames: {
-          content: 'bg-white dark:bg-gray-800'
+          content: 'dark:dark'
         }
       }}
       listboxProps={{
@@ -41,9 +57,9 @@ const Searchbar = () => {
       }}
       endContent={<SearchOutlined className="text-xl mr-2 mt-[-3px]" />}>
       {(item) => (
-        <AutocompleteItem key={item.termid} textValue={item.term}>
+        <AutocompleteItem key={item.termid} textValue={item.name}>
           <div className="flex gap-2 items-center">
-            <div className="font-bold">{item.term}</div>
+            <div className="font-bold">{item.name}</div>
             <div className="truncate">{item.description}</div>
           </div>
         </AutocompleteItem>
