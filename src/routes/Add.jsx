@@ -2,7 +2,7 @@ import { Card, CardHeader } from '@nextui-org/react';
 
 const Add = () => {
   return (
-    <section>
+    <section className="max-w-[60rem]">
       <Card className="py-4">
         <CardHeader className="flex-col">
           <p className="font-bold">Add</p>

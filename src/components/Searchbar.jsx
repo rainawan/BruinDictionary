@@ -18,6 +18,7 @@ const Searchbar = () => {
   return (
     <Autocomplete
       aria-label="search term"
+      placeholder="Search"
       variant="bordered"
       radius="full"
       defaultItems={items}
@@ -25,7 +26,7 @@ const Searchbar = () => {
       inputProps={{
         classNames: {
           input: 'ml-1',
-          inputWrapper: 'bg-white h-[45px] w-[1000px]'
+          inputWrapper: 'bg-white dark:bg-gray-800 h-[45px]'
         }
       }}
       popoverProps={{

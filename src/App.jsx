@@ -17,7 +17,7 @@ function App() {
   };
 
   return (
-    <div className="App">
+    <div className="App dark:dark">
       <Routes>
         <Route path="/" element={<Navbar />}>
           <Route index path="/" element={<Home />} />
