@@ -16,16 +16,11 @@ const getEntriesQuery = ({
     ...(order ? [orderBy(order, 'desc')] : []),
     ...(count ? [limit(count)] : [])
   );
-  const queryKey = [
-    'Entries',
-    ...(termid ? [{ termid }] : []),
-    ...(userid ? [{ userid }] : []),
-    ...(order ? [{ order }] : []),
-    ...(count ? [{ count }] : [])
-  ];
+  const queryKey = ['Entries', { termid, userid, order, count }];
 
   let entriesQuery;
   if (infinite && count) {
+    // this is for infinite scrolling for the future
     entriesQuery = useFirestoreInfiniteQuery(queryKey, ref, (snapshot) => {
       const lastDoc = snapshot.docs[snapshot.docs.length - 1];
       return query(ref, startAfter(lastDoc));

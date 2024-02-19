@@ -7,14 +7,17 @@ import CardLoading from './components/CardLoading';
 
 const Dictionary = () => {
   const [searchParams] = useSearchParams();
-  const searchTerm = searchParams.get('term')?.toLowerCase();
+  const searchEntries = Object.fromEntries(searchParams.entries());
+  const { term, ...search } = searchEntries;
+  const searchTerm = term?.toLowerCase();
 
   const termsQuery = getTermsQuery(searchTerm);
   const { status: termsStatus, data: terms } = unpackTermsQuery(termsQuery);
   const termid = searchTerm && terms ? Object.keys(terms)[0] : undefined;
 
-  const entriesQuery = getEntriesQuery({ termid });
+  const entriesQuery = getEntriesQuery({ termid, search });
   const { status: entriesStatus, data: entries } = unpackEntriesQuery(entriesQuery);
+  console.log('entries: ', entries, '\nterms: ', terms);
 
   if (searchTerm && !termid) {
     return <div>not found</div>;

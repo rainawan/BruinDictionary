@@ -7,7 +7,7 @@ const getTermsQuery = (termname = undefined) => {
     collection(db, 'Terms'),
     ...(termname ? [where('termname', '==', termname), limit(1)] : [])
   );
-  const termsQuery = useFirestoreQuery(['Terms', ...(termname ? [{ termname }] : [])], termsRef);
+  const termsQuery = useFirestoreQuery(['Terms', { termname }], termsRef);
   return termsQuery;
 };
 
