@@ -1,6 +1,5 @@
 import { useSearchParams } from 'react-router-dom';
 import { fetchEntries, fetchTerms, fetchUsers } from '../utils/fetchData';
-import CardLoading from '../components/CardLoading';
 
 const Dictionary = () => {
   const [searchParams] = useSearchParams();

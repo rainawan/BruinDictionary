@@ -1,6 +1,6 @@
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { Autocomplete, AutocompleteItem, Input } from '@nextui-org/react';
-import { SearchOutlined, LoadingOutlined, WarningOutlined } from '@ant-design/icons';
+import { SearchOutlined } from '@ant-design/icons';
 
 const items = [
   {
