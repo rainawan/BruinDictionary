@@ -2,7 +2,9 @@ import { useEffect } from 'react';
 import { onAuthStateChanged } from 'firebase/auth';
 import { auth } from '../utils/firebase';
 import useCurrentUserData from '../utils/useCurrentUserData';
-import SignInButton from '../components/SignInButton';
+import SignIn from '../components/UserSignIn';
+import SignUp from '../components/UserSignUp';
+import GoogleSignIn from '../components/GoogleSignIn';
 import SignOutButton from '../components/SignOutButton';
 
 const Login = () => {
@@ -20,11 +22,15 @@ const Login = () => {
   }, [auth]);
 
   return (
-    <section className="Login">
+    <div className="Login">
+      <h1>Log In</h1>
       <p>Name: {userData?.username ?? 'None'}</p>
-      <SignInButton></SignInButton>
+      <p>Email: {userData?.email ?? 'None'}</p>
+      <GoogleSignIn></GoogleSignIn>
       <SignOutButton></SignOutButton>
-    </section>
+      <SignIn></SignIn>
+      <SignUp></SignUp>
+    </div>
   );
 };
 
