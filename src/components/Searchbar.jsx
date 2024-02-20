@@ -12,7 +12,7 @@ const Searchbar = () => {
   const termsQuery = getTermsQuery();
   const { status: termsStatus, data: terms } = unpackTermsQuery(termsQuery);
 
-  if (termsStatus === 'LOADING') {
+  if (termsStatus === 'loading') {
     return (
       <Input
         isDisabled
@@ -24,7 +24,7 @@ const Searchbar = () => {
         endContent={<SearchOutlined className="text-xl mt-[-3px]" />}
       />
     );
-  } else if (termsStatus === 'ERROR') {
+  } else if (termsStatus === 'error') {
     return (
       <Input
         isInvalid

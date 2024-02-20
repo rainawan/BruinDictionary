@@ -1,11 +1,11 @@
 export const getTermsEntriesStatus = (termsStatus, entriesStatus) => {
   try {
-    if (entriesStatus === 'ERROR' || termsStatus === 'ERROR') {
-      return 'ERROR';
-    } else if (entriesStatus === 'LOADING' || termsStatus === 'LOADING') {
-      return 'LOADING';
-    } else if (entriesStatus === 'SUCCESS' && termsStatus === 'SUCCESS') {
-      return 'SUCCESS';
+    if (entriesStatus === 'error' || termsStatus === 'error') {
+      return 'error';
+    } else if (entriesStatus === 'loading' || termsStatus === 'loading') {
+      return 'loading';
+    } else if (entriesStatus === 'success' && termsStatus === 'success') {
+      return 'success';
     } else {
       throw new Error(
         `Unhandled status: entriesStatus=${entriesStatus}, termsStatus=${termsStatus}`
@@ -13,6 +13,6 @@ export const getTermsEntriesStatus = (termsStatus, entriesStatus) => {
     }
   } catch (error) {
     console.error(error, { entriesStatus, termsStatus });
-    return 'UNKNOWN';
+    return 'unknown';
   }
 };

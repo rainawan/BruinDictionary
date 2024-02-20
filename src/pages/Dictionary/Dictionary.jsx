@@ -15,18 +15,18 @@ const Dictionary = () => {
   const { status: termsStatus, data: terms } = unpackTermsQuery(termsQuery);
   const termid = searchTerm && terms ? Object.keys(terms)[0] : undefined;
 
-  const entriesQuery = getEntriesQuery({ termid, search });
+  const entriesQuery = getEntriesQuery({ termid, ...search });
   const { status: entriesStatus, data: entries } = unpackEntriesQuery(entriesQuery);
   console.log('entries: ', entries, '\nterms: ', terms);
 
-  if (searchTerm && !termid) {
+  if ((searchTerm && !termid) || entries?.length === 0) {
     return <div>not found</div>;
   }
 
   const status = getTermsEntriesStatus(termsStatus, entriesStatus);
 
   switch (status) {
-    case 'SUCCESS':
+    case 'success':
       return (
         <div className="Terms">
           {entries.map((entry, index) => (
@@ -41,9 +41,9 @@ const Dictionary = () => {
           ))}
         </div>
       );
-    case 'LOADING':
+    case 'loading':
       return <CardLoading />;
-    case 'ERROR':
+    case 'error':
       return <div>error occurred</div>;
     default:
       throw new Error('Unhandled status');

@@ -2,13 +2,7 @@ import { collection, query, where, limit, orderBy, startAfter } from 'firebase/f
 import { useFirestoreQuery, useFirestoreInfiniteQuery } from '@react-query-firebase/firestore';
 import { db } from './firebase';
 
-const getEntriesQuery = ({
-  termid = undefined,
-  userid = undefined,
-  order = undefined,
-  count = undefined,
-  infinite = false
-} = {}) => {
+const getEntriesQuery = ({ termid, userid, order, count, infinite } = {}) => {
   const ref = query(
     collection(db, 'Entries'),
     ...(termid ? [where('termid', '==', termid)] : []),
