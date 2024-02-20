@@ -2,6 +2,8 @@ import { collection, query, where, limit, orderBy, startAfter } from 'firebase/f
 import { useFirestoreQuery, useFirestoreInfiniteQuery } from '@react-query-firebase/firestore';
 import { db } from './firebase';
 
+// CURRENTLY ORDER ONLY WORKS FOR 'likes' AND 'createdDate'
+// TALK WITH SONYA BEFORE THE CHANGE
 const getEntriesQuery = ({ termid, userid, order, count, infinite } = {}) => {
   const ref = query(
     collection(db, 'Entries'),

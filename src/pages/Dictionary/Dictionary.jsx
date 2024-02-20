@@ -19,34 +19,31 @@ const Dictionary = () => {
   const { status: entriesStatus, data: entries } = unpackEntriesQuery(entriesQuery);
   console.log('entries: ', entries, '\nterms: ', terms);
 
-  if ((searchTerm && !termid) || entries?.length === 0) {
-    return <div>not found</div>;
-  }
-
   const status = getTermsEntriesStatus(termsStatus, entriesStatus);
 
-  switch (status) {
-    case 'success':
-      return (
-        <div className="Terms">
-          {entries.map((entry, index) => (
-            <div key={index}>
-              <h2>{terms[entry.termid]}</h2>
-              <h3>Definition</h3>
-              <p>{entry.definition}</p>
-              <h3>Example</h3>
-              <p>{entry.example}</p>
-              <br />
-            </div>
-          ))}
-        </div>
-      );
-    case 'loading':
-      return <CardLoading />;
-    case 'error':
-      return <div>error occurred</div>;
-    default:
-      throw new Error('Unhandled status');
+  if (status === 'loading') {
+    return <CardLoading />;
+  } else if (status === 'error') {
+    return <div>error occurred</div>;
+  } else if ((searchTerm && !termid) || entries?.length === 0) {
+    return <div>not found</div>;
+  } else if (status === 'success') {
+    return (
+      <div className="Terms">
+        {entries.map((entry, index) => (
+          <div key={index}>
+            <h2>{terms[entry.termid]}</h2>
+            <h3>Definition</h3>
+            <p>{entry.definition}</p>
+            <h3>Example</h3>
+            <p>{entry.example}</p>
+            <br />
+          </div>
+        ))}
+      </div>
+    );
+  } else {
+    throw new Error('Unhandled status');
   }
 };
 
