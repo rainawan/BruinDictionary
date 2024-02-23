@@ -141,6 +141,11 @@ a.home-button svg {
   }
 }
 
+/* Terms Styling */
+.terms-header {
+  color: aquamarine;
+}
+
 .add-entry {
   padding: 20px 0;
 }
