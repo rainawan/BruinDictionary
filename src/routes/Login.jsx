@@ -19,7 +19,7 @@ const Login = () => {
       }
     });
     return () => unsubscribe();
-  }, [auth]);
+  }, []);
 
   return (
     <div className="Login">
