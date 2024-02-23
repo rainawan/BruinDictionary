@@ -20,6 +20,7 @@ const Dictionary = () => {
   console.log('entries: ', entries, '\nterms: ', terms);
 
   const status = getTermsEntriesStatus(termsStatus, entriesStatus);
+
   if (status === 'loading') {
     return <CardLoading />;
   } else if (status === 'error') {
