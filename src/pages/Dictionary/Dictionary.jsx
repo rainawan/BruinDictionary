@@ -1,5 +1,8 @@
 import { useSearchParams } from 'react-router-dom';
 import { fetchEntries, fetchTerms, fetchUsers } from '../../utils/fetchData';
+import { Button } from '@nextui-org/react';
+import React, { useState } from 'react';
+import { BiLike, BiSolidLike, BiDislike, BiSolidDislike } from 'react-icons/bi';
 
 const Dictionary = () => {
   const [searchParams] = useSearchParams();
@@ -19,29 +22,45 @@ const Dictionary = () => {
     );
   };
 
+  const [isLikeHovered, setIsLikeHovered] = useState(false);
+
   return (
     <div className="Terms">
-      {entries && terms && users ? (
-        entries.map((entry, index) => (
-          <div key={index} className="mb-4">
-            <div className="bg-blue-900 p-5 border">
-              <Text h1 className="term">
-                {terms[entry.termid]}
-              </Text>
-              <Text h2>Definition</Text>
-              <Text h3 className="definition">
-                {entry.definition}
-              </Text>
-              <Text h2>Example</Text>
-              <Text h3 className="example">
-                {entry.example}
-              </Text>
+      <div className="px-8 py-8">
+        <BiDislike size="60" />
+        <BiSolidDislike size="60" />
+
+        <div
+          className="like-container"
+          onMouseEnter={() => setIsLikeHovered(true)}
+          onMouseLeave={() => setIsLikeHovered(false)}>
+          <BiLike size="60" />
+          {isLikeHovered && <BiSolidLike size="60" className="like-icon" />}
+        </div>
+
+        <Button color="primary">Button</Button>
+        {entries && terms && users ? (
+          entries.map((entry, index) => (
+            <div key={index} className="mb-4">
+              <div className="bg-blue-900 p-5 border">
+                <Text h1 className="term">
+                  {terms[entry.termid]}
+                </Text>
+                <Text h2>Definition</Text>
+                <Text h3 className="definition">
+                  {entry.definition}
+                </Text>
+                <Text h2>Example</Text>
+                <Text h3 className="example">
+                  {entry.example}
+                </Text>
+              </div>
             </div>
-          </div>
-        ))
-      ) : (
-        <div>loading...</div>
-      )}
+          ))
+        ) : (
+          <div>loading...</div>
+        )}
+      </div>
     </div>
   );
 };

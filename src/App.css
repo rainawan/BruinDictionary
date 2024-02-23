@@ -177,3 +177,25 @@ a.home-button svg {
   width: 80%;
   height: 300px;
 }
+
+/* Dictionary Styling */
+.like-container {
+  position: relative;
+  display: inline-block;
+}
+
+.like-icon,
+.like-icon-hovered {
+  position: absolute;
+  top: 0;
+  left: 0;
+  color: white;
+}
+
+.like-icon-hovered {
+  display: none;
+}
+
+.like-container:hover .like-icon-hovered {
+  display: block;
+}
