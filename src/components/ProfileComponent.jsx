@@ -1,11 +1,10 @@
+import ProfileAvatar from '../components/ProfileAvatar';
+import SignOutButton from './SignOutButton';
 import { useEffect } from 'react';
 import { onAuthStateChanged } from 'firebase/auth';
 import { auth } from '../utils/firebase';
-import SignInComponent from '../components/SignInComponent';
-import ProfileComponent from '../components/ProfileComponent';
 import useCurrentUserData from '../utils/useCurrentUserData';
-
-const Login = () => {
+const Profile = () => {
   const { userData, setUserData } = useCurrentUserData();
 
   useEffect(() => {
@@ -21,9 +20,13 @@ const Login = () => {
 
   return (
     <div className="Login">
-      {userData ? <ProfileComponent></ProfileComponent> : <SignInComponent></SignInComponent>}
+      <h1>Profile Page</h1>
+      <ProfileAvatar></ProfileAvatar>
+      <p>Name: {userData?.username ?? 'None'}</p>
+      <p>Email: {userData?.email ?? 'None'}</p>
+      <SignOutButton></SignOutButton>
     </div>
   );
 };
 
-export default Login;
+export default Profile;
