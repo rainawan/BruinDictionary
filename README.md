@@ -1,5 +1,7 @@
 # Bruin-Dictionary
 
+/bɹuːɪn dɪkʃənɛɹi/
+
 # THUMB-RULE for Dev
 
 1. Use YARN, not NPM. How to start? run `yarn start`
