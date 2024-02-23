@@ -17,7 +17,7 @@ const Login = () => {
       }
     });
     return () => unsubscribe();
-  }, [auth]);
+  }, []);
 
   return (
     <section className="Login">

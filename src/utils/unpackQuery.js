@@ -1,10 +1,11 @@
 export const unpackQuery = (query, transformData) => {
-  if (query.isLoading || query.isError) {
-    return { status: query.status, data: undefined };
+  const status = query.status;
+  if (status !== 'success') {
+    return { status, data: undefined };
   }
   const snapshot = query.data;
   const data = transformData(snapshot);
-  return { status: query.status, data };
+  return { status, data };
 };
 
 export const unpackEntriesQuery = (entriesQuery) => {
