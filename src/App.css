@@ -179,23 +179,25 @@ a.home-button svg {
 }
 
 /* Dictionary Styling */
-.like-container {
+.buttons {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.icon-container {
   position: relative;
   display: inline-block;
 }
 
-.like-icon,
-.like-icon-hovered {
+.icon,
+.icon-hovered {
   position: absolute;
-  top: 0;
-  left: 0;
+  bottom: 0;
+  right: 0;
   color: white;
-}
-
-.like-icon-hovered {
   display: none;
 }
 
-.like-container:hover .like-icon-hovered {
+.icon-container:hover .icon-hovered {
   display: block;
 }

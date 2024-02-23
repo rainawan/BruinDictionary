@@ -26,15 +26,16 @@ const Dictionary = () => {
   const status = getTermsEntriesStatus(termsStatus, entriesStatus);
 
   const Text = ({ h1, h2, h3, className, children }) => {
-    const h1classname = h1 ? 'text-4xl font-bold text-yellow-200 text-left mb-3' : '';
-    const h2classname = h2 ? 'text-1.8xl font-bold text-left' : '';
-    const h3classname = h3 ? 'text-1.5xl text-left ml-5' : '';
+    const h1classname = h1 ? 'text-4xl font-extrabold text-yellow-200 text-left mb-3' : '';
+    const h2classname = h2 ? 'text-2xl font-bold text-left' : '';
+    const h3classname = h3 ? 'text-xl text-left ml-5' : '';
     return (
       <p className={`${h1classname} ${h2classname} ${h3classname} ${className}`}>{children}</p>
     );
   };
 
   const [isLikeHovered, setIsLikeHovered] = useState(false);
+  const [isDislikeHovered, setIsDislikeHovered] = useState(false);
 
   if (status === 'loading') {
     return <CardLoading />;
@@ -46,19 +47,9 @@ const Dictionary = () => {
     return (
       <div className="Terms">
         <div className="px-8 py-8">
-          <BiDislike size="60" />
-          <BiSolidDislike size="60" />
-
-          <div
-            className="like-container"
-            onMouseEnter={() => setIsLikeHovered(true)}
-            onMouseLeave={() => setIsLikeHovered(false)}>
-            <BiLike size="60" />
-            {isLikeHovered && <BiSolidLike size="60" className="like-icon" />}
-          </div>
           {entries.map((entry, index) => (
             <div key={index} className="mb-4">
-              <div className="bg-blue-900 p-5 border">
+              <div className="bg-blue-900 p-5 border-4 border-gray-200">
                 <Text h1 className="term">
                   {terms[entry.termid]}
                 </Text>
@@ -70,6 +61,22 @@ const Dictionary = () => {
                 <Text h3 className="example">
                   {entry.example}
                 </Text>
+                <div className="buttons">
+                  <div
+                    className="icon-container"
+                    onMouseEnter={() => setIsLikeHovered(true)}
+                    onMouseLeave={() => setIsLikeHovered(false)}>
+                    <BiLike size="50" color="white" />
+                    {isLikeHovered && <BiSolidLike size="50" className="icon-hovered" />}
+                  </div>
+                  <div
+                    className="icon-container"
+                    onMouseEnter={() => setIsDislikeHovered(true)}
+                    onMouseLeave={() => setIsDislikeHovered(false)}>
+                    <BiDislike size="50" color="white" />
+                    {isDislikeHovered && <BiSolidDislike size="50" className="icon-hovered" />}
+                  </div>
+                </div>
               </div>
             </div>
           ))}
