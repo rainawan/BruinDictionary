@@ -1,18 +1,36 @@
 import { useSearchParams } from 'react-router-dom';
-import { fetchEntries, fetchTerms, fetchUsers } from '../../utils/fetchData';
+import { unpackEntriesQuery, unpackTermsQuery } from '../../utils/unpackQuery';
+import { getTermsEntriesStatus } from '../../utils/getTermsEntriesStatus';
+import getEntriesQuery from '../../utils/getEntriesQuery';
+import getTermsQuery from '../../utils/getTermsQuery';
+import CardLoading from './components/CardLoading';
 import { updateLikes, updateDislikes } from '../../utils/firebaseOperations';
 import { LikesDislikesButton } from './components/LikesDislikesButton.jsx';
 import { useState } from 'react';
 
 const Dictionary = () => {
   const [searchParams] = useSearchParams();
-  const searchTerm = searchParams.get('term')?.toLowerCase();
+  const searchEntries = Object.fromEntries(searchParams.entries());
+  const { term, ...search } = searchEntries;
+  const searchTerm = term?.toLowerCase();
 
-  const entries = fetchEntries();
-  const terms = fetchTerms();
-  const users = fetchUsers();
-  console.log('entries: ', entries, '\nterms: ', terms, '\nusers: ', users);
+  const termsQuery = getTermsQuery(searchTerm);
+  const { status: termsStatus, data: terms } = unpackTermsQuery(termsQuery);
+  const termid = searchTerm && terms ? Object.keys(terms)[0] : undefined;
 
+  const entriesQuery = getEntriesQuery({ termid, ...search });
+  const { status: entriesStatus, data: entries } = unpackEntriesQuery(entriesQuery);
+  console.log('entries: ', entries, '\nterms: ', terms);
+
+  const status = getTermsEntriesStatus(termsStatus, entriesStatus);
+
+  if (status === 'loading') {
+    return <CardLoading />;
+  } else if (status === 'error') {
+    return <div>error occurred</div>;
+  } else if ((searchTerm && !termid) || entries?.length === 0) {
+    return <div>not found</div>;
+  } else if (status === 'success') {
   // Create a state to hold updated likes
   const [likes, setLikes] = useState({});
   const [dislikes, setDislikes] = useState({});
@@ -54,10 +72,9 @@ const Dictionary = () => {
     handleDislikeState(entry);
   };
 
-  return (
-    <div className="Terms">
-      {entries && terms && users ? (
-        entries.map((entry, index) => (
+    return (
+      <div className="Terms">
+        {entries.map((entry, index) => (
           <div key={index}>
             <h2>{terms[entry.termid]}</h2>
             <h3>Definition</h3>
@@ -67,13 +84,14 @@ const Dictionary = () => {
             <button onClick={() => handleLikeButton(entry)}>Like</button>
             <button onClick={() => handleDislikeButton(entry)}>Dislike</button>
             <LikesDislikesButton likes={likes[entry.id]} dislikes={dislikes[entry.id]} />
+            <br />
           </div>
-        ))
-      ) : (
-        <div>loading...</div>
-      )}
-    </div>
-  );
+        ))}
+      </div>
+    );
+  } else {
+    throw new Error('Unhandled status');
+  }
 };
 
 export default Dictionary;
