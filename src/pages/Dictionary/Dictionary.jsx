@@ -1,7 +1,8 @@
 import { useSearchParams } from 'react-router-dom';
 import { fetchEntries, fetchTerms, fetchUsers } from '../../utils/fetchData';
+import { updateLikes, updateDislikes } from '../../utils/firebaseOperations';
+import { LikesDislikesButton } from './components/LikesDislikesButton.jsx';
 import { useState } from 'react';
-// import { db, auth } from '../../utils/firebase.js';
 
 const Dictionary = () => {
   const [searchParams] = useSearchParams();
@@ -17,18 +18,40 @@ const Dictionary = () => {
   const [dislikes, setDislikes] = useState({});
 
   // Function to handle like button click
-  const handleLike = (entry) => {
+  const handleLikeState = (entry) => {
     // Increment the like count for the entry
     setLikes((prevLikes) => ({
       ...prevLikes,
       [entry.id]: (prevLikes[entry.id] || 0) + 1
     }));
   };
-  const handleDislike = (entry) => {
+
+  const handleDislikeState = (entry) => {
+    // Increment the dislike count for the entry
     setDislikes((prevDislikes) => ({
       ...prevDislikes,
       [entry.id]: (prevDislikes[entry.id] || 0) + 1
     }));
+  };
+
+  const handleLike = async (entry) => {
+    // Call a function to update the likes count in Firebase
+    await updateLikes(entry.id);
+  };
+
+  const handleDislike = async (entry) => {
+    // Call a function to update the dislikes count in Firebase
+    await updateDislikes(entry.id);
+  };
+
+  const handleLikeButton = (entry) => {
+    handleLike(entry);
+    handleLikeState(entry);
+  };
+
+  const handleDislikeButton = (entry) => {
+    handleDislike(entry);
+    handleDislikeState(entry);
   };
 
   return (
@@ -41,9 +64,9 @@ const Dictionary = () => {
             <p>{entry.definition}</p>
             <h3>Example</h3>
             <p>{entry.example}</p>
-            <button onClick={() => handleLike(entry)}>Like</button>
-            <button onClick={() => handleDislike(entry)}>Dislike</button>
-            <span>{(likes[entry.id] || 0) - (dislikes[entry.id] || 0)}</span>
+            <button onClick={() => handleLikeButton(entry)}>Like</button>
+            <button onClick={() => handleDislikeButton(entry)}>Dislike</button>
+            <LikesDislikesButton likes={likes[entry.id]} dislikes={dislikes[entry.id]} />
           </div>
         ))
       ) : (
