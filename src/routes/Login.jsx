@@ -2,7 +2,9 @@ import { useEffect } from 'react';
 import { onAuthStateChanged } from 'firebase/auth';
 import { auth } from '../utils/firebase';
 import useCurrentUserData from '../utils/useCurrentUserData';
-import SignInButton from '../components/SignInButton';
+import SignIn from '../components/UserSignIn';
+import SignUp from '../components/UserSignUp';
+import GoogleSignIn from '../components/GoogleSignIn';
 import SignOutButton from '../components/SignOutButton';
 import { Card, CardBody, CardHeader } from '@nextui-org/react';
 
@@ -18,18 +20,18 @@ const Login = () => {
       }
     });
     return () => unsubscribe();
-  }, [auth]);
+  }, []);
 
   return (
-    <section className="Login">
-      <Card className="py-4">
-        <div className="space-x-2">
-          <p>Name: {userData?.username ?? 'None'}</p>
-          <SignInButton />
-          <SignOutButton />
-        </div>
-      </Card>
-    </section>
+    <div className="Login">
+      <h1>Log In</h1>
+      <p>Name: {userData?.username ?? 'None'}</p>
+      <p>Email: {userData?.email ?? 'None'}</p>
+      <GoogleSignIn></GoogleSignIn>
+      <SignOutButton></SignOutButton>
+      <SignIn></SignIn>
+      <SignUp></SignUp>
+    </div>
   );
 };
 

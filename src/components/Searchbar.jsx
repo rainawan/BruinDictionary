@@ -1,37 +1,72 @@
-import { Autocomplete, AutocompleteItem } from '@nextui-org/react';
-import { SearchOutlined } from '@ant-design/icons';
+import { useNavigate, useSearchParams } from 'react-router-dom';
+import { Autocomplete, AutocompleteItem, Input } from '@nextui-org/react';
+import { SearchOutlined, LoadingOutlined, WarningOutlined } from '@ant-design/icons';
+import getTermsQuery from '../utils/getTermsQuery';
+import { unpackTermsQuery } from '../utils/unpackQuery';
 
 const Searchbar = () => {
-  const items = [
-    {
-      termid: '0',
-      term: 'UCLA',
-      description: 'University of California, Los Angeles'
-    },
-    {
-      termid: '1',
-      term: 'YRL',
-      description: 'Young Research Library'
+  const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
+  const searchTerm = searchParams.get('term');
+
+  const termsQuery = getTermsQuery();
+  const { status: termsStatus, data: terms } = unpackTermsQuery(termsQuery);
+
+  if (termsStatus === 'loading') {
+    return (
+      <Input
+        isDisabled
+        classNames={{ inputWrapper: 'h-[3rem]' }}
+        aria-label="searchbar loading"
+        variant="bordered"
+        radius="full"
+        startContent={<LoadingOutlined />}
+        endContent={<SearchOutlined className="text-xl mt-[-3px]" />}
+      />
+    );
+  } else if (termsStatus === 'error') {
+    return (
+      <Input
+        isInvalid
+        isDisabled
+        classNames={{ inputWrapper: 'h-[3rem]' }}
+        aria-label="searchbar error"
+        variant="bordered"
+        radius="full"
+        startContent={<WarningOutlined style={{ color: 'red' }} />}
+        endContent={<SearchOutlined className="text-xl mt-[-3px]" />}
+      />
+    );
+  }
+
+  const handleSelectionChange = (termid) => {
+    if (termid) {
+      navigate(`/?term=${terms[termid]}`);
+    } else {
+      navigate('/');
     }
-  ];
+  };
 
   return (
     <Autocomplete
-      aria-label="search term"
+      aria-label="searchbar"
       placeholder="Search"
       variant="bordered"
       radius="full"
-      defaultItems={items}
+      menuTrigger="input"
+      defaultItems={Object.entries(terms)}
+      defaultInputValue={searchTerm}
+      onSelectionChange={handleSelectionChange}
       classNames={{ selectorButton: 'hidden' }}
       inputProps={{
         classNames: {
           input: 'ml-1',
-          inputWrapper: 'bg-white dark:bg-gray-800 h-[45px]'
+          inputWrapper: 'bg-white dark:bg-gray-800 h-[3rem]'
         }
       }}
       popoverProps={{
         classNames: {
-          content: 'bg-white dark:bg-gray-800'
+          content: 'dark:dark'
         }
       }}
       listboxProps={{
@@ -41,11 +76,11 @@ const Searchbar = () => {
         }
       }}
       startContent={<SearchOutlined className="text-xl mr-2 mt-[-3px]" />}>
-      {(item) => (
-        <AutocompleteItem key={item.termid} textValue={item.term}>
+      {([termid, termname]) => (
+        <AutocompleteItem key={termid} textValue={termname}>
           <div className="flex gap-2 items-center">
-            <div className="font-bold">{item.term}</div>
-            <div className="truncate">{item.description}</div>
+            <div>{termname}</div>
+            {/* <div className="truncate">{item.definition}</div> */}
           </div>
         </AutocompleteItem>
       )}
