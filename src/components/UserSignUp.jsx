@@ -1,18 +1,20 @@
-import { getAuth, updateEmail, createUserWithEmailAndPassword } from 'firebase/auth';
-import React, { useState } from 'react';
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth';
 
-const SignUp = () => {
+const UserSignUp = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const auth = getAuth();
 
-  const signUp = (e) => {
+  const auth = getAuth();
+  const navigate = useNavigate();
+
+  const handleSignUp = (e) => {
     e.preventDefault();
     createUserWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
         console.log(userCredential);
-        setEmail('');
-        setPassword('');
+        navigate('/');
       })
       .catch((error) => {
         console.log(error);
@@ -20,7 +22,7 @@ const SignUp = () => {
   };
   return (
     <div className="sign-up-container">
-      <form onSubmit={signUp}>
+      <form onSubmit={handleSignUp}>
         <h1>Create Account</h1>
         <input
           type="email"
@@ -38,4 +40,4 @@ const SignUp = () => {
   );
 };
 
-export default SignUp;
+export default UserSignUp;

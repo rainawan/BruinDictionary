@@ -29,7 +29,7 @@ const Navbar = () => {
                 </Link>
               </NavbarItem>
               <NavbarItem>
-                <Link to="/login">
+                <Link to="/user">
                   <ProfileAvatar />
                 </Link>
               </NavbarItem>
