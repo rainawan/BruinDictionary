@@ -1,4 +1,5 @@
 import { useSearchParams } from 'react-router-dom';
+import { Select, SelectItem } from '@nextui-org/react';
 import { unpackEntriesQuery, unpackTermsQuery } from '../../utils/unpackQuery';
 import { getTermsEntriesStatus } from '../../utils/getTermsEntriesStatus';
 import getEntriesQuery from '../../utils/getEntriesQuery';
@@ -6,7 +7,7 @@ import getTermsQuery from '../../utils/getTermsQuery';
 import CardLoading from './components/CardLoading';
 
 const Dictionary = () => {
-  const [searchParams] = useSearchParams();
+  const [searchParams, setSearchParams] = useSearchParams();
   const searchEntries = Object.fromEntries(searchParams.entries());
   const { term, ...search } = searchEntries;
   const searchTerm = term?.toLowerCase();
@@ -21,6 +22,10 @@ const Dictionary = () => {
 
   const status = getTermsEntriesStatus(termsStatus, entriesStatus);
 
+  const handleSortChange = (key) => {
+    setSearchParams({ ...searchEntries, order: Object.values(key)[0] });
+  };
+
   if (status === 'loading') {
     return <CardLoading />;
   } else if (status === 'error') {
@@ -30,6 +35,21 @@ const Dictionary = () => {
   } else if (status === 'success') {
     return (
       <div className="Terms">
+        <Select
+          className="max-w-[10rem] right-0"
+          popoverProps={{
+            classNames: {
+              content: 'dark:dark'
+            }
+          }}
+          label="Sort by"
+          size="sm"
+          selectionMode="single"
+          onSelectionChange={handleSortChange}
+          selectedKeys={search.order !== '' && search.order ? [search.order] : []}>
+          <SelectItem key="likes">Likes</SelectItem>
+          <SelectItem key="creationDate">Creation Date</SelectItem>
+        </Select>
         {entries.map((entry, index) => (
           <div key={index}>
             <h2>{terms[entry.termid]}</h2>
