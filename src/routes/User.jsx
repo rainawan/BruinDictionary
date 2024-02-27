@@ -2,12 +2,10 @@ import { useEffect } from 'react';
 import { onAuthStateChanged } from 'firebase/auth';
 import { auth } from '../utils/firebase';
 import useCurrentUserData from '../utils/useCurrentUserData';
-import SignIn from '../components/UserSignIn';
-import SignUp from '../components/UserSignUp';
-import GoogleSignIn from '../components/GoogleSignIn';
-import SignOutButton from '../components/SignOutButton';
+import SignIn from '../pages/SignIn';
+import Profile from '../pages/Profile';
 
-const Login = () => {
+const User = () => {
   const { userData, setUserData } = useCurrentUserData();
 
   useEffect(() => {
@@ -21,17 +19,11 @@ const Login = () => {
     return () => unsubscribe();
   }, []);
 
-  return (
-    <div className="Login">
-      <h1>Log In</h1>
-      <p>Name: {userData?.username ?? 'None'}</p>
-      <p>Email: {userData?.email ?? 'None'}</p>
-      <GoogleSignIn></GoogleSignIn>
-      <SignOutButton></SignOutButton>
-      <SignIn></SignIn>
-      <SignUp></SignUp>
-    </div>
-  );
+  if (userData) {
+    return <Profile />;
+  } else {
+    return <SignIn />;
+  }
 };
 
-export default Login;
+export default User;
