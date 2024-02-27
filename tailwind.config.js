@@ -10,7 +10,7 @@ export default {
   theme: {
     extend: {},
     fontFamily: {
-      lora: ['Lora', 'serif']
+      lora: ['Lora', 'serif'],
     }
   },
   plugins: [],
