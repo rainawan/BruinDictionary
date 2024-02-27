@@ -7,7 +7,7 @@ import CardLoading from './components/CardLoading';
 import SortDropdown from './components/SortDropdown';
 
 const Dictionary = () => {
-  const [searchParams, setSearchParams] = useSearchParams();
+  const [searchParams] = useSearchParams();
   const searchEntries = Object.fromEntries(searchParams.entries());
   const { term, ...search } = searchEntries;
   const searchTerm = term?.toLowerCase();
@@ -21,10 +21,6 @@ const Dictionary = () => {
   console.log('entries: ', entries, '\nterms: ', terms);
 
   const status = getTermsEntriesStatus(termsStatus, entriesStatus);
-
-  const handleSortChange = (key) => {
-    setSearchParams({ ...searchEntries, order: Object.values(key)[0] });
-  };
 
   if (status === 'loading') {
     return <CardLoading />;
