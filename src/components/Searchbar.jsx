@@ -12,28 +12,22 @@ const Searchbar = () => {
   const termsQuery = getTermsQuery();
   const { status: termsStatus, data: terms } = unpackTermsQuery(termsQuery);
 
-  if (termsStatus === 'loading') {
+  if (termsStatus !== 'success') {
     return (
       <Input
+        isInvalid={termsStatus === 'error'}
         isDisabled
         classNames={{ inputWrapper: 'h-[3rem]' }}
-        aria-label="searchbar loading"
+        aria-label="searchbar"
         variant="bordered"
         radius="full"
-        startContent={<LoadingOutlined />}
-        endContent={<SearchOutlined className="text-xl mt-[-3px]" />}
-      />
-    );
-  } else if (termsStatus === 'error') {
-    return (
-      <Input
-        isInvalid
-        isDisabled
-        classNames={{ inputWrapper: 'h-[3rem]' }}
-        aria-label="searchbar error"
-        variant="bordered"
-        radius="full"
-        startContent={<WarningOutlined style={{ color: 'red' }} />}
+        startContent={
+          termsStatus === 'loading' ? (
+            <LoadingOutlined />
+          ) : (
+            <WarningOutlined style={{ color: 'red' }} />
+          )
+        }
         endContent={<SearchOutlined className="text-xl mt-[-3px]" />}
       />
     );
