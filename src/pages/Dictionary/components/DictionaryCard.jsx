@@ -16,7 +16,7 @@ const DictionaryCard = ({ entries, terms }) => {
           <div className="text-left">
             <div className="py-2 md:pb-3">
               <p
-                className="font-['Inter'] text-5xl md:text-6xl text-blue-800 dark:text-yellow-200 cursor-pointer inline"
+                className="font-['Inter'] font-bold text-5xl md:text-6xl text-blue-800 dark:text-yellow-200 cursor-pointer inline"
                 onClick={() => handleTermClick(terms[entry.termid])}>
                 {terms[entry.termid]}
               </p>
