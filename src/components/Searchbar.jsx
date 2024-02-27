@@ -10,23 +10,19 @@ const Searchbar = () => {
   const searchTerm = searchParams.get('term');
 
   const termsQuery = getTermsQuery();
-  const { status: termsStatus, data: terms } = unpackTermsQuery(termsQuery);
+  const { status, data: terms } = unpackTermsQuery(termsQuery);
 
-  if (termsStatus !== 'success') {
+  if (status !== 'success') {
     return (
       <Input
-        isInvalid={termsStatus === 'error'}
+        isInvalid={status === 'error'}
         isDisabled
         classNames={{ inputWrapper: 'h-[3rem]' }}
         aria-label="searchbar"
         variant="bordered"
         radius="full"
         startContent={
-          termsStatus === 'loading' ? (
-            <LoadingOutlined />
-          ) : (
-            <WarningOutlined style={{ color: 'red' }} />
-          )
+          status === 'loading' ? <LoadingOutlined /> : <WarningOutlined style={{ color: 'red' }} />
         }
         endContent={<SearchOutlined className="text-xl mt-[-3px]" />}
       />
