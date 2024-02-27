@@ -1,5 +1,15 @@
+import { Card, CardHeader } from '@nextui-org/react';
+
 const Add = () => {
-  return <section className="Add">Add</section>;
+  return (
+    <section className="max-w-[60rem]">
+      <Card className="py-4">
+        <CardHeader className="flex-col">
+          <p className="font-bold">Add</p>
+        </CardHeader>
+      </Card>
+    </section>
+  );
 };
 
 export default Add;
