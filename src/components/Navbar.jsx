@@ -11,7 +11,7 @@ const Navbar = () => {
         <div className="flex-col w-full">
           <NavbarContent className="py-3">
             <NavbarBrand>
-              <Link to="/" className="font-bold text-lg text-white hover:text-gray-300">
+              <Link to="/" className="font-hl font-bold text-lg text-white hover:text-gray-300">
                 BRUIN DICTIONARY
               </Link>
             </NavbarBrand>
