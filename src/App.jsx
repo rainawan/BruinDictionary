@@ -3,6 +3,7 @@ import Navbar from './components/Navbar';
 import Add from './routes/Add';
 import Home from './routes/Home';
 import Login from './routes/Login';
+import Edit from './routes/Edit';
 import './App.css';
 
 function App() {
@@ -17,6 +18,7 @@ function App() {
           <Route index path="/" element={<Home />} />
           <Route path="/add" element={<Add />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/edit/:entryid" element={<Edit />} />
         </Route>
         <Route path="*" element={<div>404: Error</div>} />
       </Routes>

@@ -4,6 +4,7 @@ import { getTermsEntriesStatus } from '../../utils/getTermsEntriesStatus';
 import getEntriesQuery from '../../utils/getEntriesQuery';
 import getTermsQuery from '../../utils/getTermsQuery';
 import CardLoading from './components/CardLoading';
+import MenuDropdown from './components/MenuDropdown';
 
 const Dictionary = () => {
   const [searchParams] = useSearchParams();
@@ -32,6 +33,7 @@ const Dictionary = () => {
       <div className="Terms">
         {entries.map((entry, index) => (
           <div key={index}>
+            <MenuDropdown entryid={entry.id} />
             <h2>{terms[entry.termid]}</h2>
             <h3>Definition</h3>
             <p>{entry.definition}</p>
