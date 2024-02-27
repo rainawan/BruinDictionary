@@ -1,8 +1,8 @@
 import { useEffect } from 'react';
 import { onAuthStateChanged } from 'firebase/auth';
 import { auth } from '../utils/firebase';
-import SignInComponent from '../components/SignInComponent';
-import ProfileComponent from '../components/ProfileComponent';
+import SignInComponent from '../pages/SignIn/SignInComponent';
+import ProfileComponent from '../pages/Profile/ProfileComponent';
 import useCurrentUserData from '../utils/useCurrentUserData';
 
 const Login = () => {
@@ -19,11 +19,11 @@ const Login = () => {
     return () => unsubscribe();
   }, []);
 
-  return (
-    <div className="Login">
-      {userData ? <ProfileComponent></ProfileComponent> : <SignInComponent></SignInComponent>}
-    </div>
-  );
+  if (userData) {
+    return <ProfileComponent />;
+  } else {
+    return <SignInComponent />;
+  }
 };
 
 export default Login;

@@ -1,9 +1,9 @@
-import ProfileAvatar from '../components/ProfileAvatar';
-import SignOutButton from './SignOutButton';
+import ProfileAvatar from '../../components/ProfileAvatar';
+import SignOutButton from '../../components/SignOutButton';
 import { useEffect } from 'react';
 import { onAuthStateChanged } from 'firebase/auth';
-import { auth } from '../utils/firebase';
-import useCurrentUserData from '../utils/useCurrentUserData';
+import { auth } from '../../utils/firebase';
+import useCurrentUserData from '../../utils/useCurrentUserData';
 const Profile = () => {
   const { userData, setUserData } = useCurrentUserData();
 
@@ -16,7 +16,7 @@ const Profile = () => {
       }
     });
     return () => unsubscribe();
-  }, [auth]);
+  });
 
   return (
     <div className="Login">

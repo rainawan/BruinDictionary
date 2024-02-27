@@ -1,6 +1,6 @@
-import SignIn from '../components/UserSignIn';
-import SignUp from '../components/UserSignUp';
-import GoogleSignIn from '../components/GoogleSignIn';
+import SignIn from '../../components/UserSignIn';
+import SignUp from '../../components/UserSignUp';
+import GoogleSignIn from '../../components/GoogleSignIn';
 
 const SignInComponent = () => {
   return (
