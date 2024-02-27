@@ -1,4 +1,5 @@
 import { signOut } from 'firebase/auth';
+import { Button } from '@nextui-org/react';
 import { auth } from '../../../utils/firebase';
 import { useNavigate } from 'react-router-dom';
 
@@ -10,7 +11,11 @@ const SignOutButton = () => {
     navigate('/');
   };
 
-  return <button onClick={handleSignOut}>Sign Out</button>;
+  return (
+    <Button color="primary" size="sm" onClick={handleSignOut}>
+      Sign Out
+    </Button>
+  );
 };
 
 export default SignOutButton;
