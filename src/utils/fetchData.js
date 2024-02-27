@@ -3,8 +3,7 @@ import { db } from './firebase';
 import { useFirestoreQuery } from '@react-query-firebase/firestore';
 
 /**
- * @deprecated
- * USE getEntriesQuery AND getTermsQuery INSTEAD
+ * @deprecated INSTEAD USE getEntriesQuery AND getTermsQuery
  */
 export const fetchEntries = () => {
   const ref = query(collection(db, 'Entries'));
