@@ -8,7 +8,6 @@ const ProfileAvatar = () => {
   if (!userData) {
     return <Avatar as="button" icon={<UserOutlined className="text-base" />} size="sm" />;
   }
-
   return <Avatar as="button" name={userData.username} size="sm" color="warning" />;
 };
 
