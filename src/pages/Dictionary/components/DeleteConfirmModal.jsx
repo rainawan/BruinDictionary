@@ -10,7 +10,11 @@ const DeleteConfirmModal = ({ entryid, isOpen, onOpenChange }) => {
   };
 
   return (
-    <Modal isOpen={isOpen} onOpenChange={onOpenChange} className="dark:dark p-3 w-fit">
+    <Modal
+      isOpen={isOpen}
+      onOpenChange={onOpenChange}
+      className="dark:dark p-3 w-fit"
+      classNames={{ wrapper: 'items-center', backdrop: 'w-full h-full' }}>
       <ModalContent>
         {(onClose) => (
           <>
