@@ -1,7 +1,7 @@
 import { Modal, ModalContent, ModalBody, ModalFooter, Button } from '@nextui-org/react';
 import { useNavigate } from 'react-router-dom';
 
-const DeleteModal = ({ entryid, isOpen, onOpenChange }) => {
+const DeleteConfirmModal = ({ entryid, isOpen, onOpenChange }) => {
   const navigate = useNavigate();
 
   const handleDelete = () => {
@@ -38,4 +38,4 @@ const DeleteModal = ({ entryid, isOpen, onOpenChange }) => {
   );
 };
 
-export default DeleteModal;
+export default DeleteConfirmModal;

@@ -7,7 +7,7 @@ import {
 } from '@nextui-org/react';
 import { MoreOutlined } from '@ant-design/icons';
 import { useNavigate } from 'react-router-dom';
-import DeleteModal from './DeleteModal';
+import DeleteConfirmModal from './DeleteConfirmModal';
 
 const MoreDropdown = ({ entryid }) => {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
@@ -43,7 +43,7 @@ const MoreDropdown = ({ entryid }) => {
           </DropdownItem>
         </DropdownMenu>
       </Dropdown>
-      <DeleteModal entryid={entryid} isOpen={isOpen} onOpenChange={onOpenChange} />
+      <DeleteConfirmModal entryid={entryid} isOpen={isOpen} onOpenChange={onOpenChange} />
     </>
   );
 };
