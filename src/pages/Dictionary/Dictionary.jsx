@@ -32,7 +32,7 @@ const Dictionary = () => {
       <div className="Terms">
         {entries.map((entry, index) => (
           <div key={index}>
-            <h2>{terms[entry.termid]}</h2>
+            <h2 className="font-hl font-bold">{terms[entry.termid]}</h2>
             <h3>Definition</h3>
             <p>{entry.definition}</p>
             <h3>Example</h3>
