@@ -44,6 +44,7 @@ const Searchbar = () => {
   return (
     <Autocomplete
       aria-label="searchbar"
+      placeholder="Search"
       variant="bordered"
       radius="full"
       menuTrigger="input"
@@ -54,7 +55,7 @@ const Searchbar = () => {
       inputProps={{
         classNames: {
           input: 'ml-1',
-          inputWrapper: 'h-[3rem]'
+          inputWrapper: 'bg-white dark:bg-gray-800 h-[3rem]'
         }
       }}
       popoverProps={{
@@ -68,7 +69,7 @@ const Searchbar = () => {
           base: 'transition-opacity'
         }
       }}
-      endContent={<SearchOutlined className="text-xl mr-2 mt-[-3px]" />}>
+      startContent={<SearchOutlined className="text-xl mr-2 mt-[-3px]" />}>
       {([termid, termname]) => (
         <AutocompleteItem key={termid} textValue={termname}>
           <div className="flex gap-2 items-center">
