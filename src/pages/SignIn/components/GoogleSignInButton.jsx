@@ -1,5 +1,5 @@
 import { GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
-import { auth } from '../utils/firebase';
+import { auth } from '../../../utils/firebase';
 import { Button } from '@nextui-org/react';
 
 const GoogleSignInButton = () => {
