@@ -1,22 +1,8 @@
 import ProfileAvatar from '../../components/ProfileAvatar';
 import SignOutButton from '../../components/SignOutButton';
-import { useEffect } from 'react';
-import { onAuthStateChanged } from 'firebase/auth';
-import { auth } from '../../utils/firebase';
 import useCurrentUserData from '../../utils/useCurrentUserData';
 const Profile = () => {
   const { userData, setUserData } = useCurrentUserData();
-
-  useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (user) => {
-      if (user) {
-        setUserData({ username: user.displayName, email: user.email, userid: user.uid });
-      } else {
-        setUserData(undefined);
-      }
-    });
-    return () => unsubscribe();
-  });
 
   return (
     <div className="Login">
