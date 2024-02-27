@@ -3,17 +3,13 @@ import {
   DropdownTrigger,
   DropdownMenu,
   DropdownItem,
-  Modal,
-  ModalContent,
-  ModalBody,
-  ModalFooter,
-  useDisclosure,
-  Button
+  useDisclosure
 } from '@nextui-org/react';
 import { MoreOutlined } from '@ant-design/icons';
 import { useNavigate } from 'react-router-dom';
+import DeleteModal from './DeleteModal';
 
-const MenuDropdown = ({ entryid }) => {
+const MoreDropdown = ({ entryid }) => {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
   const navigate = useNavigate();
 
@@ -24,10 +20,6 @@ const MenuDropdown = ({ entryid }) => {
     if (e === 'delete') {
       onOpen(); // open modal
     }
-  };
-
-  const handleDelete = () => {
-    // TODO: delete entry
   };
 
   return (
@@ -51,33 +43,9 @@ const MenuDropdown = ({ entryid }) => {
           </DropdownItem>
         </DropdownMenu>
       </Dropdown>
-      <Modal isOpen={isOpen} onOpenChange={onOpenChange} className="dark:dark p-3 w-fit">
-        <ModalContent>
-          {(onClose) => (
-            <>
-              <ModalBody className="m-2">
-                <p>Are you sure you want to delete this item?</p>
-              </ModalBody>
-              <ModalFooter className="p-0">
-                <Button
-                  color="danger"
-                  variant="light"
-                  onPress={() => {
-                    onClose();
-                    handleDelete();
-                  }}>
-                  Yes
-                </Button>
-                <Button color="primary" variant="light" onPress={onClose}>
-                  No
-                </Button>
-              </ModalFooter>
-            </>
-          )}
-        </ModalContent>
-      </Modal>
+      <DeleteModal entryid={entryid} isOpen={isOpen} onOpenChange={onOpenChange} />
     </>
   );
 };
 
-export default MenuDropdown;
+export default MoreDropdown;
