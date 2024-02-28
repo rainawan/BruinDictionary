@@ -24,7 +24,7 @@ const DictionaryCard = ({ entries, terms }) => {
                 {terms[entry.termid]}
               </p>
               <MoreDropdown entryid={entry.id} />
-              {/* {userData && <MoreDropdown entryid={entry.id} />} */}
+              {/* {userData === entry.userid && <MoreDropdown entryid={entry.id} />} */}
             </div>
             <p className="text-md md:text-lg">{entry.definition}</p>
             <p className="mt-3 mb-1 text-md md:text-lg font-medium">Example</p>
