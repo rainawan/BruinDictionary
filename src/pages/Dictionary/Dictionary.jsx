@@ -4,13 +4,13 @@ import { getTermsEntriesStatus } from '../../utils/getTermsEntriesStatus';
 import getEntriesQuery from '../../utils/getEntriesQuery';
 import getTermsQuery from '../../utils/getTermsQuery';
 import CardLoading from './components/CardLoading';
-import MoreDropdown from './components/MoreDropdown';
+import DictionaryCard from './components/DictionaryCard';
 
 const Dictionary = () => {
   const [searchParams] = useSearchParams();
   const searchEntries = Object.fromEntries(searchParams.entries());
   const { term, ...search } = searchEntries;
-  const searchTerm = term?.toLowerCase();
+  const searchTerm = term !== undefined ? term.toLowerCase() : undefined;
 
   const termsQuery = getTermsQuery(searchTerm);
   const { status: termsStatus, data: terms } = unpackTermsQuery(termsQuery);
@@ -26,24 +26,10 @@ const Dictionary = () => {
     return <CardLoading />;
   } else if (status === 'error') {
     return <div>error occurred</div>;
-  } else if ((searchTerm && !termid) || entries?.length === 0) {
+  } else if (Object.keys(terms)?.length === 0 || entries?.length === 0) {
     return <div>not found</div>;
   } else if (status === 'success') {
-    return (
-      <div className="Terms">
-        {entries.map((entry, index) => (
-          <div key={index}>
-            <MoreDropdown entryid={entry.id} />
-            <h2>{terms[entry.termid]}</h2>
-            <h3>Definition</h3>
-            <p>{entry.definition}</p>
-            <h3>Example</h3>
-            <p>{entry.example}</p>
-            <br />
-          </div>
-        ))}
-      </div>
-    );
+    return <DictionaryCard entries={entries} terms={terms} />;
   } else {
     throw new Error('Unhandled status');
   }

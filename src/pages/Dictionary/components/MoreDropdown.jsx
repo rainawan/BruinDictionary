@@ -10,8 +10,8 @@ import { useNavigate } from 'react-router-dom';
 import DeleteConfirmModal from './DeleteConfirmModal';
 
 const MoreDropdown = ({ entryid }) => {
-  const { isOpen, onOpen, onOpenChange } = useDisclosure();
   const navigate = useNavigate();
+  const { isOpen, onOpen, onOpenChange } = useDisclosure();
 
   const handleMenuClick = (e) => {
     if (e === 'edit') {
