@@ -29,7 +29,13 @@ const Dictionary = () => {
   } else if (Object.keys(terms)?.length === 0 || entries?.length === 0) {
     return <div>not found</div>;
   } else if (status === 'success') {
-    return <DictionaryCard entries={entries} terms={terms} />;
+    return (
+      <div className="inline-flex flex-col gap-4 max-w-[55rem] pt-2 px-4 w-full">
+        {entries.map((entry, index) => (
+          <DictionaryCard key={index} entry={entry} terms={terms} />
+        ))}
+      </div>
+    );
   } else {
     throw new Error('Unhandled status');
   }
