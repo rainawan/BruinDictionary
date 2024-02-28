@@ -1,12 +1,15 @@
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Card, Button } from '@nextui-org/react';
-import { LikeFilled, DislikeFilled } from '@ant-design/icons';
-import MoreDropdown from './MoreDropdown';
+import { Card } from '@nextui-org/react';
 import useCurrentUserData from '../../../utils/useCurrentUserData';
+import MoreDropdown from './MoreDropdown';
+import EditMode from './EditMode';
+import DisplayMode from './DisplayMode';
 
 const DictionaryCard = ({ entries, terms }) => {
   const navigate = useNavigate();
   const { userData } = useCurrentUserData();
+  const [editEntryid, setEditEntryid] = useState(undefined);
 
   const handleTermClick = (termname) => {
     navigate(`/?term=${termname.toLowerCase()}`);
@@ -23,22 +26,16 @@ const DictionaryCard = ({ entries, terms }) => {
                 onClick={() => handleTermClick(terms[entry.termid])}>
                 {terms[entry.termid]}
               </p>
-              <MoreDropdown entryid={entry.id} />
+              {editEntryid !== entry.id && (
+                <MoreDropdown entryid={entry.id} setEditEntryid={setEditEntryid} />
+              )}
               {/* {userData === entry.userid && <MoreDropdown entryid={entry.id} />} */}
             </div>
-            <p className="text-md md:text-lg">{entry.definition}</p>
-            <p className="mt-3 mb-1 text-md md:text-lg font-medium">Example</p>
-            <p className="italic text-md md:text-lg">{entry.example}</p>
-            <div className="mt-5 inline-flex flex-row gap-1">
-              <Button className="hover:bg-blue-800 hover:text-white">
-                <LikeFilled className="text-lg" />
-                <p className="text-sm">{entry.likes}</p>
-              </Button>
-              <Button className="hover:bg-red-800 hover:text-white">
-                <DislikeFilled className="text-lg" />
-                <p className="text-sm">{entry.dislikes}</p>
-              </Button>
-            </div>
+            {editEntryid === entry.id ? (
+              <EditMode entry={entry} setEditEntryid={setEditEntryid} />
+            ) : (
+              <DisplayMode entry={entry} />
+            )}
           </div>
         </Card>
       ))}
