@@ -2,6 +2,7 @@ import { Routes, Route } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import Add from './routes/Add';
 import Home from './routes/Home';
+import Edit from './routes/Edit';
 import User from './routes/User';
 
 import './App.css';
@@ -17,9 +18,10 @@ function App() {
         <Route path="/" element={<Navbar />}>
           <Route index path="/" element={<Home />} />
           <Route path="/add" element={<Add />} />
+          <Route path="/edit/:entryid" element={<Edit />} />
           <Route path="/user" element={<User />} />
+          <Route path="*" element={<div>404: Error</div>} />
         </Route>
-        <Route path="*" element={<div>404: Error</div>} />
       </Routes>
       <>
         {/* This will be an admin only section once we add authorization */}
