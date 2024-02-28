@@ -10,30 +10,20 @@ const Searchbar = () => {
   const searchTerm = searchParams.get('term');
 
   const termsQuery = getTermsQuery();
-  const { status: termsStatus, data: terms } = unpackTermsQuery(termsQuery);
+  const { status, data: terms } = unpackTermsQuery(termsQuery);
 
-  if (termsStatus === 'loading') {
+  if (status !== 'success') {
     return (
       <Input
+        isInvalid={status === 'error'}
         isDisabled
         classNames={{ inputWrapper: 'h-[3rem]' }}
-        aria-label="searchbar loading"
+        aria-label="searchbar"
         variant="bordered"
         radius="full"
-        startContent={<LoadingOutlined />}
-        endContent={<SearchOutlined className="text-xl mt-[-3px]" />}
-      />
-    );
-  } else if (termsStatus === 'error') {
-    return (
-      <Input
-        isInvalid
-        isDisabled
-        classNames={{ inputWrapper: 'h-[3rem]' }}
-        aria-label="searchbar error"
-        variant="bordered"
-        radius="full"
-        startContent={<WarningOutlined style={{ color: 'red' }} />}
+        startContent={
+          status === 'loading' ? <LoadingOutlined /> : <WarningOutlined style={{ color: 'red' }} />
+        }
         endContent={<SearchOutlined className="text-xl mt-[-3px]" />}
       />
     );
@@ -50,6 +40,7 @@ const Searchbar = () => {
   return (
     <Autocomplete
       aria-label="searchbar"
+      placeholder="Search"
       variant="bordered"
       radius="full"
       menuTrigger="input"
@@ -60,7 +51,7 @@ const Searchbar = () => {
       inputProps={{
         classNames: {
           input: 'ml-1',
-          inputWrapper: 'h-[3rem]'
+          inputWrapper: 'bg-white dark:bg-gray-800 h-[3rem]'
         }
       }}
       popoverProps={{
@@ -74,7 +65,7 @@ const Searchbar = () => {
           base: 'transition-opacity'
         }
       }}
-      endContent={<SearchOutlined className="text-xl mr-2 mt-[-3px]" />}>
+      startContent={<SearchOutlined className="text-xl mr-2 mt-[-3px]" />}>
       {([termid, termname]) => (
         <AutocompleteItem key={termid} textValue={termname}>
           <div className="flex gap-2 items-center">
