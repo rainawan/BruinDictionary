@@ -9,7 +9,7 @@ const SignIn = () => {
       <GoogleSignInButton />
       <UserSignIn />
       <Link to="/user/create" className="font-bold text-lg text-primary hover:text-gray-300">
-        Sign Up
+        Create Account
       </Link>
     </section>
   );
