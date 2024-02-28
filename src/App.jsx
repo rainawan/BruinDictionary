@@ -5,6 +5,7 @@ import Home from './routes/Home';
 import User from './routes/User';
 
 import './App.css';
+import UserSignUp from './components/UserSignUp.jsx';
 
 function App() {
   const onAddEntry = async (communityId, selected) => {
@@ -18,6 +19,7 @@ function App() {
           <Route index path="/" element={<Home />} />
           <Route path="/add" element={<Add />} />
           <Route path="/user" element={<User />} />
+          <Route path="/user/create" element={<UserSignUp />} />
         </Route>
         <Route path="*" element={<div>404: Error</div>} />
       </Routes>

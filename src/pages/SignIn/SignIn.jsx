@@ -1,6 +1,6 @@
 import UserSignIn from './components/UserSignIn';
 import GoogleSignInButton from './components/GoogleSignInButton';
-import UserSignUp from '../../components/UserSignUp';
+import { Link } from 'react-router-dom';
 
 const SignIn = () => {
   return (
@@ -8,7 +8,9 @@ const SignIn = () => {
       <h1>Log In</h1>
       <GoogleSignInButton />
       <UserSignIn />
-      <UserSignUp />
+      <Link to="/user/create" className="font-bold text-lg text-primary hover:text-gray-300">
+        Sign Up
+      </Link>
     </section>
   );
 };

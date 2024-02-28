@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth';
+import { Button, Card, Input } from '@nextui-org/react';
 
 const UserSignUp = () => {
   const [email, setEmail] = useState('');
@@ -21,22 +22,35 @@ const UserSignUp = () => {
       });
   };
   return (
-    <div className="sign-up-container">
-      <form onSubmit={handleSignUp}>
-        <h1>Create Account</h1>
-        <input
-          type="email"
-          placeholder="Enter Your Email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}></input>
-        <input
-          type="password"
-          placeholder="Enter Your Password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}></input>
-        <button type="submit">Sign Up</button>
-      </form>
-    </div>
+    <section className="max-w-[60rem]">
+      <Card className="sign-up-container p-6 m-3">
+        <form onSubmit={handleSignUp}>
+          <div className="flex flex-col items-center gap-4">
+            <div className="text-xl">Create Account</div>
+            <div className="flex w-full flex-nowrap gap-4">
+              <Input
+                fullWidth={false}
+                label="Email"
+                type="email"
+                placeholder="Enter Your Email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+              />
+              <Input
+                label="Password"
+                type="password"
+                placeholder="Enter Your Password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+              />
+            </div>
+            <Button color="primary" type="submit">
+              Sign Up
+            </Button>
+          </div>
+        </form>
+      </Card>
+    </section>
   );
 };
 
