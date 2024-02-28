@@ -1,10 +1,9 @@
+import { useFirestoreQuery } from '@react-query-firebase/firestore';
 import { collection, query } from 'firebase/firestore';
 import { db } from './firebase';
-import { useFirestoreQuery } from '@react-query-firebase/firestore';
 
 /**
- * THIS IS DEPRECATED
- * USE getEntriesQuery AND getTermsQuery INSTEAD
+ * @deprecated INSTEAD USE getEntriesQuery
  */
 export const fetchEntries = () => {
   const ref = query(collection(db, 'Entries'));
@@ -16,6 +15,9 @@ export const fetchEntries = () => {
   return snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
 };
 
+/**
+ * @deprecated INSTEAD USE getTermsQuery
+ */
 export const fetchTerms = () => {
   const ref = query(collection(db, 'Terms'));
   const termsQuery = useFirestoreQuery(['Terms'], ref);

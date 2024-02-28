@@ -10,7 +10,7 @@ const Dictionary = () => {
   const [searchParams] = useSearchParams();
   const searchEntries = Object.fromEntries(searchParams.entries());
   const { term, ...search } = searchEntries;
-  const searchTerm = term?.toLowerCase();
+  const searchTerm = term !== undefined ? term.toLowerCase() : undefined;
 
   const termsQuery = getTermsQuery(searchTerm);
   const { status: termsStatus, data: terms } = unpackTermsQuery(termsQuery);
@@ -26,7 +26,7 @@ const Dictionary = () => {
     return <CardLoading />;
   } else if (status === 'error') {
     return <div>error occurred</div>;
-  } else if ((searchTerm && !termid) || entries?.length === 0) {
+  } else if (Object.keys(terms)?.length === 0 || entries?.length === 0) {
     return <div>not found</div>;
   } else if (status === 'success') {
     return <DictionaryCard entries={entries} terms={terms} />;

@@ -16,22 +16,22 @@ const DictionaryCard = ({ entries, terms }) => {
           <div className="text-left">
             <div className="py-2 md:pb-3">
               <p
-                className="lora-700 text-5xl md:text-6xl text-blue-800 dark:text-yellow-200 cursor-pointer inline"
+                className="font-lora text-4xl md:text-5xl text-blue-800 dark:text-yellow-200 cursor-pointer inline"
                 onClick={() => handleTermClick(terms[entry.termid])}>
                 {terms[entry.termid]}
               </p>
             </div>
-            <p className="text-lg md:text-xl">{entry.definition}</p>
-            <p className="mt-3 mb-1 text-lg md:text-xl font-medium">Example</p>
-            <p className="italic text-lg md:text-xl">{entry.example}</p>
+            <p className="text-md md:text-lg">{entry.definition}</p>
+            <p className="mt-3 mb-1 text-md md:text-lg font-medium">Example</p>
+            <p className="italic text-md md:text-lg">{entry.example}</p>
             <div className="mt-5 inline-flex flex-row gap-1">
-              <Button className="hover:text-blue-700">
-                <LikeFilled className="text-xl" />
-                <p>{entry.likes}</p>
+              <Button className="hover:bg-blue-800">
+                <LikeFilled className="text-lg" />
+                <p className="text-sm">{entry.likes}</p>
               </Button>
-              <Button className="hover:text-red-700">
-                <DislikeFilled className="text-xl" />
-                <p>{entry.dislikes}</p>
+              <Button className="hover:bg-red-800">
+                <DislikeFilled className="text-lg" />
+                <p className="text-sm">{entry.dislikes}</p>
               </Button>
             </div>
           </div>
