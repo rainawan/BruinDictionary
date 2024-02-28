@@ -4,6 +4,7 @@ import { getTermsEntriesStatus } from '../../utils/getTermsEntriesStatus';
 import getEntriesQuery from '../../utils/getEntriesQuery';
 import getTermsQuery from '../../utils/getTermsQuery';
 import CardLoading from './components/CardLoading';
+import DictionaryCard from './components/DictionaryCard';
 
 const Dictionary = () => {
   const [searchParams] = useSearchParams();
@@ -28,20 +29,7 @@ const Dictionary = () => {
   } else if (Object.keys(terms)?.length === 0 || entries?.length === 0) {
     return <div>not found</div>;
   } else if (status === 'success') {
-    return (
-      <div className="Terms">
-        {entries.map((entry, index) => (
-          <div key={index}>
-            <h2>{terms[entry.termid]}</h2>
-            <h3>Definition</h3>
-            <p>{entry.definition}</p>
-            <h3>Example</h3>
-            <p>{entry.example}</p>
-            <br />
-          </div>
-        ))}
-      </div>
-    );
+    return <DictionaryCard entries={entries} terms={terms} />;
   } else {
     throw new Error('Unhandled status');
   }

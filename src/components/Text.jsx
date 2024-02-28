@@ -1,0 +1,16 @@
+const Text = ({ h1, h2, h3, h4, h5, className, children }) => {
+  const sizes = [h1, h2, h3, h4, h5];
+  const styles = [
+    'text-6xl',
+    'text-4xl leading-snug',
+    'text-2xl leading-snug',
+    'text-xl',
+    'text-lg'
+  ];
+  const textClassName =
+    sizes.map((size, index) => (size ? styles[index] : null)).find(Boolean) || '';
+
+  return <p className={`${textClassName} ${className}`}>{children}</p>;
+};
+
+export default Text;
