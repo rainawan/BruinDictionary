@@ -9,7 +9,7 @@ const EditMode = ({ entry, setEditEntryid }) => {
     setEditEntryid(undefined);
   };
 
-  const handleEditConfirm = () => {
+  const handleEditSubmit = () => {
     // TODO: handle edit confirm
     console.log(newDefinition.current, newExample.current);
   };
@@ -34,10 +34,12 @@ const EditMode = ({ entry, setEditEntryid }) => {
         }}
       />
       <div className="mt-5 inline-flex flex-row gap-1">
-        <Button variant="light" onClick={handleEditConfirm}>
-          Confirm
+        <Button
+          className="text-white bg-blue-800 dark:text-black dark:bg-yellow-200"
+          onClick={handleEditSubmit}>
+          Update
         </Button>
-        <Button className="hover:bg-red-800" onClick={handleEditCancel}>
+        <Button variant="ghost" color="danger" onClick={handleEditCancel}>
           Cancel
         </Button>
       </div>
