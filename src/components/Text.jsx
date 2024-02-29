@@ -1,4 +1,4 @@
-const Text = ({ h1, h2, h3, h4, h5, className, children }) => {
+const Text = ({ h1, h2, h3, h4, h5, className, children, ...rest }) => {
   const sizes = [h1, h2, h3, h4, h5];
   const styles = [
     'text-5xl md:text-6xl',
@@ -10,7 +10,11 @@ const Text = ({ h1, h2, h3, h4, h5, className, children }) => {
   const textClassName =
     sizes.map((size, index) => (size ? styles[index] : null)).find(Boolean) || '';
 
-  return <p className={`${textClassName} ${className}`}>{children}</p>;
+  return (
+    <p className={`${textClassName} ${className}`} {...rest}>
+      {children}
+    </p>
+  );
 };
 
 export default Text;
