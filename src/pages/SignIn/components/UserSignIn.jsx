@@ -2,6 +2,7 @@ import { signInWithEmailAndPassword } from 'firebase/auth';
 import React, { useState } from 'react';
 import { auth } from '../../../utils/firebase';
 import { Input, Button } from '@nextui-org/react';
+import Google from '../../../assets/google.svg';
 
 const UserSignIn = () => {
   const [email, setEmail] = useState('');
@@ -21,6 +22,7 @@ const UserSignIn = () => {
 
   return (
     <div className="sign-in-container">
+      <img src={Google} alt="" style={{ width: '100px', height: '100px' }} />
       <form id="myForm" onSubmit={signIn}>
         <div className="flex w-[400px] mx-auto flex-col flex-wrap mb-6 md:mb-0 gap-4">
           <Input
@@ -40,7 +42,7 @@ const UserSignIn = () => {
             onChange={(e) => setPassword(e.target.value)}
           />
           <Button type="submit" color="primary">
-            Log In
+            Continue With Email
           </Button>
         </div>
       </form>
