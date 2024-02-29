@@ -1,6 +1,6 @@
 import { Card, Skeleton } from '@nextui-org/react';
 
-const CardLoading = () => {
+const LoadingCard = () => {
   return (
     <Card className="space-y-5 p-4 max-w-[55rem] mx-auto" radius="lg">
       <Skeleton className="rounded-lg">
@@ -21,4 +21,4 @@ const CardLoading = () => {
   );
 };
 
-export default CardLoading;
+export default LoadingCard;
