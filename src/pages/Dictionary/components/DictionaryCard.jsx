@@ -20,7 +20,7 @@ const DictionaryCard = ({ entry, terms }) => {
       <div className="text-left">
         <div className="flex place-content-between py-2 md:pb-3">
           <p
-            className="font-lora text-4xl md:text-5xl text-blue-800 dark:text-yellow-200 cursor-pointer inline"
+            className="font-lora text-4xl md:text-5xl text-blue-800 dark:text-yellow-200 cursor-pointer inline break-all"
             onClick={() => handleTermClick(terms[entry.termid])}>
             {terms[entry.termid]}
           </p>
