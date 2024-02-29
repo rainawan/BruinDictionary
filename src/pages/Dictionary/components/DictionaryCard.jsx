@@ -5,6 +5,7 @@ import useCurrentUserData from '../../../utils/useCurrentUserData';
 import MoreDropdown from './MoreDropdown';
 import EditMode from './EditMode';
 import DisplayMode from './DisplayMode';
+import Text from '../../../components/Text';
 
 const DictionaryCard = ({ entry, terms }) => {
   const navigate = useNavigate();
@@ -19,11 +20,12 @@ const DictionaryCard = ({ entry, terms }) => {
     <Card className=" dark:bg-slate-600 p-6 md:p-8">
       <div className="text-left">
         <div className="flex place-content-between py-2 md:pb-3">
-          <p
-            className="font-lora text-4xl md:text-5xl text-blue-800 dark:text-yellow-200 cursor-pointer inline break-all"
+          <Text
+            h2
+            className="font-lora text-blue-800 dark:text-yellow-200 cursor-pointer inline break-all"
             onClick={() => handleTermClick(terms[entry.termid])}>
             {terms[entry.termid]}
-          </p>
+          </Text>
           {editEntryid !== entry.id && (
             <MoreDropdown entryid={entry.id} setEditEntryid={setEditEntryid} />
           )}

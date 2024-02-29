@@ -24,7 +24,7 @@ const EditMode = ({ entry, setEditEntryid }) => {
           newDefinition.current = value;
         }}
       />
-      <p className="mt-3 mb-1 text-md md:text-lg font-medium">Example</p>
+      <p className="mt-3 mb-1 md:text-lg font-medium">Example</p>
       <Textarea
         minRows={1}
         maxRows={4}
