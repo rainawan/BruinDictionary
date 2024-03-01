@@ -1,8 +1,8 @@
 import { signInWithEmailAndPassword } from 'firebase/auth';
 import React, { useState } from 'react';
-import { auth } from '../utils/firebase';
+import { auth } from '../../../utils/firebase';
 
-const SignIn = () => {
+const UserSignIn = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const signIn = (e) => {
@@ -38,4 +38,4 @@ const SignIn = () => {
   );
 };
 
-export default SignIn;
+export default UserSignIn;
