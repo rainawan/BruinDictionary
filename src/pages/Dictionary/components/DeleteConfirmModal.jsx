@@ -22,13 +22,12 @@ const DeleteConfirmModal = ({ entryid, isOpen, onOpenChange }) => {
     onSettled: () => {
       // FIXME: I could not refetch the data after deletion..
       // so i am just refreshing the page by navigating to the same page....
-      // queryClient.invalidateQueries(['Entries']);
+      queryClient.invalidateQueries(['Entries']);
       navigate(0);
     }
   });
 
   const handleDelete = () => {
-    // console.log(queryClient.getQueryData(['Entries', {}]).docs);
     mutation.mutate();
   };
 
