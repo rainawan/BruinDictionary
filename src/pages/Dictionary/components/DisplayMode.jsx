@@ -22,13 +22,13 @@ const DisplayMode = ({ entry }) => {
           className={`hover:text-green-500 ${feedback.like ? 'bg-green-500 text-white' : ''}`}
           onClick={() => handleClick('like')}>
           <LikeFilled className="text-lg" />
-          <p className="text-white">{entry.likes}</p>
+          <p className="text-black dark:text-white">{entry.likes}</p>
         </Button>
         <Button
           className={`hover:text-red-500 ${feedback.dislike ? 'bg-red-500 text-white' : ''}`}
           onClick={() => handleClick('dislike')}>
           <DislikeFilled className="text-lg" />
-          <p className="text-white">{entry.dislikes}</p>
+          <p className="text-black dark:text-white">{entry.dislikes}</p>
         </Button>
       </div>
     </>
