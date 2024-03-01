@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Card } from '@nextui-org/react';
+import {} from '../../../utils/firebaseOperations.js';
 import useCurrentUserData from '../../../utils/useCurrentUserData';
 import MoreDropdown from './MoreDropdown';
 import EditMode from './EditMode';

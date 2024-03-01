@@ -5,8 +5,6 @@ import getEntriesQuery from '../../utils/getEntriesQuery';
 import getTermsQuery from '../../utils/getTermsQuery';
 import LoadingCard from './components/LoadingCard';
 import DictionaryCard from './components/DictionaryCard';
-import CardLoading from './components/CardLoading';
-import { DictionaryCard } from './components/DictionaryCard.jsx';
 
 const Dictionary = () => {
   const [searchParams] = useSearchParams();
