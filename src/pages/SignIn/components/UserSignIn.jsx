@@ -23,8 +23,22 @@ const UserSignIn = () => {
     <div className="sign-in-container">
       <form id="myForm" onSubmit={signIn}>
         <div className="flex w-[400px] mx-auto flex-col flex-wrap mb-6 md:mb-0 gap-4">
-          <Input size="md" type="email" variant={'bordered'} label="Email" ref={email} />
-          <Input size="md" type="password" variant={'bordered'} label="Password" ref={password} />
+          <Input
+            size="md"
+            type="email"
+            variant={'bordered'}
+            label="Email"
+            isRequired={true}
+            ref={email}
+          />
+          <Input
+            size="md"
+            type="password"
+            variant={'bordered'}
+            label="Password"
+            isRequired={true}
+            ref={password}
+          />
           <Button type="submit" color="primary">
             Continue With Email
           </Button>
