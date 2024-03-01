@@ -11,6 +11,7 @@ export default {
     extend: {},
     fontFamily: {
       lora: ['Lora', 'serif'],
+      inter: ['Inter', 'serif'],
     }
   },
   plugins: [],
