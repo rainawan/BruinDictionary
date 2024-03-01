@@ -20,8 +20,8 @@ function App() {
           <Route path="/add" element={<Add />} />
           <Route path="/user" element={<User />} />
           <Route path="/user/create" element={<Create />} />
+          <Route path="*" element={<div>404: Error</div>} />
         </Route>
-        <Route path="*" element={<div>404: Error</div>} />
       </Routes>
       <>
         {/* This will be an admin only section once we add authorization */}

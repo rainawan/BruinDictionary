@@ -3,7 +3,8 @@ import { unpackEntriesQuery, unpackTermsQuery } from '../../utils/unpackQuery';
 import { getTermsEntriesStatus } from '../../utils/getTermsEntriesStatus';
 import getEntriesQuery from '../../utils/getEntriesQuery';
 import getTermsQuery from '../../utils/getTermsQuery';
-import CardLoading from './components/CardLoading';
+import LoadingCard from './components/LoadingCard';
+import DictionaryCard from './components/DictionaryCard';
 
 const Dictionary = () => {
   const [searchParams] = useSearchParams();
@@ -22,23 +23,16 @@ const Dictionary = () => {
   const status = getTermsEntriesStatus(termsStatus, entriesStatus);
 
   if (status === 'loading') {
-    return <CardLoading />;
+    return <LoadingCard />;
   } else if (status === 'error') {
     return <div>error occurred</div>;
   } else if (Object.keys(terms)?.length === 0 || entries?.length === 0) {
     return <div>not found</div>;
   } else if (status === 'success') {
     return (
-      <div className="Terms">
+      <div className="inline-flex flex-col gap-4 max-w-[55rem] pt-2 px-4 w-full">
         {entries.map((entry, index) => (
-          <div key={index}>
-            <h2>{terms[entry.termid]}</h2>
-            <h3>Definition</h3>
-            <p>{entry.definition}</p>
-            <h3>Example</h3>
-            <p>{entry.example}</p>
-            <br />
-          </div>
+          <DictionaryCard key={index} entry={entry} terms={terms} />
         ))}
       </div>
     );
