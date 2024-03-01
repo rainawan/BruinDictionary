@@ -107,7 +107,7 @@ const Add = () => {
             />
             <Input
               className="my-5"
-              placeholder="type a list of comma-seperated tags..."
+              placeholder="Type a list of comma-seperated tags..."
               onChange={handleTagInputChange}
             />
             <Button disabled={mutation.isLoading} color="primary" onClick={handleSubmit}>
