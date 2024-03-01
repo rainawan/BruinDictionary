@@ -1,12 +1,35 @@
 import { Modal, ModalContent, ModalBody, ModalFooter, Button } from '@nextui-org/react';
+import { collection, doc } from 'firebase/firestore';
+import { useFirestoreDocumentDeletion } from '@react-query-firebase/firestore';
+import { toast } from 'sonner';
+import { db } from '../../../utils/firebase';
 import { useNavigate } from 'react-router-dom';
 
 const DeleteConfirmModal = ({ entryid, isOpen, onOpenChange }) => {
   const navigate = useNavigate();
+  const colRef = collection(db, 'Entries');
+  const docRef = doc(colRef, entryid);
+  const mutation = useFirestoreDocumentDeletion(docRef, {
+    onSuccess: () => {
+      toast.success('Deleted successfully!');
+    },
+    onError: () => {
+      toast.error('Error occured. Please try again.');
+    },
+    onMutate: () => {
+      toast('Deleting...');
+    },
+    onSettled: () => {
+      // FIXME: I could not refetch the data after deletion..
+      // so i am just refreshing the page by navigating to the same page....
+      // queryClient.invalidateQueries(['Entries']);
+      navigate(0);
+    }
+  });
 
   const handleDelete = () => {
-    // TODO: delete entry
-    navigate('/');
+    // console.log(queryClient.getQueryData(['Entries', {}]).docs);
+    mutation.mutate();
   };
 
   return (
@@ -26,8 +49,8 @@ const DeleteConfirmModal = ({ entryid, isOpen, onOpenChange }) => {
                 color="danger"
                 variant="light"
                 onPress={() => {
-                  onClose();
                   handleDelete();
+                  onClose();
                 }}>
                 Yes
               </Button>
