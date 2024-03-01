@@ -6,16 +6,14 @@ import {
   useDisclosure
 } from '@nextui-org/react';
 import { MoreOutlined } from '@ant-design/icons';
-import { useNavigate } from 'react-router-dom';
 import DeleteConfirmModal from './DeleteConfirmModal';
 
-const MoreDropdown = ({ entryid }) => {
-  const navigate = useNavigate();
+const MoreDropdown = ({ entryid, setEditEntryid }) => {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
 
   const handleMenuClick = (e) => {
     if (e === 'edit') {
-      navigate(`/edit/${entryid}`);
+      setEditEntryid(entryid);
     }
     if (e === 'delete') {
       onOpen(); // open modal
