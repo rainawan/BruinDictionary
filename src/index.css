@@ -23,13 +23,6 @@
   scrollbar-width: thin;
 }
 
-.lora-700 {
-  font-family: 'Lora', serif;
-  font-optical-sizing: auto;
-  font-weight: 700;
-  font-style: normal;
-}
-
 a {
   font-weight: 500;
   text-decoration: inherit;

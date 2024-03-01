@@ -15,6 +15,100 @@ section {
   padding: 0.5rem 0.5rem 2rem 0.5rem;
 }
 
+.read-the-docs {
+  color: #888;
+}
+
+.home-header {
+  font-size: 3rem;
+  font-weight: 800;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+  color: rgb(154, 225, 255);
+}
+
+.home-description {
+  margin-bottom: 1rem;
+  padding-right: 8rem;
+  padding-left: 8rem;
+  font-size: 1.2rem;
+  font-weight: 500;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+  color: rgb(254, 254, 204);
+}
+
+.home-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.75rem 1.25rem;
+  font-size: 1rem;
+  font-weight: 500;
+  text-align: center;
+  color: rgb(0, 0, 0);
+  background-color: rgb(254, 254, 204);
+  border-radius: 0.375rem;
+  text-decoration: none;
+  transition:
+    background-color 0.3s ease,
+    box-shadow 0.3s ease,
+    color 0.3s ease;
+}
+
+a.home-button:hover,
+a.home-button:focus {
+  background-color: rgb(154, 225, 255);
+  /* box-shadow: 0 0 0 3px rgb(154, 225, 255); */
+  outline: none;
+}
+
+a.home-button svg {
+  width: 0.875rem;
+  height: 0.875rem;
+  margin-left: 0.5rem;
+  transform: rotate(0deg);
+  transition: transform 0.3s ease;
+}
+
+@media only screen and (max-width: 600px) {
+  p.home-description {
+    font-size: 1.4rem;
+    padding-right: 1rem;
+    padding-left: 1rem;
+  }
+}
+
+@media (min-width: 768px) {
+  h1.home-header {
+    font-size: 3.5rem;
+  }
+  p.home-description {
+    font-size: 1.4rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  h1.home-header {
+    font-size: 4rem;
+  }
+  p.home-description {
+    font-size: 1.5rem;
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  h1.home-header {
+    color: rgb(154, 225, 255);
+  }
+  h1.home-description {
+    color: rgb(254, 254, 204);
+  }
+  a.home-button {
+    background-color: rgb(254, 254, 204);
+  }
+}
+
 .add-entry {
   padding: 20px 0;
 }
