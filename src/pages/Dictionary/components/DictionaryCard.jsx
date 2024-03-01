@@ -1,60 +1,46 @@
-import { updateLikes, updateDislikes } from '../../../utils/firebaseOperations';
-import { LikesDislikesButton } from './LikesDislikesButton.jsx';
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { Card } from '@nextui-org/react';
+import useCurrentUserData from '../../../utils/useCurrentUserData';
+import MoreDropdown from './MoreDropdown';
+import EditMode from './EditMode';
+import DisplayMode from './DisplayMode';
+import Text from '../../../components/Text';
 
-export const DictionaryCard = ({ entry, terms }) => {
-  // Create a state to hold updated likes
-  const [likes, setLikes] = useState(entry.likes);
-  const [dislikes, setDislikes] = useState(entry.dislikes);
+const DictionaryCard = ({ entry, terms }) => {
+  const navigate = useNavigate();
+  const { userData } = useCurrentUserData();
+  const [editEntryid, setEditEntryid] = useState(undefined);
 
-  // Function to handle like button click
-  const handleLikeState = (entryID) => {
-    // Increment the like count for the entry
-    setLikes((prevLikes) => ({
-      ...prevLikes,
-      [entryID]: (prevLikes[entryID] || 0) + 1
-    }));
+  const handleTermClick = (termname) => {
+    navigate(`/?term=${termname.toLowerCase()}`);
   };
 
-  const handleDislikeState = (entryID) => {
-    // Increment the dislike count for the entry
-    setDislikes((prevDislikes) => ({
-      ...prevDislikes,
-      [entryID]: (prevDislikes[entryID] || 0) + 1
-    }));
-  };
-
-  const handleLike = async (entryID) => {
-    // Call a function to update the likes count in Firebase
-    await updateLikes(entryID);
-  };
-
-  const handleDislike = async (entryID) => {
-    // Call a function to update the dislikes count in Firebase
-    await updateDislikes(entryID);
-  };
-
-  const handleLikeButton = (entryID) => {
-    handleLike(entryID);
-    handleLikeState(entryID);
-  };
-
-  const handleDislikeButton = (entryID) => {
-    handleDislike(entryID);
-    handleDislikeState(entryID);
-  };
   return (
-    <div>
-      <h2>{terms[entry.termid]}</h2>
-      <h3>Definition</h3>
-      <p>{entry.definition}</p>
-      <h3>Example</h3>
-      <p>{entry.example}</p>
-      <button onClick={() => handleLikeButton(entry.id)}>Like</button>
-      <button onClick={() => handleDislikeButton(entry.id)}>Dislike</button>
-      <span>{(likes || 0) - (dislikes || 0)}</span>
-      {/* <LikesDislikesButton likes={likes} dislikes={dislikes} /> */}
-      <br />
-    </div>
+    <Card className=" dark:bg-slate-600 p-6 md:p-8">
+      <div className="text-left">
+        <div className="flex place-content-between py-2 md:pb-3">
+          <Text
+            h2
+            className="font-lora text-blue-800 dark:text-yellow-200 cursor-pointer inline break-all"
+            onClick={() => handleTermClick(terms[entry.termid])}>
+            {terms[entry.termid]}
+          </Text>
+          {editEntryid !== entry.id && (
+            <MoreDropdown entryid={entry.id} setEditEntryid={setEditEntryid} />
+          )}
+          {/* {userData === entry.userid && editEntryid !== entry.id && (
+            <MoreDropdown entryid={entry.id} />
+          )} */}
+        </div>
+        {editEntryid === entry.id ? (
+          <EditMode entry={entry} setEditEntryid={setEditEntryid} />
+        ) : (
+          <DisplayMode entry={entry} />
+        )}
+      </div>
+    </Card>
   );
 };
+
+export default DictionaryCard;
