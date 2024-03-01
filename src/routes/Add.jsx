@@ -48,7 +48,7 @@ const Add = () => {
 
   const handleTagInputChange = (e) => {
     const tags = e.target.value.split(',').map((tag) => tag.trim());
-    setExampleInput(tags);
+    setTagInput(tags);
   };
 
   const handleSubmit = () => {
