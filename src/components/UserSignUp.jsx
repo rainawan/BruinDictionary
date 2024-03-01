@@ -5,7 +5,7 @@ import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth';
 const UserSignUp = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [passError, setPassError] = useState('');
+  const [errorMessage, setErrorMessage] = useState('');
 
   const auth = getAuth();
   const navigate = useNavigate();
@@ -19,9 +19,12 @@ const UserSignUp = () => {
       })
       .catch((error) => {
         console.log(error);
-        setPassError('Password should be six characters or more');
+        console.log(error.code);
+        const message = error.code.replace('-', ' ').replace('auth/', '');
+        setErrorMessage(message);
       });
   };
+
   return (
     <div className="sign-up-container">
       <form onSubmit={handleSignUp}>
@@ -38,7 +41,7 @@ const UserSignUp = () => {
           onChange={(e) => setPassword(e.target.value)}></input>
         <button type="submit">Sign Up</button>
       </form>
-      <p>{passError}</p>
+      <p>{errorMessage}</p>
     </div>
   );
 };
