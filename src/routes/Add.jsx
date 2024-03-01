@@ -87,7 +87,12 @@ const Add = () => {
               <Select
                 label="Select a term"
                 className="max-w-xs"
-                onChange={handleTermSelectionChange}>
+                onChange={handleTermSelectionChange}
+                popoverProps={{
+                  classNames: {
+                    content: 'dark:dark'
+                  }
+                }}>
                 {Object.keys(terms).map((key, index) => (
                   <SelectItem key={key} value={terms[key]}>
                     {terms[key]}
