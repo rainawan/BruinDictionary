@@ -12,7 +12,7 @@ const SortDropdown = () => {
 
   return (
     <Select
-      className="max-w-[10rem] right-0"
+      className="max-w-[10rem] right-0 self-end"
       popoverProps={{
         classNames: {
           content: 'dark:dark'
@@ -22,9 +22,9 @@ const SortDropdown = () => {
       size="sm"
       selectionMode="single"
       onSelectionChange={handleSelectionChange}
-      selectedKeys={order !== '' && order ? [order] : []}>
+      selectedKeys={!order ? ['likes'] : ['creationDate']}>
       <SelectItem key="likes">Likes</SelectItem>
-      <SelectItem key="creationDate">Creation Date</SelectItem>
+      <SelectItem key="creationDate">Most Recent</SelectItem>
     </Select>
   );
 };

@@ -1,14 +1,14 @@
 import { signOut } from 'firebase/auth';
-import { auth } from '../utils/firebase';
 import { Button } from '@nextui-org/react';
+import { auth } from '../../../utils/firebase';
 
 const SignOutButton = () => {
-  const userSignOut = () => {
+  const handleSignOut = () => {
     signOut(auth);
   };
 
   return (
-    <Button color="primary" size="sm" onClick={userSignOut}>
+    <Button color="primary" size="sm" onClick={handleSignOut}>
       Sign Out
     </Button>
   );

@@ -25,11 +25,16 @@ const Navbar = () => {
             <NavbarContent justify="end">
               <NavbarItem>
                 <Link to="/add">
-                  <Avatar color="primary" icon={<PlusOutlined className="text-base" />} size="sm" />
+                  <Avatar
+                    size="sm"
+                    color="primary"
+                    icon={<PlusOutlined className="text-base" />}
+                    className="hover:scale-110 transition-transform"
+                  />
                 </Link>
               </NavbarItem>
               <NavbarItem>
-                <Link to="/login">
+                <Link to="/user">
                   <ProfileAvatar />
                 </Link>
               </NavbarItem>

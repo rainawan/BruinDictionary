@@ -6,10 +6,24 @@ const ProfileAvatar = () => {
   const { userData } = useCurrentUserData();
 
   if (!userData) {
-    return <Avatar as="button" icon={<UserOutlined className="text-base" />} size="sm" />;
+    return (
+      <Avatar
+        as="button"
+        size="sm"
+        className="dark:bg-gray-500 hover:scale-110 transition-transform"
+        icon={<UserOutlined className="text-base" />}
+      />
+    );
   }
-
-  return <Avatar as="button" name={userData.username} size="sm" color="warning" />;
+  return (
+    <Avatar
+      as="button"
+      name={userData.username}
+      size="sm"
+      color="warning"
+      className="hover:scale-110 transition-transform"
+    />
+  );
 };
 
 export default ProfileAvatar;
