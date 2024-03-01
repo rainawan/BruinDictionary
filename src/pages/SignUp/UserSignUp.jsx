@@ -29,6 +29,7 @@ const UserSignUp = () => {
             <Input
               ref={email}
               isRequired={true}
+              variant="bordered"
               label="Email"
               type="email"
               placeholder="Enter Your Email"
@@ -36,6 +37,7 @@ const UserSignUp = () => {
             <Input
               ref={password}
               isRequired={true}
+              variant="bordered"
               label="Password"
               type="password"
               placeholder="Enter Your Password"
