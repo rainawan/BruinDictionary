@@ -1,5 +1,5 @@
 import { signInWithEmailAndPassword } from 'firebase/auth';
-import React, { useState, useRef } from 'react';
+import React, { useRef } from 'react';
 import { auth } from '../../../utils/firebase';
 import { Input, Button } from '@nextui-org/react';
 
@@ -11,8 +11,6 @@ const UserSignIn = () => {
     signInWithEmailAndPassword(auth, email.current.value, password.current.value)
       .then((userCredential) => {
         console.log(userCredential);
-        email.current.value = '';
-        password.current.value = '';
       })
       .catch((error) => {
         console.log(error);
@@ -26,7 +24,7 @@ const UserSignIn = () => {
           <Input
             size="md"
             type="email"
-            variant={'bordered'}
+            variant="bordered"
             label="Email"
             isRequired={true}
             ref={email}
@@ -34,7 +32,7 @@ const UserSignIn = () => {
           <Input
             size="md"
             type="password"
-            variant={'bordered'}
+            variant="bordered"
             label="Password"
             isRequired={true}
             ref={password}

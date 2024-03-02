@@ -10,7 +10,7 @@ const GoogleSignInButton = () => {
   };
   return (
     <Button className="p-5" color="default" size="sm" onClick={userSignIn}>
-      <img src={Google} alt="" style={{ width: '20px', height: '20px' }} />
+      <img src={Google} alt="google logo" style={{ width: '20px', height: '20px' }} />
       Continue With Google
     </Button>
   );
