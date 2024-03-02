@@ -3,16 +3,15 @@ import { useFirestoreInfiniteQuery } from '@react-query-firebase/firestore';
 import { db } from './firebase';
 
 // CURRENTLY ORDERING WITH termid OR userid ONLY WORKS FOR 'likes' AND 'creationDate'
-const getInfiniteEntriesQuery = ({ termid, userid, order, count } = {}) => {
+const getInfiniteEntriesQuery = (count, { termid, userid, order } = {}) => {
   const ref = query(
     collection(db, 'Entries'),
     ...(termid ? [where('termid', '==', termid)] : []),
     ...(userid ? [where('userid', '==', userid)] : []),
     ...(order ? [orderBy(order, 'desc')] : []),
-    ...(count ? [limit(count + 1)] : [])
-    // Request one extra document to check if there's a next page
+    limit(count)
   );
-  const queryKey = ['Entries', { termid, userid, order, count }];
+  const queryKey = ['Entries', { termid, userid, order, COUNT: count }];
 
   const entriesQuery = useFirestoreInfiniteQuery(queryKey, ref, (snapshot) => {
     const lastDoc = snapshot.docs[snapshot.docs.length - 1];
