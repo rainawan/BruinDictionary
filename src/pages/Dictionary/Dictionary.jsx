@@ -1,6 +1,5 @@
 import { useSearchParams } from 'react-router-dom';
-import { Button } from '@nextui-org/react';
-import { LoadingOutlined } from '@ant-design/icons';
+import { Button, Spinner } from '@nextui-org/react';
 import { unpackInfiniteEntriesQuery, unpackTermsQuery } from '../../utils/unpackQuery';
 import { getTermsEntriesStatus } from '../../utils/getTermsEntriesStatus';
 import getInfiniteEntriesQuery from '../../utils/getInfiniteEntriesQuery';
@@ -37,15 +36,8 @@ const Dictionary = () => {
           <DictionaryCard key={index} entry={entry} terms={terms} />
         ))}
         {entriesQuery.hasNextPage && (
-          <Button disabled={entriesQuery.isFetching} onClick={entriesQuery.fetchNextPage}>
-            {entriesQuery.isFetching ? (
-              <p>
-                <LoadingOutlined />
-                Loading...
-              </p>
-            ) : (
-              <p>Load More</p>
-            )}
+          <Button disabled={!entriesQuery.isFetched} onClick={entriesQuery.fetchNextPage}>
+            {entriesQuery.isFetching ? <Spinner size="sm" /> : <p>Load More</p>}
           </Button>
         )}
       </div>
