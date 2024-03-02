@@ -1,3 +1,4 @@
+import { useCallback, useRef } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { unpackEntriesQuery, unpackTermsQuery } from '../../utils/unpackQuery';
 import { getTermsEntriesStatus } from '../../utils/getTermsEntriesStatus';
@@ -22,6 +23,17 @@ const Dictionary = () => {
 
   const status = getTermsEntriesStatus(termsStatus, entriesStatus);
 
+  // const intObserver = useRef();
+  // const lastPostRef = useCallback((post) => {
+  //   if (status === 'loading') return;
+  //   if (intObserver.current) intObserver.current.disconnect();
+  //   intObserver.current = new IntersectionObserver((entries) => {
+  //     if (entries[0].isIntersecting) {
+  //       console.log('intersecting');
+  //     }
+  //   });
+  // });
+
   if (status === 'loading') {
     return <LoadingCard />;
   } else if (status === 'error') {
@@ -34,6 +46,7 @@ const Dictionary = () => {
         {entries.map((entry, index) => (
           <DictionaryCard key={index} entry={entry} terms={terms} />
         ))}
+        <button onClick={entriesQuery.fetchNextPage}>aa</button>
       </div>
     );
   } else {
