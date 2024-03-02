@@ -1,8 +1,8 @@
-import { useCallback, useRef } from 'react';
 import { useSearchParams } from 'react-router-dom';
-import { unpackEntriesQuery, unpackTermsQuery } from '../../utils/unpackQuery';
+import { Button } from '@nextui-org/react';
+import { unpackInfiniteEntriesQuery, unpackTermsQuery } from '../../utils/unpackQuery';
 import { getTermsEntriesStatus } from '../../utils/getTermsEntriesStatus';
-import getEntriesQuery from '../../utils/getEntriesQuery';
+import getInfiniteEntriesQuery from '../../utils/getInfiniteEntriesQuery';
 import getTermsQuery from '../../utils/getTermsQuery';
 import LoadingCard from './components/LoadingCard';
 import DictionaryCard from './components/DictionaryCard';
@@ -17,22 +17,11 @@ const Dictionary = () => {
   const { status: termsStatus, data: terms } = unpackTermsQuery(termsQuery);
   const termid = searchTerm && terms ? Object.keys(terms)[0] : undefined;
 
-  const entriesQuery = getEntriesQuery({ termid, ...search });
-  const { status: entriesStatus, data: entries } = unpackEntriesQuery(entriesQuery);
+  const entriesQuery = getInfiniteEntriesQuery({ termid, count: 10, ...search });
+  const { status: entriesStatus, data: entries } = unpackInfiniteEntriesQuery(entriesQuery);
   console.log('entries: ', entries, '\nterms: ', terms);
 
   const status = getTermsEntriesStatus(termsStatus, entriesStatus);
-
-  // const intObserver = useRef();
-  // const lastPostRef = useCallback((post) => {
-  //   if (status === 'loading') return;
-  //   if (intObserver.current) intObserver.current.disconnect();
-  //   intObserver.current = new IntersectionObserver((entries) => {
-  //     if (entries[0].isIntersecting) {
-  //       console.log('intersecting');
-  //     }
-  //   });
-  // });
 
   if (status === 'loading') {
     return <LoadingCard />;
@@ -46,7 +35,9 @@ const Dictionary = () => {
         {entries.map((entry, index) => (
           <DictionaryCard key={index} entry={entry} terms={terms} />
         ))}
-        <button onClick={entriesQuery.fetchNextPage}>aa</button>
+        <Button disabled={!entriesQuery.hasNextPage} onClick={entriesQuery.fetchNextPage}>
+          Load More
+        </Button>
       </div>
     );
   } else {
