@@ -10,7 +10,7 @@ const useDeleteEntry = (entryid) => {
   const docRef = doc(colRef, entryid);
 
   return useFirestoreDocumentDeletion(docRef, {
-    onSuccess: async () => {
+    onSuccess: () => {
       toast.success('Deleted successfully!');
       navigate(0);
     },
