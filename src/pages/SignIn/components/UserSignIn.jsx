@@ -2,12 +2,15 @@ import { signInWithEmailAndPassword } from 'firebase/auth';
 import React, { useState } from 'react';
 import { auth } from '../../../utils/firebase';
 import { Input, Button } from '@nextui-org/react';
+import { EyeFilled, EyeInvisibleFilled } from '@ant-design/icons';
 
 const UserSignIn = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
   const [isInvalid, setIsInvalid] = useState(false);
+  const [isVisible, setIsVisible] = React.useState(false);
+  const toggleVisibility = () => setIsVisible(!isVisible);
 
   const signIn = (e) => {
     e.preventDefault();
@@ -26,12 +29,6 @@ const UserSignIn = () => {
       });
   };
 
-  const validateEmail = (email) => email.match(/^[A-Z0-9._%+-]+@[A-Z0-9.-]+.[A-Z]{2,4}$/i);
-  // const isInvalid = React.useMemo(() => {
-  //   if (email === '') return false;
-  //   return validateEmail(email) ? false : true;
-  // }, [email]);
-
   return (
     <div className="sign-in-container">
       <form id="myForm" onSubmit={signIn}>
@@ -41,20 +38,34 @@ const UserSignIn = () => {
             type="email"
             label="Email"
             value={email}
-            variant={'bordered'}
+            variant="bordered"
             isInvalid={isInvalid}
             color={isInvalid ? 'danger' : 'default'}
             onChange={(e) => setEmail(e.target.value)}
           />
           <Input
             size="md"
-            type="password"
-            variant={'bordered'}
+            // type="password"
+            variant="bordered"
             label="Password"
             value={password}
             isInvalid={isInvalid}
             color={isInvalid ? 'danger' : 'default'}
             onChange={(e) => setPassword(e.target.value)}
+            endContent={
+              <Button
+                className="focus:outline-none bg-transparent pt-4 pl-40"
+                type="button"
+                disableRipple="true"
+                onClick={toggleVisibility}>
+                {isVisible ? (
+                  <EyeInvisibleFilled className="text-2xl text-default-400 pointer-events-none" />
+                ) : (
+                  <EyeFilled className="text-2xl text-default-400 pointer-events-none" />
+                )}
+              </Button>
+            }
+            type={isVisible ? 'text' : 'password'}
           />
           <p className="text-left text-[#f31260]">
             {errorMessage === 'invalid credential' && <p>Please enter valid credentials.</p>}
