@@ -1,8 +1,22 @@
 import { Modal, ModalContent, ModalBody, ModalFooter, Button } from '@nextui-org/react';
+import { useNavigate } from 'react-router-dom';
+import { toast } from 'sonner';
 import useDeleteEntry from '../../../utils/useDeleteEntry';
 
 const DeleteConfirmModal = ({ entryid, isOpen, onOpenChange }) => {
-  const deletion = useDeleteEntry(entryid);
+  const navigate = useNavigate();
+  const deletion = useDeleteEntry(entryid, {
+    onSuccess: () => {
+      toast.success('Deleted successfully!');
+      navigate(0);
+    },
+    onError: () => {
+      toast.error('Error occured. Please try again.');
+    },
+    onMutate: () => {
+      toast('Deleting...');
+    }
+  });
 
   const handleDelete = () => {
     deletion.mutate();
