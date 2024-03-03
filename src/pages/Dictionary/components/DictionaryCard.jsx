@@ -17,12 +17,12 @@ const DictionaryCard = ({ entry, terms }) => {
   };
 
   return (
-    <Card className=" dark:bg-slate-600 p-6 md:p-8">
+    <Card className="dark:bg-slate-600 p-6 md:p-8">
       <div className="text-left">
         <div className="flex place-content-between py-2 md:pb-3">
           <Text
             h2
-            className="font-lora text-blue-800 dark:text-yellow-200 cursor-pointer inline break-all"
+            className="font-bold text-blue-800 dark:text-yellow-200 cursor-pointer inline break-all"
             onClick={() => handleTermClick(terms[entry.termid])}>
             {terms[entry.termid]}
           </Text>
