@@ -29,6 +29,10 @@ const UserSignIn = () => {
       });
   };
 
+  const handleInputClick = () => {
+    setIsInvalid(false);
+  };
+
   return (
     <div className="sign-in-container">
       <form id="myForm" onSubmit={signIn}>
@@ -42,20 +46,22 @@ const UserSignIn = () => {
             isInvalid={isInvalid}
             color={isInvalid ? 'danger' : 'default'}
             onChange={(e) => setEmail(e.target.value)}
+            onClick={handleInputClick}
           />
           <Input
             size="md"
-            // type="password"
             variant="bordered"
             label="Password"
             value={password}
             isInvalid={isInvalid}
             color={isInvalid ? 'danger' : 'default'}
             onChange={(e) => setPassword(e.target.value)}
+            onClick={handleInputClick}
             endContent={
               <Button
-                className="focus:outline-none bg-transparent pt-4 pl-40"
+                className="focus:outline-none bg-transparent pt-2"
                 type="button"
+                size="sm"
                 disableRipple="true"
                 onClick={toggleVisibility}>
                 {isVisible ? (
