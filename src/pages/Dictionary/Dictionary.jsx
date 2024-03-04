@@ -7,6 +7,8 @@ import getTermsQuery from '../../utils/getTermsQuery';
 import LoadingCard from './components/LoadingCard';
 import DictionaryCard from './components/DictionaryCard';
 
+const QUERY_LIMIT = 10;
+
 const Dictionary = () => {
   const [searchParams] = useSearchParams();
   const searchEntries = Object.fromEntries(searchParams.entries());
@@ -17,7 +19,7 @@ const Dictionary = () => {
   const { status: termsStatus, data: terms } = unpackTermsQuery(termsQuery);
   const termid = searchTerm && terms ? Object.keys(terms)[0] : undefined;
 
-  const entriesQuery = getInfiniteEntriesQuery(10, { ...search, termid });
+  const entriesQuery = getInfiniteEntriesQuery(QUERY_LIMIT, { ...search, termid });
   const { status: entriesStatus, data: entries } = unpackInfiniteEntriesQuery(entriesQuery);
   console.log('entries: ', entries, '\nterms: ', terms);
 
@@ -35,7 +37,7 @@ const Dictionary = () => {
         {entries.map((entry, index) => (
           <DictionaryCard key={index} entry={entry} terms={terms} />
         ))}
-        {entriesQuery.hasNextPage && (
+        {entriesQuery.hasNextPage && entries.length % QUERY_LIMIT === 0 && (
           <Button disabled={!entriesQuery.isFetched} onClick={entriesQuery.fetchNextPage}>
             {entriesQuery.isFetching ? <Spinner size="sm" /> : <p>Load More</p>}
           </Button>
