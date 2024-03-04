@@ -1,17 +1,16 @@
 import { signInWithEmailAndPassword } from 'firebase/auth';
-import React, { useState } from 'react';
+import React, { useRef } from 'react';
 import { auth } from '../../../utils/firebase';
+import { Input, Button } from '@nextui-org/react';
 
 const UserSignIn = () => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const email = useRef();
+  const password = useRef();
   const signIn = (e) => {
     e.preventDefault();
-    signInWithEmailAndPassword(auth, email, password)
+    signInWithEmailAndPassword(auth, email.current.value, password.current.value)
       .then((userCredential) => {
         console.log(userCredential);
-        setEmail('');
-        setPassword('');
       })
       .catch((error) => {
         console.log(error);
@@ -20,19 +19,28 @@ const UserSignIn = () => {
 
   return (
     <div className="sign-in-container">
-      <h1>Sign In</h1>
       <form id="myForm" onSubmit={signIn}>
-        <input
-          type="email"
-          placeholder="Enter your Email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}></input>
-        <input
-          type="password"
-          placeholder="Enter Your Password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}></input>
-        <button type="submit">Log In</button>
+        <div className="flex w-[400px] mx-auto flex-col flex-wrap mb-6 md:mb-0 gap-4">
+          <Input
+            size="md"
+            type="email"
+            variant="bordered"
+            label="Email"
+            isRequired={true}
+            ref={email}
+          />
+          <Input
+            size="md"
+            type="password"
+            variant="bordered"
+            label="Password"
+            isRequired={true}
+            ref={password}
+          />
+          <Button type="submit" color="primary">
+            Continue With Email
+          </Button>
+        </div>
       </form>
     </div>
   );

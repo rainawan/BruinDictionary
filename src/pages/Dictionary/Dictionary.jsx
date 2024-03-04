@@ -6,6 +6,7 @@ import getInfiniteEntriesQuery from '../../utils/getInfiniteEntriesQuery';
 import getTermsQuery from '../../utils/getTermsQuery';
 import LoadingCard from './components/LoadingCard';
 import DictionaryCard from './components/DictionaryCard';
+import SortDropdown from './components/SortDropdown';
 
 const QUERY_LIMIT = 10;
 
@@ -34,6 +35,7 @@ const Dictionary = () => {
   } else if (status === 'success') {
     return (
       <div className="inline-flex flex-col gap-4 max-w-[55rem] pt-2 px-4 w-full">
+        <SortDropdown />
         {entries.map((entry, index) => (
           <DictionaryCard key={index} entry={entry} terms={terms} />
         ))}
