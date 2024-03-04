@@ -21,7 +21,6 @@ const UserSignUp = () => {
         console.log(error);
         console.log(error.code);
         console.log(error.code);
-        console.log(error.code);
         const message = error.code.replace('-', ' ').replace('auth/', '');
         setErrorMessage(message);
       });
