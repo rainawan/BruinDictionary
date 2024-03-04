@@ -3,7 +3,7 @@ import { useFirestoreQuery, useFirestoreInfiniteQuery } from '@react-query-fireb
 import { db } from './firebase';
 
 // CURRENTLY ORDERING WITH termid OR userid ONLY WORKS FOR 'likes' AND 'creationDate'
-const getEntriesQuery = ({ termid, userid, order, count, infinite } = {}) => {
+const getEntriesQuery = ({ termid, userid, order = 'likes', count, infinite } = {}) => {
   const ref = query(
     collection(db, 'Entries'),
     ...(termid ? [where('termid', '==', termid)] : []),
