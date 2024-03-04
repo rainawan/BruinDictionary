@@ -6,7 +6,9 @@ const SortDropdown = () => {
   const order = searchParams.get('order');
 
   const handleSelectionChange = (key) => {
-    searchParams.set('order', Object.values(key)[0]);
+    const orderKey = Object.values(key)[0];
+    if (!orderKey) return;
+    searchParams.set('order', orderKey);
     setSearchParams(searchParams);
   };
 
@@ -22,6 +24,7 @@ const SortDropdown = () => {
       size="sm"
       selectionMode="single"
       onSelectionChange={handleSelectionChange}
+      defaultSelectedKeys={['likes']}
       selectedKeys={order && order === 'creationDate' ? ['creationDate'] : ['likes']}>
       <SelectItem key="likes">Likes</SelectItem>
       <SelectItem key="creationDate">Most Recent</SelectItem>
