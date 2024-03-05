@@ -8,7 +8,7 @@ import { Link } from 'react-router-dom';
 const SignIn = () => {
   return (
     <section className="Login">
-      <Text h1 className="font-semibold p-5">
+      <Text h1 className="font-semibold p-5 pt-10">
         Log In
       </Text>
       <div className="flex w-[400px] mx-auto flex-col flex-wrap mb-6 md:mb-0 mt-6 md:mt-2 gap-4">

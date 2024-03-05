@@ -23,8 +23,8 @@ const UserSignUp = () => {
   };
   return (
     <section className="max-w-[60rem]">
-      <div className="flex flex-col items-center gap-4">
-        <Text h1 className="font-semibold p-5">
+      <div className="flex w-[400px] mx-auto flex-col flex-wrap mb-6 md:mb-0 gap-4 pt-10">
+        <Text h2 className="font-semibold p-5">
           Create Account
         </Text>
         <div className="flex w-[400px] mx-auto flex-col flex-wrap mb-6 md:mb-0 gap-4">
