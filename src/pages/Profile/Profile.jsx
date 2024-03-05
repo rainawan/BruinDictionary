@@ -7,10 +7,14 @@ const Profile = () => {
 
   return (
     <section className="Login">
-      <h1>Profile Page</h1>
-      <ProfileAvatar />
-      <p>Name: {userData?.username ?? 'None'}</p>
-      <p>Email: {userData?.email ?? 'None'}</p>
+      <div className="mx-auto text-white text-center place-content-center flex items-stretch flex-col">
+        <div className="mx-auto w-full p-2 place-content-center flex">
+          <ProfileAvatar className="self-center " />
+        </div>
+        <p>Name: {userData?.username ?? 'None'}</p>
+        <p>Email: {userData?.email ?? 'None'}</p>
+        <p>Date Joined: {userData?.date ?? 'None'}</p>
+      </div>
       <SignOutButton />
     </section>
   );
