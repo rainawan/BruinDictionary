@@ -49,6 +49,8 @@ const UserSignUp = () => {
                 type="email"
                 placeholder="Enter Your Email"
                 errorMessage={emailError}
+                isInvalid={emailError !== ''}
+                onValueChange={() => setEmailError('')}
               />
               <Input
                 isRequired
@@ -58,6 +60,8 @@ const UserSignUp = () => {
                 type="password"
                 placeholder="Enter Your Password"
                 errorMessage={passwordError}
+                isInvalid={passwordError !== ''}
+                onValueChange={() => setPasswordError('')}
               />
             </div>
             <Button color="primary" type="submit" name="submit">
