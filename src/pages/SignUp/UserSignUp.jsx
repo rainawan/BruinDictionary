@@ -16,6 +16,7 @@ const UserSignUp = () => {
   const handleSignUp = () => {
     setEmailError('');
     setPasswordError('');
+
     createUserWithEmailAndPassword(auth, email.current.value, password.current.value)
       .then((userCredential) => {
         console.log(userCredential);
