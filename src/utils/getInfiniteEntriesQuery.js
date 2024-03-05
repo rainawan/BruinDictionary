@@ -11,7 +11,7 @@ const getInfiniteEntriesQuery = (count, { termid, userid, order }) => {
     ...(order ? [orderBy(order, 'desc')] : []),
     limit(count)
   );
-  const queryKey = ['Entries', { termid, userid, order, COUNT: count }];
+  const queryKey = ['Entries', { termid, userid, order, count }];
 
   const entriesQuery = useFirestoreInfiniteQuery(queryKey, ref, (snapshot) => {
     const lastDoc = snapshot.docs[snapshot.docs.length - 1];
