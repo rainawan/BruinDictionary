@@ -10,8 +10,7 @@ const UserSignUp = () => {
   const auth = getAuth();
   const navigate = useNavigate();
 
-  const [errorMessage, setErrorMessage] = useState('');
-  console.log(errorMessage);
+  const [message, setMessage] = useState('');
 
   const handleSignUp = () => {
     createUserWithEmailAndPassword(auth, email.current.value, password.current.value)
@@ -20,8 +19,10 @@ const UserSignUp = () => {
         navigate('/');
       })
       .catch((error) => {
-        setErrorMessage(error.code.replace('-', ' ').replace('auth/', ''));
         console.log(error);
+        const initialMessage = error.code.replaceAll('-', ' ').replace('auth/', '');
+        const errorMessage = initialMessage.charAt(0).toUpperCase() + initialMessage.slice(1) + '.';
+        setMessage(errorMessage);
       });
   };
   return (
@@ -37,7 +38,7 @@ const UserSignUp = () => {
               label="Email"
               type="email"
               placeholder="Enter Your Email"
-              errorMessage={errorMessage}
+              errorMessage={message}
             />
             <Input
               ref={password}
