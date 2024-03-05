@@ -12,7 +12,7 @@ const SignIn = () => {
       <div className="flex w-[400px] mx-auto flex-col flex-wrap mb-6 md:mb-0 mt-6 md:mt-2 gap-4">
         <GoogleSignInButton />
         <UserSignIn />
-        <Link to="/user/create" className="font-bold text-lg text-primary hover:text-gray-300">
+        <Link to="/user/create" className="font-bold text-md text-primary hover:text-gray-300">
           Create Account
         </Link>
       </div>

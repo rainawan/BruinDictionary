@@ -1,15 +1,17 @@
-import { Navigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import useCurrentUserData from '../utils/useCurrentUserData';
-import UserSignUp from '../pages/SignUp/UserSignUp.jsx';
+import UserSignUp from '../pages/SignUp';
 
 const Create = () => {
+  const navigate = useNavigate();
   const { userData } = useCurrentUserData();
 
   if (userData) {
-    return <Navigate to="/user" />;
-  } else {
-    return <UserSignUp />;
+    navigate('/user');
+    return;
   }
+
+  return <UserSignUp />;
 };
 
 export default Create;
