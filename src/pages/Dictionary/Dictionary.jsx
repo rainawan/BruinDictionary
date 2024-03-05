@@ -1,10 +1,14 @@
 import { useSearchParams } from 'react-router-dom';
-import { unpackEntriesQuery, unpackTermsQuery } from '../../utils/unpackQuery';
+import { Button, Spinner } from '@nextui-org/react';
+import { unpackInfiniteEntriesQuery, unpackTermsQuery } from '../../utils/unpackQuery';
 import { getTermsEntriesStatus } from '../../utils/getTermsEntriesStatus';
-import getEntriesQuery from '../../utils/getEntriesQuery';
+import getInfiniteEntriesQuery from '../../utils/getInfiniteEntriesQuery';
 import getTermsQuery from '../../utils/getTermsQuery';
 import LoadingCard from './components/LoadingCard';
 import DictionaryCard from './components/DictionaryCard';
+import SortDropdown from './components/SortDropdown';
+
+const QUERY_LIMIT = 10;
 
 const Dictionary = () => {
   const [searchParams] = useSearchParams();
@@ -16,8 +20,8 @@ const Dictionary = () => {
   const { status: termsStatus, data: terms } = unpackTermsQuery(termsQuery);
   const termid = searchTerm && terms ? Object.keys(terms)[0] : undefined;
 
-  const entriesQuery = getEntriesQuery({ termid, ...search });
-  const { status: entriesStatus, data: entries } = unpackEntriesQuery(entriesQuery);
+  const entriesQuery = getInfiniteEntriesQuery(QUERY_LIMIT, { ...search, termid });
+  const { status: entriesStatus, data: entries } = unpackInfiniteEntriesQuery(entriesQuery);
   console.log('entries: ', entries, '\nterms: ', terms);
 
   const status = getTermsEntriesStatus(termsStatus, entriesStatus);
@@ -31,9 +35,15 @@ const Dictionary = () => {
   } else if (status === 'success') {
     return (
       <div className="inline-flex flex-col gap-4 max-w-[55rem] pt-2 px-4 w-full">
+        <SortDropdown />
         {entries.map((entry, index) => (
           <DictionaryCard key={index} entry={entry} terms={terms} />
         ))}
+        {entriesQuery.hasNextPage && entries.length % QUERY_LIMIT === 0 && (
+          <Button disabled={!entriesQuery.isFetched} onClick={entriesQuery.fetchNextPage}>
+            {entriesQuery.isFetching ? <Spinner size="sm" /> : <p>Load More</p>}
+          </Button>
+        )}
       </div>
     );
   } else {
