@@ -14,7 +14,7 @@ Bruin Dictionary is a crowdsourced online dictionary for UCLA students and alumn
 
 # Our Team
 Anthony Williams - Class of 2025, Computer Science 
-Khanh Nguyen - Class of 2025, Computer Science
+Khanh Nguyen - Class of 2025, Computer Science and Linguistics
 Raina Wan - Class of 2025, Computer Science and Linguistics
 Soyeon Kim - Class of 2025, Computer Science and Linguistics
 Tiana Ly - Class of 2025, Computer Science and Linguistics
