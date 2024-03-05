@@ -22,32 +22,32 @@ const UserSignUp = () => {
   };
   return (
     <section className="max-w-[60rem]">
-      <Card className="sign-up-container p-6 my-3">
-        <div className="flex flex-col items-center gap-4">
-          <div className="text-xl">Create Account</div>
-          <div className="flex w-full flex-col md:flex-row gap-4">
-            <Input
-              ref={email}
-              isRequired={true}
-              variant="bordered"
-              label="Email"
-              type="email"
-              placeholder="Enter Your Email"
-            />
-            <Input
-              ref={password}
-              isRequired={true}
-              variant="bordered"
-              label="Password"
-              type="password"
-              placeholder="Enter Your Password"
-            />
-          </div>
-          <Button color="primary" onClick={handleSignUp}>
-            Sign Up
-          </Button>
+      <div className="flex flex-col items-center gap-4">
+        <div className="text-xl">Create Account</div>
+        <div className="flex w-[400px] mx-auto flex-col flex-wrap mb-6 md:mb-0 gap-4">
+          <Input
+            label="Email"
+            size="md"
+            variant="bordered"
+            isRequired={true}
+            ref={email}
+            type="email"
+            placeholder="Enter Your Email"
+          />
+          <Input
+            label="Password"
+            size="md"
+            variant="bordered"
+            isRequired={true}
+            ref={password}
+            type="password"
+            placeholder="Enter Your Password"
+          />
         </div>
-      </Card>
+        <Button color="primary" onClick={handleSignUp}>
+          Sign Up
+        </Button>
+      </div>
     </section>
   );
 };
