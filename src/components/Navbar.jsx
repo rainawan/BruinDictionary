@@ -10,15 +10,18 @@ const Navbar = () => {
       <Nav className="bg-gray-700 pb-2" position="static" height="fit" shouldHideOnScroll>
         <div className="flex-col w-full">
           <NavbarContent className="py-3">
-            <NavbarBrand>
+            <NavbarBrand className="max-w-[12rem]">
               <Link to="/" className="font-bold text-lg text-white hover:text-gray-300">
                 BRUIN DICTIONARY
               </Link>
             </NavbarBrand>
-            <NavbarContent className="hidden sm:flex gap-4" justify="center">
-              <NavbarItem>
-                <Link to="/" className="text-white hover:text-gray-300">
-                  HOME
+            <NavbarContent className="hidden sm:flex" justify="start">
+              <NavbarItem className="flex gap-3">
+                <Link to="/" className="text-white hover:text-gray-300 text-sm">
+                  Categories
+                </Link>
+                <Link to="/" className="text-white hover:text-gray-300 text-sm">
+                  HOF
                 </Link>
               </NavbarItem>
             </NavbarContent>
