@@ -29,7 +29,7 @@ const UserSignUp = () => {
             <div className="text-xl">Create Account</div>
             <div className="flex w-full flex-col md:flex-row gap-4">
               <Input
-                isRequired={true}
+                isRequired
                 variant="bordered"
                 name="email"
                 type="email"
@@ -37,7 +37,7 @@ const UserSignUp = () => {
                 placeholder="Enter Your Email"
               />
               <Input
-                isRequired={true}
+                isRequired
                 variant="bordered"
                 name="password"
                 type="password"
