@@ -1,7 +1,7 @@
 import { useRef } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth';
-import { Button, Card, Input } from '@nextui-org/react';
+import { Button, Input } from '@nextui-org/react';
 import Text from '../../components/Text';
 
 const UserSignUp = () => {
@@ -50,6 +50,15 @@ const UserSignUp = () => {
         <Button color="primary" onClick={handleSignUp}>
           Sign Up
         </Button>
+        <p>
+          {' '}
+          Already have an account?{' '}
+          <Link
+            to="/user"
+            className="font-bold text-lg text-gray-300 hover:text-primary hover:underline">
+            Log In
+          </Link>
+        </p>
       </div>
     </section>
   );

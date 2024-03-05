@@ -1,7 +1,6 @@
 import UserSignIn from './components/UserSignIn';
 import GoogleSignInButton from './components/GoogleSignInButton';
 import FacebookSignInButton from './components/FacebookSignInButton';
-// import UserSignUp from '../../components/UserSignUp';
 import Text from '../../components/Text';
 import { Link } from 'react-router-dom';
 
@@ -15,9 +14,14 @@ const SignIn = () => {
         <GoogleSignInButton />
         <FacebookSignInButton />
         <UserSignIn />
-        <Link to="/user/create" className="font-bold text-lg text-primary hover:text-gray-300">
-          Create Account
-        </Link>
+        <p>
+          Don&apos;t have an account yet?&nbsp;
+          <Link
+            to="/user/create"
+            className="font-bold text-lg text-gray-300 hover:text-primary hover:underline">
+            Sign Up
+          </Link>
+        </p>
       </div>
     </section>
   );
