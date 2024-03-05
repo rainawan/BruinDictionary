@@ -1,24 +1,23 @@
 import { signInWithEmailAndPassword } from 'firebase/auth';
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { auth } from '../../../utils/firebase';
 import { Input, Button } from '@nextui-org/react';
 import { EyeFilled, EyeInvisibleFilled } from '@ant-design/icons';
 
 const UserSignIn = () => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const email = useRef();
+  const password = useRef();
   const [errorMessage, setErrorMessage] = useState('');
   const [isInvalid, setIsInvalid] = useState(false);
   const [isVisible, setIsVisible] = React.useState(false);
+
   const toggleVisibility = () => setIsVisible(!isVisible);
 
   const signIn = (e) => {
     e.preventDefault();
-    signInWithEmailAndPassword(auth, email, password)
+    signInWithEmailAndPassword(auth, email.current.value, password.current.value)
       .then((userCredential) => {
         console.log(userCredential);
-        setEmail('');
-        setPassword('');
       })
       .catch((error) => {
         console.log(error.code);
@@ -38,24 +37,23 @@ const UserSignIn = () => {
       <form id="myForm" onSubmit={signIn}>
         <div className="flex w-[400px] mx-auto flex-col flex-wrap mb-6 md:mb-0 gap-4">
           <Input
-            size="md"
-            type="email"
             label="Email"
-            value={email}
+            size="md"
             variant="bordered"
+            isRequired={true}
+            ref={email}
             isInvalid={isInvalid}
             color={isInvalid ? 'danger' : 'default'}
-            onChange={(e) => setEmail(e.target.value)}
             onClick={handleInputClick}
           />
           <Input
+            label="Password"
             size="md"
             variant="bordered"
-            label="Password"
-            value={password}
+            isRequired={true}
+            ref={password}
             isInvalid={isInvalid}
             color={isInvalid ? 'danger' : 'default'}
-            onChange={(e) => setPassword(e.target.value)}
             onClick={handleInputClick}
             endContent={
               <Button
