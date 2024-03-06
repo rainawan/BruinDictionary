@@ -20,9 +20,17 @@ const UserSignIn = () => {
       })
       .catch((error) => {
         console.log(error.code);
-        const message = error.code.replace('-', ' ').replace('auth/', '');
+        const message = error.code.replaceAll('-', ' ').replace('auth/', '');
         console.log('message', message);
-        setErrorMessage(message);
+        if (message === 'invalid credential') {
+          setErrorMessage('Please enter valid credentials.');
+        } else if (message === 'invalid email') {
+          setErrorMessage('Please enter a valid email.');
+        } else if (message === 'too many requests') {
+          setErrorMessage('Too many attempts. Try again later.');
+        } else {
+          setErrorMessage(message);
+        }
       });
   };
 
@@ -64,9 +72,10 @@ const UserSignIn = () => {
             }
             type={isVisible ? 'text' : 'password'}
           />
-          <p className="text-left text-[#f31260]">
-            {errorMessage === 'invalid credential' && <p>Please enter valid credentials.</p>}
-          </p>
+          {/* <p className="text-left text-[#f31260]">
+            {errorMessage && <p>Please enter valid credentials.</p>}
+          </p> */}
+          <p className="text-left text-[#f31260]">{errorMessage}</p>
           <Button type="submit" color="primary">
             Continue With Email
           </Button>
