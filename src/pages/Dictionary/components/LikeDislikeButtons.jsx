@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react';
+import { useState } from 'react';
 import { Button } from '@nextui-org/react';
 import { LikeFilled, DislikeFilled } from '@ant-design/icons';
 
