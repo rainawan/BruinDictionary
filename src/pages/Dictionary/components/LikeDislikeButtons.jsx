@@ -3,7 +3,7 @@ import { Button } from '@nextui-org/react';
 import { LikeFilled, DislikeFilled } from '@ant-design/icons';
 
 const LikeDislikeButtons = ({ entry }) => {
-  // action can be either 'like' or 'dislike'
+  // action can be either 'like' or 'dislike', null means no previous action
   const [action, setAction] = useState(null);
 
   const handleAction = (newAction) => {
@@ -15,6 +15,7 @@ const LikeDislikeButtons = ({ entry }) => {
         } else if (action === 'dislike') {
           // switched dislike to like -> inc like, dec dislike
         } else {
+          // when action === null
           // no previous action -> inc like
         }
         break;
@@ -24,6 +25,7 @@ const LikeDislikeButtons = ({ entry }) => {
         } else if (action === 'like') {
           // switched like to dislike -> inc dislike, dec like
         } else {
+          // when action === null
           // no previous action -> inc dislike
         }
         break;
