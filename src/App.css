@@ -15,6 +15,11 @@ section {
   padding: 0.5rem 0.5rem 5rem 0.5rem;
 }
 
+.ring-error {
+  --tw-ring-color: #f31260 !important;
+  --tw-ring-opacity: 1 !important;
+}
+
 .read-the-docs {
   color: #888;
 }
