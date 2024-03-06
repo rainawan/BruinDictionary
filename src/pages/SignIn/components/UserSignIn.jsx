@@ -8,10 +8,9 @@ const UserSignIn = () => {
   const email = useRef();
   const password = useRef();
   const [errorMessage, setErrorMessage] = useState('');
-  const [isInvalid, setIsInvalid] = useState(false);
   const [isVisible, setIsVisible] = React.useState(false);
 
-  const toggleVisibility = () => setIsVisible(!isVisible);
+  const toggleVisibility = () => setIsVisible((isVisible) => !isVisible);
 
   const signIn = (e) => {
     e.preventDefault();
@@ -24,12 +23,11 @@ const UserSignIn = () => {
         const message = error.code.replace('-', ' ').replace('auth/', '');
         console.log('message', message);
         setErrorMessage(message);
-        setIsInvalid(true);
       });
   };
 
   const handleInputClick = () => {
-    setIsInvalid(false);
+    setErrorMessage('');
   };
 
   return (
@@ -42,9 +40,9 @@ const UserSignIn = () => {
             variant="bordered"
             isRequired={true}
             ref={email}
-            isInvalid={isInvalid}
-            color={isInvalid ? 'danger' : 'default'}
             onClick={handleInputClick}
+            isInvalid={errorMessage.length > 0}
+            color={errorMessage.length ? 'danger' : 'default'} // text color of "email"
           />
           <Input
             label="Password"
@@ -52,8 +50,8 @@ const UserSignIn = () => {
             variant="bordered"
             isRequired={true}
             ref={password}
-            isInvalid={isInvalid}
-            color={isInvalid ? 'danger' : 'default'}
+            isInvalid={errorMessage.length > 0}
+            color={errorMessage.length ? 'danger' : 'default'}
             onClick={handleInputClick}
             endContent={
               <div className="m-auto mr-1 cursor-pointer" onClick={toggleVisibility}>
