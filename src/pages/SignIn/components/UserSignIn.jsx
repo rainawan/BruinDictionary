@@ -56,18 +56,13 @@ const UserSignIn = () => {
             color={isInvalid ? 'danger' : 'default'}
             onClick={handleInputClick}
             endContent={
-              <Button
-                className="focus:outline-none bg-transparent pt-2"
-                type="button"
-                size="sm"
-                disableRipple="true"
-                onClick={toggleVisibility}>
+              <div className="m-auto mr-1 cursor-pointer" onClick={toggleVisibility}>
                 {isVisible ? (
                   <EyeInvisibleFilled className="text-2xl text-default-400 pointer-events-none" />
                 ) : (
                   <EyeFilled className="text-2xl text-default-400 pointer-events-none" />
                 )}
-              </Button>
+              </div>
             }
             type={isVisible ? 'text' : 'password'}
           />
