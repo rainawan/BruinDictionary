@@ -2,27 +2,30 @@ import { useState } from 'react';
 import { Button } from '@nextui-org/react';
 import { LikeFilled, DislikeFilled } from '@ant-design/icons';
 
+const LIKE = true;
+const DISLIKE = false;
+
 const LikeDislikeButtons = ({ entry }) => {
-  // action can be either 'like' or 'dislike', null means no previous action
+  // action can be either LIKE or DISLIKE, null means no previous action
   const [action, setAction] = useState(null);
 
   const handleAction = (newAction) => {
     // TODO: update firebase with new action
     switch (newAction) {
-      case 'like':
-        if (action === 'like') {
+      case LIKE:
+        if (action === LIKE) {
           // unclicked like -> dec like
-        } else if (action === 'dislike') {
+        } else if (action === DISLIKE) {
           // switched dislike to like -> inc like, dec dislike
         } else {
           // when action === null
           // no previous action -> inc like
         }
         break;
-      case 'dislike':
-        if (action === 'dislike') {
+      case DISLIKE:
+        if (action === DISLIKE) {
           // unclicked dislike -> dec dislike
-        } else if (action === 'like') {
+        } else if (action === LIKE) {
           // switched like to dislike -> inc dislike, dec like
         } else {
           // when action === null
@@ -39,19 +42,19 @@ const LikeDislikeButtons = ({ entry }) => {
   return (
     <div className="inline-flex flex-row gap-1">
       <Button
-        className={`hover:text-green-500 ${action === 'like' ? 'bg-green-500 text-white' : ''}`}
-        onClick={() => handleAction('like')}>
+        className={`hover:text-green-500 ${action === LIKE ? 'bg-green-500 text-white' : ''}`}
+        onClick={() => handleAction(LIKE)}>
         <LikeFilled className="text-lg" />
         <p className="text-black dark:text-white">
-          {action === 'like' ? entry.likes + 1 : entry.likes}
+          {action === LIKE ? entry.likes + 1 : entry.likes}
         </p>
       </Button>
       <Button
-        className={`hover:text-red-500 ${action === 'dislike' ? 'bg-red-500 text-white' : ''}`}
-        onClick={() => handleAction('dislike')}>
+        className={`hover:text-red-500 ${action === DISLIKE ? 'bg-red-500 text-white' : ''}`}
+        onClick={() => handleAction(DISLIKE)}>
         <DislikeFilled className="text-lg" />
         <p className="text-black dark:text-white">
-          {action === 'dislike' ? entry.dislikes + 1 : entry.dislikes}
+          {action === DISLIKE ? entry.dislikes + 1 : entry.dislikes}
         </p>
       </Button>
     </div>
