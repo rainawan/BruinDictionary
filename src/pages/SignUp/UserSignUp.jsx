@@ -35,8 +35,8 @@ const UserSignUp = () => {
       });
   };
   return (
-    <section>
-      <Card className="p-6 my-3 max-w-[55rem]">
+    <section className="max-w-[55rem]">
+      <Card className="p-6 my-3">
         <form id="signup-form" onSubmit={handleSignUp}>
           <div className="flex flex-col items-center gap-4">
             <div className="text-xl">Create Account</div>
@@ -49,7 +49,8 @@ const UserSignUp = () => {
                 type="email"
                 placeholder="Enter Your Email"
                 errorMessage={emailError}
-                isInvalid={emailError.length}
+                isInvalid={emailError !== ''}
+                onValueChange={() => setEmailError('')}
               />
               <Input
                 isRequired
@@ -59,7 +60,8 @@ const UserSignUp = () => {
                 type="password"
                 placeholder="Enter Your Password"
                 errorMessage={passwordError}
-                isInvalid={passwordError.length}
+                isInvalid={passwordError !== ''}
+                onValueChange={() => setPasswordError('')}
               />
             </div>
             <Button color="primary" type="submit" name="submit">
