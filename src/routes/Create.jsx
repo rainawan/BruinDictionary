@@ -1,6 +1,6 @@
 import { Navigate } from 'react-router-dom';
 import useCurrentUserData from '../utils/useCurrentUserData';
-import UserSignUp from '../pages/SignUp/UserSignUp.jsx';
+import UserSignUp from '../pages/SignUp';
 
 const Create = () => {
   const { userData } = useCurrentUserData();
