@@ -8,6 +8,29 @@ const LikeDislikeButtons = ({ entry }) => {
 
   const handleAction = (newAction) => {
     // TODO: update firebase with new action
+    switch (newAction) {
+      case 'like':
+        if (action === 'like') {
+          // unclicked like -> dec like
+        } else if (action === 'dislike') {
+          // switched dislike to like -> inc like, dec dislike
+        } else {
+          // no previous action -> inc like
+        }
+        break;
+      case 'dislike':
+        if (action === 'dislike') {
+          // unclicked dislike -> dec dislike
+        } else if (action === 'like') {
+          // switched like to dislike -> inc dislike, dec like
+        } else {
+          // no previous action -> inc dislike
+        }
+        break;
+      default:
+        break;
+    }
+
     setAction((prevAction) => (prevAction === newAction ? null : newAction));
   };
 
