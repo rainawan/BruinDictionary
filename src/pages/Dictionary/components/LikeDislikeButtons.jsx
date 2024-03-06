@@ -7,6 +7,7 @@ const LikeDislikeButtons = ({ entry }) => {
   const [action, setAction] = useState(null);
 
   const handleAction = (newAction) => {
+    // TODO: update firebase with new action
     setAction((prevAction) => (prevAction === newAction ? null : newAction));
   };
 
