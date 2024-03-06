@@ -23,7 +23,7 @@ const SortDropdown = () => {
       selectionMode="single"
       onSelectionChange={handleSelectionChange}
       selectedKeys={order && order === 'creationDate' ? ['creationDate'] : ['likes']}>
-      <SelectItem key="likes">Likes</SelectItem>
+      <SelectItem key="likes">Most Liked</SelectItem>
       <SelectItem key="creationDate">Most Recent</SelectItem>
     </Select>
   );

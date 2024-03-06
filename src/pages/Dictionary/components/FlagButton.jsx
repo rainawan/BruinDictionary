@@ -14,12 +14,13 @@ const FlagButton = ({ entryid }) => {
       navigate('/user');
       return;
     }
-    // TODO: Add to list
+    // TODO: Add to list in User collection
     setIsFlagged((prev) => !prev);
   };
+
   return (
     <Button className="min-w-0 transition-all" variant="light" radius="full" onClick={handleClick}>
-      <div className="inline-flex gap-2 place-items-center">
+      <div className="flex gap-2 place-items-center">
         {isFlagged ? (
           <>
             <p className="hidden sm:block">Added</p>
