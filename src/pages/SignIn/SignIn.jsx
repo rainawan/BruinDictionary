@@ -18,7 +18,7 @@ const SignIn = () => {
           Don&apos;t have an account yet?&nbsp;
           <Link
             to="/user/create"
-            className="font-bold text-lg text-gray-300 hover:text-primary hover:underline">
+            className="font-bold text-md text-gray-300 hover:text-primary hover:underline">
             Sign Up
           </Link>
         </p>
