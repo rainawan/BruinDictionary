@@ -1,7 +1,6 @@
 import UserSignIn from './components/UserSignIn';
 import GoogleSignInButton from './components/GoogleSignInButton';
 import FacebookSignInButton from './components/FacebookSignInButton';
-// import UserSignUp from '../../components/UserSignUp';
 import Text from '../../components/Text';
 import { Link } from 'react-router-dom';
 
