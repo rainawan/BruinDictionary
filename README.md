@@ -7,9 +7,16 @@ Bruin Dictionary is a crowdsourced online dictionary for UCLA students and alumn
 
 # Features
 1. Search
++ Users can meaningfully search through server-side data for a term and its definitions
++ Users can enter a query conveniently through front-end search bar
 2. Post
++ App uploads data from the client to the back-end by collecting string input from user to post definitions
++ App displays dynamic data by updating each time users post
 3. Like/Dislike
++ Users have the option to like or dislike each post once
 4. Sort
++ Sort by recent
++ Sort by most liked
 
 # Our Team
 [Anthony Williams](https://www.linkedin.com/in/awilliamsworks/) - Class of 2025, Computer Science <br>
