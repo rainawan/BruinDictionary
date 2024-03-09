@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import { onAuthStateChanged } from 'firebase/auth';
+import { Toaster } from 'sonner';
 import { auth } from './utils/firebase';
 import useCurrentUserData from './utils/useCurrentUserData';
 import Navbar from './components/Navbar';
@@ -35,6 +36,7 @@ function App() {
           <Route path="*" element={<div>404: Error</div>} />
         </Route>
       </Routes>
+      <Toaster position="bottom-center" richColors closeButton />
     </div>
   );
 }
