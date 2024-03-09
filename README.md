@@ -6,15 +6,18 @@ CS 35L: Software Construction Winter 2024 Project <br> Professor Eggert
 Bruin Dictionary is a crowdsourced online dictionary for UCLA students and alumni, defining the many acronyms, slang words, and time-honored traditions associated with being a Bruin. Inspired by the functionality of Urban Dictionary, users can use Bruin Dictionary to search and contribute definitions.
 
 # Features
-1. Search
+**1. Search**
 + Users can meaningfully search through server-side data for a term and its definitions
-+ Users can enter a query conveniently through front-end search bar
-2. Post
++ Users can enter a query conveniently through front-end search bar <br>
+
+**2. Post**
 + App uploads data from the client to the back-end by collecting string input from user to post definitions
-+ App displays dynamic data by updating each time users post
-3. Like/Dislike
-+ Users have the option to like or dislike each post once
-4. Sort
++ App displays dynamic data by updating each time users post <br>
+
+**3. Like/Dislike**
++ Users have the option to like or dislike each post once <br>
+
+**4. Sort**
 + Sort by recent
 + Sort by most liked
 
