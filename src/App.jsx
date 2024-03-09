@@ -1,13 +1,30 @@
+import { useEffect } from 'react';
 import { Routes, Route } from 'react-router-dom';
+import { onAuthStateChanged } from 'firebase/auth';
+import { Toaster } from 'sonner';
+import { auth } from './utils/firebase';
+import useCurrentUserData from './utils/useCurrentUserData';
 import Navbar from './components/Navbar';
 import Add from './routes/Add';
 import Home from './routes/Home';
 import User from './routes/User';
-import { Toaster } from 'sonner';
+import Create from './routes/Create';
 import './App.css';
-import Create from './routes/Create.jsx';
 
 function App() {
+  const { setUserData } = useCurrentUserData();
+
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      if (user) {
+        setUserData({ username: user.displayName, email: user.email, userid: user.uid });
+      } else {
+        setUserData(undefined);
+      }
+    });
+    return () => unsubscribe();
+  }, []);
+
   return (
     <div className="App dark:dark">
       <Routes>
