@@ -35,33 +35,40 @@ const Add = () => {
   const mutation = getEntriesMutation();
 
   const handleSubmit = () => {
+    const definition = definitionTextArea.current.value.trim();
+    const example = exampleInput.current.value.trim();
+    const termSelect = termSelectBox.current.value.trim();
     const tags = tagInput.current.value.split(',').map((tag) => tag.trim());
 
-    mutation.mutate(
-      {
-        creationDate: serverTimestamp(),
-        definition: definitionTextArea.current.value,
-        example: exampleInput.current.value,
-        termid: termSelectBox.current.value,
-        userid: userData.userid,
-        likes: 0,
-        dislikes: 0,
-        tags: tags
-      },
-      {
-        onSuccess: () => {
-          toast.success('Added successfully!');
-          navigate('/');
+    if (definition === '' || example === '' || termSelect === '') {
+      toast.error('Missing required input...');
+    } else {
+      mutation.mutate(
+        {
+          creationDate: serverTimestamp(),
+          definition: definitionTextArea.current.value,
+          example: exampleInput.current.value,
+          termid: termSelectBox.current.value,
+          userid: userData.userid,
+          likes: 0,
+          dislikes: 0,
+          tags: tags
         },
-        onError: (error) => {
-          console.error('Mutation error:', error);
-          toast.error('Error occured. Please try again.');
-        },
-        onMutate: () => {
-          toast('Adding...');
+        {
+          onSuccess: () => {
+            toast.success('Added successfully!');
+            navigate('/');
+          },
+          onError: (error) => {
+            console.error('Mutation error:', error);
+            toast.error('Error occured. Please try again.');
+          },
+          onMutate: () => {
+            toast('Adding...');
+          }
         }
-      }
-    );
+      );
+    }
   };
 
   return (
@@ -75,6 +82,7 @@ const Add = () => {
           <CardBody>
             <div className="my-5">
               <Select
+                isRequired
                 label="Select a term"
                 className="max-w-xs"
                 ref={termSelectBox}
@@ -91,16 +99,21 @@ const Add = () => {
               </Select>
             </div>
             <Textarea
+              isRequired
+              label="Definition"
               className="my-5"
               placeholder="Type your definition here..."
               ref={definitionTextArea}
             />
             <Input
+              isRequired
+              label="Example"
               className="my-5"
               placeholder="Type an example of how it's used in sentence..."
               ref={exampleInput}
             />
             <Input
+              label="Tags"
               className="my-5"
               placeholder="Type a list of comma-seperated tags..."
               ref={tagInput}
