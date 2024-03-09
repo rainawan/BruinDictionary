@@ -3,6 +3,8 @@
 
 CS 35L: Software Construction Winter 2024 Project <br> Professor Eggert
 
+![Local Image](src/assets/color_logo.svg)
+
 Bruin Dictionary is a crowdsourced online dictionary for UCLA students and alumni, defining the many acronyms, slang words, and time-honored traditions associated with being a Bruin. Inspired by the functionality of Urban Dictionary, users can use Bruin Dictionary to search and contribute definitions.
 
 # Features
