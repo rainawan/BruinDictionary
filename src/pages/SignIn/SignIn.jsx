@@ -1,5 +1,6 @@
 import UserSignIn from './components/UserSignIn';
 import GoogleSignInButton from './components/GoogleSignInButton';
+import FacebookSignInButton from './components/FacebookSignInButton';
 import Text from '../../components/Text';
 import { Link } from 'react-router-dom';
 
@@ -9,8 +10,9 @@ const SignIn = () => {
       <Text h1 className="font-semibold p-5">
         Log In
       </Text>
-      <div className="flex w-[400px] mx-auto flex-col flex-wrap mb-6 md:mb-0 mt-6 md:mt-2 gap-4">
+      <div className="flex max-w-[400px] mx-auto flex-col flex-wrap mt-6 md:mt-2 gap-4">
         <GoogleSignInButton />
+        <FacebookSignInButton />
         <UserSignIn />
         <Link to="/user/create" className="font-bold text-lg text-primary hover:text-gray-300">
           Create Account
