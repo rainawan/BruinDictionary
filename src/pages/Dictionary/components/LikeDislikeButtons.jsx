@@ -10,44 +10,43 @@ const LikeDislikeButtons = ({ entry }) => {
   const [action, setAction] = useState(localStorage.getItem(entry.id));
 
   const handleAction = (newAction) => {
-    let newActionState = null;
     // TODO: update firebase with new action
     switch (newAction) {
       case LIKE:
         if (action === LIKE) {
           // unclicked like -> dec like
           localStorage.removeItem(entry.id);
-        } else if (action === DISLIKE) {
-          // switched dislike to like -> inc like, dec dislike
-          localStorage.setItem(entry.id, LIKE);
-          newActionState = LIKE;
+          setAction(null);
         } else {
-          // when action === null
-          // no previous action -> inc like
+          if (action === DISLIKE) {
+            // switched dislike to like -> inc like, dec dislike
+          } else {
+            // when action === null
+            // no previous action -> inc like
+          }
           localStorage.setItem(entry.id, LIKE);
-          newActionState = LIKE;
+          setAction(LIKE);
         }
         break;
       case DISLIKE:
         if (action === DISLIKE) {
           // unclicked dislike -> dec dislike
           localStorage.removeItem(entry.id);
-        } else if (action === LIKE) {
-          // switched like to dislike -> inc dislike, dec like
-          localStorage.setItem(entry.id, DISLIKE);
-          newActionState = DISLIKE;
+          setAction(null);
         } else {
-          // when action === null
-          // no previous action -> inc dislike
+          if (action === LIKE) {
+            // switched like to dislike -> inc dislike, dec like
+          } else {
+            // when action === null
+            // no previous action -> inc dislike
+          }
           localStorage.setItem(entry.id, DISLIKE);
-          newActionState = DISLIKE;
+          setAction(DISLIKE);
         }
         break;
       default:
         break;
     }
-
-    setAction(newActionState);
   };
 
   return (
