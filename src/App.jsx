@@ -19,7 +19,12 @@ function App() {
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       if (user) {
-        setUserData({ username: user.displayName, email: user.email, userid: user.uid });
+        setUserData({
+          username: user.displayName,
+          email: user.email,
+          userid: user.uid,
+          photo: user.photoURL
+        });
       } else {
         setUserData(undefined);
       }
