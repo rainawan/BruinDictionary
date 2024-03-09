@@ -11,9 +11,6 @@ import Create from './routes/Create';
 import './App.css';
 
 function App() {
-  const onAddEntry = async (communityId, selected) => {
-    console.log(selected);
-  };
   const { setUserData } = useCurrentUserData();
 
   useEffect(() => {

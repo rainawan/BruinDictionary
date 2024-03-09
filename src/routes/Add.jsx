@@ -24,12 +24,7 @@ const Add = () => {
   const [tagInput, setTagInput] = useState([]);
   const navigate = useNavigate();
 
-  const [searchParams] = useSearchParams();
-  const searchEntries = Object.fromEntries(searchParams.entries());
-  const { term, ...search } = searchEntries;
-  const searchTerm = term !== undefined ? term.toLowerCase() : undefined;
-
-  const termsQuery = getTermsQuery(searchTerm);
+  const termsQuery = getTermsQuery();
   const { status: termsStatus, data: terms } = unpackTermsQuery(termsQuery);
 
   const mutation = getEntriesMutation();
