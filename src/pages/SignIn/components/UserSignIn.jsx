@@ -1,79 +1,76 @@
 import { signInWithEmailAndPassword } from 'firebase/auth';
-import React, { useRef, useState } from 'react';
+import { useState } from 'react';
 import { auth } from '../../../utils/firebase';
 import { Input, Button } from '@nextui-org/react';
 import { EyeFilled, EyeInvisibleFilled } from '@ant-design/icons';
 
 const UserSignIn = () => {
-  const email = useRef();
-  const password = useRef();
   const [errorMessage, setErrorMessage] = useState('');
-  const [isInvalid, setIsInvalid] = useState(false);
-  const [isVisible, setIsVisible] = React.useState(false);
+  const [isVisible, setIsVisible] = useState(false);
 
-  const toggleVisibility = () => setIsVisible(!isVisible);
+  const toggleVisibility = () => setIsVisible((isVisible) => !isVisible);
 
   const signIn = (e) => {
     e.preventDefault();
-    signInWithEmailAndPassword(auth, email.current.value, password.current.value)
-      .then((userCredential) => {
-        console.log(userCredential);
-      })
-      .catch((error) => {
-        console.log(error.code);
-        const message = error.code.replace('-', ' ').replace('auth/', '');
-        console.log('message', message);
+    const formData = new FormData(e.target);
+    const email = formData.get('email');
+    const password = formData.get('password');
+
+    signInWithEmailAndPassword(auth, email, password).catch((error) => {
+      const message = error.code.replaceAll('-', ' ').replace('auth/', '');
+      console.log('message', message);
+      if (message === 'invalid credential') {
+        setErrorMessage('Please enter valid credentials.');
+      } else if (message === 'invalid email') {
+        setErrorMessage('Please enter a valid email.');
+      } else if (message === 'too many requests') {
+        setErrorMessage('Too many attempts. Try again later.');
+      } else {
         setErrorMessage(message);
-        setIsInvalid(true);
-      });
+      }
+    });
   };
 
   const handleInputClick = () => {
-    setIsInvalid(false);
+    setErrorMessage('');
   };
 
   return (
-    <div className="sign-in-container">
-      <form id="myForm" onSubmit={signIn}>
-        <div className="flex w-[400px] mx-auto flex-col flex-wrap mb-6 md:mb-0 gap-4">
+    <div>
+      <form id="signin-form" onSubmit={signIn}>
+        <div className="flex flex-col gap-4">
           <Input
             label="Email"
+            name="email"
+            type="email"
             size="md"
             variant="bordered"
-            isRequired={true}
-            ref={email}
-            isInvalid={isInvalid}
-            color={isInvalid ? 'danger' : 'default'}
-            onClick={handleInputClick}
+            isRequired
+            onFocus={handleInputClick}
+            isInvalid={errorMessage.length > 0}
+            color={errorMessage.length ? 'danger' : 'default'} // text color of "email"
           />
           <Input
             label="Password"
+            name="password"
             size="md"
             variant="bordered"
-            isRequired={true}
-            ref={password}
-            isInvalid={isInvalid}
-            color={isInvalid ? 'danger' : 'default'}
-            onClick={handleInputClick}
+            isRequired
+            isInvalid={errorMessage.length > 0}
+            color={errorMessage.length ? 'danger' : 'default'}
+            onFocus={handleInputClick}
+            type={isVisible ? 'text' : 'password'}
             endContent={
-              <Button
-                className="focus:outline-none bg-transparent pt-2"
-                type="button"
-                size="sm"
-                disableRipple="true"
-                onClick={toggleVisibility}>
+              <div className="m-auto mr-1 cursor-pointer" onClick={toggleVisibility}>
                 {isVisible ? (
                   <EyeInvisibleFilled className="text-2xl text-default-400 pointer-events-none" />
                 ) : (
                   <EyeFilled className="text-2xl text-default-400 pointer-events-none" />
                 )}
-              </Button>
+              </div>
             }
-            type={isVisible ? 'text' : 'password'}
           />
-          <p className="text-left text-[#f31260]">
-            {errorMessage === 'invalid credential' && <p>Please enter valid credentials.</p>}
-          </p>
+          {errorMessage ? <p className="text-left text-[#f31260]">{errorMessage}</p> : null}
           <Button type="submit" color="primary">
             Continue With Email
           </Button>

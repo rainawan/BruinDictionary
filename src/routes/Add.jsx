@@ -1,6 +1,6 @@
-import { Navigate } from 'react-router-dom';
 import useCurrentUserData from '../utils/useCurrentUserData';
 import AddPage from '../pages/Add/Add';
+import SignIn from '../pages/SignIn';
 
 const Add = () => {
   const { userData } = useCurrentUserData();
@@ -8,7 +8,7 @@ const Add = () => {
   if (userData) {
     return <AddPage />;
   }
-  return <Navigate to="/" />;
+  return <SignIn />;
 };
 
 export default Add;
