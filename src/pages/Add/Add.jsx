@@ -22,8 +22,6 @@ import useCurrentUserData from '../../utils/useCurrentUserData';
 const Add = () => {
   const { userData } = useCurrentUserData();
 
-  console.log(userData);
-
   const termSelectBox = useRef();
   const definitionTextArea = useRef();
   const exampleInput = useRef();
@@ -110,7 +108,6 @@ const Add = () => {
             <Button disabled={mutation.isLoading} color="primary" onClick={handleSubmit}>
               Submit
             </Button>
-            <div className="my-5">{mutation.isError && <p>{mutation.error.message}</p>}</div>
           </CardBody>
         </Card>
       ) : (
