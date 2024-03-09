@@ -46,9 +46,9 @@ const Add = () => {
       mutation.mutate(
         {
           creationDate: serverTimestamp(),
-          definition: definitionTextArea.current.value,
-          example: exampleInput.current.value,
-          termid: termSelectBox.current.value,
+          definition: definition,
+          example: example,
+          termid: termSelect,
           userid: userData.userid,
           likes: 0,
           dislikes: 0,
