@@ -1,15 +1,14 @@
-import { Card, CardHeader } from '@nextui-org/react';
+import { Navigate } from 'react-router-dom';
+import useCurrentUserData from '../utils/useCurrentUserData';
+import AddPage from '../pages/Add/Add';
 
 const Add = () => {
-  return (
-    <section className="max-w-[55rem]">
-      <Card className="py-4">
-        <CardHeader className="flex-col">
-          <p className="font-bold">Add</p>
-        </CardHeader>
-      </Card>
-    </section>
-  );
+  const { userData } = useCurrentUserData();
+
+  if (userData) {
+    return <AddPage />;
+  }
+  return <Navigate to="/" />;
 };
 
 export default Add;

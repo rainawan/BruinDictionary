@@ -53,7 +53,7 @@ module.exports = {
     ],
 
     // Require all imported libraries actually resolve (!!required for import/no-extraneous-dependencies to work!!)
-    'import/no-unresolved': ['error'],
+    'import/no-unresolved': ['error', { ignore: ['sonner'] }],
 
     // Cannot import from the same module twice
     'no-duplicate-imports': ['error'],
