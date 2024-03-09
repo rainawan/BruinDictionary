@@ -16,15 +16,8 @@ const Navbar = () => {
                 <img src={white_logo} alt="white logo" className="w-[5rem] ml-2" />
               </Link>
             </NavbarBrand>
-            <NavbarContent className="hidden sm:flex" justify="start">
-              <NavbarItem className="flex gap-3">
-                <Link to="/" className="text-white hover:text-gray-300 text-sm">
-                  Categories
-                </Link>
-                <Link to="/" className="text-white hover:text-gray-300 text-sm">
-                  Ranks
-                </Link>
-              </NavbarItem>
+            <NavbarContent className="hidden sm:flex" justify="center">
+              <NavbarItem className="flex gap-3">{/* extra feature pages */}</NavbarItem>
             </NavbarContent>
             <NavbarContent justify="end">
               <NavbarItem>
