@@ -11,18 +11,14 @@ import LoadingCard from '../Dictionary/components/LoadingCard';
 const Profile = () => {
   const { userData } = useCurrentUserData();
 
-  const boldText = () => {
-    return <p>hi</p>;
-  };
-
   return (
-    <section className="Login">
-      <div className="grid grid-cols-10">
+    <section className="Profile">
+      <div className="flex flex-row">
         {/* left-side div */}
-        <div className="col-span-10 sm:col-span-5 lg:col-span-3  p-5 rounded">
+        <div className="flex flex-col justify-center self-start">
           <ProfilePicture></ProfilePicture>
 
-          <div className="m-auto text-white flex items-stretch flex-col">
+          <div className="m-auto flex flex-col">
             <Text
               h3
               className="font-bold text-blue-800 dark:text-yellow-200 cursor-pointer inline break-all">
@@ -37,7 +33,7 @@ const Profile = () => {
         </div>
 
         {/* right-side div */}
-        <div className="col-span-10 sm:col-span-5 lg:col-span-7  p-5 rounded text-center">
+        <div className="text-center">
           <Posts></Posts>
         </div>
       </div>
