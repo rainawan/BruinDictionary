@@ -11,10 +11,6 @@ import LoadingCard from '../Dictionary/components/LoadingCard';
 const Profile = () => {
   const { userData } = useCurrentUserData();
 
-  const boldText = () => {
-    return <p>hi</p>;
-  };
-
   return (
     <section className="Login">
       <div className="grid grid-cols-10">
