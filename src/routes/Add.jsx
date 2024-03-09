@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useRef } from 'react';
 import {
   Card,
   CardBody,
@@ -18,10 +18,11 @@ import getTermsQuery from '../utils/getTermsQuery';
 import getEntriesMutation from '../utils/getEntriesMutation';
 
 const Add = () => {
-  const [termSelectBox, setTermSelectBox] = useState('');
-  const [definitionTextArea, setDefinitionTextArea] = useState('');
-  const [exampleInput, setExampleInput] = useState('');
-  const [tagInput, setTagInput] = useState([]);
+  const termSelectBox = useRef();
+  const definitionTextArea = useRef();
+  const exampleInput = useRef();
+  const tagInput = useRef();
+
   const navigate = useNavigate();
 
   const termsQuery = getTermsQuery();
@@ -29,33 +30,18 @@ const Add = () => {
 
   const mutation = getEntriesMutation();
 
-  const handleTermSelectionChange = (e) => {
-    setTermSelectBox(e.target.value);
-  };
-
-  const handleDefinitionTextAreaChange = (e) => {
-    setDefinitionTextArea(e.target.value);
-  };
-
-  const handleExampleInputChange = (e) => {
-    setExampleInput(e.target.value);
-  };
-
-  const handleTagInputChange = (e) => {
-    const tags = e.target.value.split(',').map((tag) => tag.trim());
-    setTagInput(tags);
-  };
-
   const handleSubmit = () => {
+    const tags = tagInput.current.value.split(',').map((tag) => tag.trim());
+
     mutation.mutate(
       {
         creationDate: serverTimestamp(),
-        definition: definitionTextArea,
-        example: exampleInput,
-        termid: termSelectBox,
+        definition: definitionTextArea.current.value,
+        example: exampleInput.current.value,
+        termid: termSelectBox.current.value,
         likes: 0,
         dislikes: 0,
-        tags: tagInput
+        tags: tags
       },
       {
         onSuccess: () => {
@@ -82,7 +68,7 @@ const Add = () => {
               <Select
                 label="Select a term"
                 className="max-w-xs"
-                onChange={handleTermSelectionChange}
+                ref={termSelectBox}
                 popoverProps={{
                   classNames: {
                     content: 'dark:dark'
@@ -98,17 +84,17 @@ const Add = () => {
             <Textarea
               className="my-5"
               placeholder="Type your definition here..."
-              onChange={handleDefinitionTextAreaChange}
+              ref={definitionTextArea}
             />
             <Input
               className="my-5"
               placeholder="Type an example of how it's used in sentence..."
-              onChange={handleExampleInputChange}
+              ref={exampleInput}
             />
             <Input
               className="my-5"
               placeholder="Type a list of comma-seperated tags..."
-              onChange={handleTagInputChange}
+              ref={tagInput}
             />
             <Button disabled={mutation.isLoading} color="primary" onClick={handleSubmit}>
               Submit
