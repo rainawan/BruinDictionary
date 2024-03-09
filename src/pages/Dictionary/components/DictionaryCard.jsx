@@ -13,7 +13,7 @@ const DictionaryCard = ({ entry, terms }) => {
   const [editEntryid, setEditEntryid] = useState(undefined);
 
   const handleTermClick = (termname) => {
-    navigate(`/?term=${termname.toLowerCase()}`);
+    navigate(`/?term=${termname}`);
   };
 
   return (
@@ -30,7 +30,7 @@ const DictionaryCard = ({ entry, terms }) => {
             <MoreDropdown entryid={entry.id} setEditEntryid={setEditEntryid} />
           )}
           {/* {userData === entry.userid && editEntryid !== entry.id && (
-            <MoreDropdown entryid={entry.id} />
+            <MoreDropdown entryid={entry.id} setEditEntryid={setEditEntryid} />
           )} */}
         </div>
         {editEntryid === entry.id ? (

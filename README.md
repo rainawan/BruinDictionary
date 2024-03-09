@@ -1,6 +1,27 @@
-# Bruin-Dictionary
-
+# Bruin Dictionary
 /bɹuːɪn dɪkʃənɛɹi/
+
+CS 35L: Software Construction Winter 2024 Project <br> Professor Eggert
+
+Bruin Dictionary is a crowdsourced online dictionary for UCLA students and alumni, defining the many acronyms, slang words, and time-honored traditions associated with being a Bruin. Inspired by the functionality of Urban Dictionary, users can use Bruin Dictionary to search and contribute definitions.
+
+# Features
+1. Search
+2. Post
+3. Like/Dislike
+4. Sort
+
+# Our Team
+[Anthony Williams](https://www.linkedin.com/in/awilliamsworks/) - Class of 2025, Computer Science <br>
+[Khanh Nguyen](https://www.linkedin.com/in/khanh-nguyen-794062230/) - Class of 2025, Computer Science and Linguistics <br>
+[Raina Wan](https://www.linkedin.com/in/raina-wan-profile/) - Class of 2025, Computer Science and Linguistics <br>
+[Soyeon Kim](https://www.linkedin.com/in/sonya-kim/) - Class of 2025, Computer Science and Linguistics <br>
+[Tiana Ly](https://www.linkedin.com/in/tianaly/) - Class of 2025, Computer Science and Linguistics <br>
+William Wong - Class of 2026, Computer Science
+
+# Run Project
+
+# Website Experience
 
 # THUMB-RULE for Dev
 
