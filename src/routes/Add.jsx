@@ -11,6 +11,7 @@ import {
   Button
 } from '@nextui-org/react';
 import { serverTimestamp } from 'firebase/firestore';
+import { toast } from 'sonner';
 import LoadingCard from '../pages/Dictionary/components/LoadingCard';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { unpackTermsQuery } from '../utils/unpackQuery';
@@ -45,11 +46,15 @@ const Add = () => {
       },
       {
         onSuccess: () => {
+          toast.success('Added successfully!');
           navigate('/');
         },
         onError: (error) => {
           console.error('Mutation error:', error);
-          // should add an alert...
+          toast.error('Error occured. Please try again.');
+        },
+        onMutate: () => {
+          toast('Adding...');
         }
       }
     );
