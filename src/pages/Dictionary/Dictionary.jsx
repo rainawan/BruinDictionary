@@ -16,9 +16,9 @@ const Dictionary = () => {
   const { term, ...search } = searchEntries;
   const searchTerm = term !== undefined ? term.toLowerCase() : undefined;
 
-  const termsQuery = getTermsQuery({ termname: searchTerm });
+  const termsQuery = getTermsQuery(searchTerm);
   const { status: termsStatus, data: terms } = unpackTermsQuery(termsQuery);
-  const termid = searchTerm && terms ? Object.keys(terms)[0] : undefined;
+  const termid = searchTerm && terms ? Object.keys(terms) : undefined;
 
   const entriesQuery = getInfiniteEntriesQuery(QUERY_LIMIT, {
     ...search,

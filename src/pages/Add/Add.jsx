@@ -17,8 +17,8 @@ import useTermsMutation from '../../utils/useTermsMutation';
 import useEntryMutation from './hooks/useEntryMutation';
 
 const Add = () => {
-  const { userData } = useCurrentUserData();
   const selectedTermId = useRef();
+  const { userData } = useCurrentUserData();
   const termMutation = useTermsMutation();
   const entryMutation = useEntryMutation();
 
@@ -53,12 +53,12 @@ const Add = () => {
         {
           onSuccess: (data) => {
             termid = data.id;
-            entryMutation(termid, userid, definition, example, tags);
+            entryMutation({ termid, userid, definition, example, tags, name });
           }
         }
       );
     } else {
-      entryMutation(termid, userid, definition, example, tags);
+      entryMutation({ termid, userid, definition, example, tags, name });
     }
   };
 

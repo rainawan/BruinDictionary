@@ -4,10 +4,9 @@ import { db } from './firebase';
 
 // CURRENTLY ORDERING WITH termid OR userid ONLY WORKS FOR 'likes' AND 'creationDate'
 const getInfiniteEntriesQuery = (count = 10, { termid, userid, order = 'likes' }) => {
-  console.log(termid);
   const ref = query(
     collection(db, 'Entries'),
-    ...(termid ? [where('termid', '==', termid)] : []),
+    ...(termid ? [where('termid', 'in', termid)] : []),
     ...(userid ? [where('userid', '==', userid)] : []),
     ...(order ? [orderBy(order, 'desc')] : []),
     limit(count)

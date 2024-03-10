@@ -7,7 +7,7 @@ const useEntryMutation = () => {
   const entryMutation = getEntriesMutation();
   const navigate = useNavigate();
 
-  const mutateEntry = (termid, userid, definition, example, tags) => {
+  const mutateEntry = ({ termid, userid, definition, example, tags, termname }) => {
     entryMutation.mutate(
       {
         termid,
@@ -25,7 +25,7 @@ const useEntryMutation = () => {
         },
         onSuccess: () => {
           toast.success('Added successfully!');
-          navigate(`/?termid=${termid}`);
+          navigate(`/?term=${termname}&userid=${userid}`);
           navigate(0);
         },
         onError: (error) => {
