@@ -42,7 +42,9 @@ const Add = () => {
       )
     ];
 
-    let termid = selectedTermId.current || Object.keys(data).find((key) => data[key] === name);
+    let termid =
+      selectedTermId.current ||
+      Object.keys(data).find((key) => data[key].toLowerCase() === name.toLowerCase());
     if (!termid) {
       // when term is a custom value, add term and then add entry
       termMutation.mutate(
