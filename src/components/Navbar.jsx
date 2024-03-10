@@ -3,6 +3,7 @@ import { Navbar as Nav, NavbarBrand, NavbarContent, NavbarItem, Avatar } from '@
 import { PlusOutlined } from '@ant-design/icons';
 import ProfileAvatar from './ProfileAvatar';
 import Searchbar from './Searchbar.jsx';
+import white_logo from '../assets/white_logo.svg';
 
 const Navbar = () => {
   return (
@@ -10,17 +11,13 @@ const Navbar = () => {
       <Nav className="bg-gray-700 pb-2" position="static" height="fit" shouldHideOnScroll>
         <div className="flex-col w-full">
           <NavbarContent className="py-3">
-            <NavbarBrand>
+            <NavbarBrand className="max-w-[7rem]">
               <Link to="/" className="font-bold text-lg text-white hover:text-gray-300">
-                BRUIN DICTIONARY
+                <img src={white_logo} alt="white logo" className="w-[5rem] ml-2" />
               </Link>
             </NavbarBrand>
-            <NavbarContent className="hidden sm:flex gap-4" justify="center">
-              <NavbarItem>
-                <Link to="/" className="text-white hover:text-gray-300">
-                  HOME
-                </Link>
-              </NavbarItem>
+            <NavbarContent className="hidden sm:flex" justify="center">
+              <NavbarItem className="flex gap-3">{/* extra feature pages */}</NavbarItem>
             </NavbarContent>
             <NavbarContent justify="end">
               <NavbarItem>

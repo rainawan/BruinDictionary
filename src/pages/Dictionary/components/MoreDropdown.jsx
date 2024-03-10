@@ -41,7 +41,9 @@ const MoreDropdown = ({ entryid, setEditEntryid }) => {
           </DropdownItem>
         </DropdownMenu>
       </Dropdown>
-      <DeleteConfirmModal entryid={entryid} isOpen={isOpen} onOpenChange={onOpenChange} />
+      {isOpen && (
+        <DeleteConfirmModal entryid={entryid} isOpen={isOpen} onOpenChange={onOpenChange} />
+      )}
     </>
   );
 };

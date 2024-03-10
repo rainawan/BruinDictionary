@@ -14,6 +14,12 @@ export const unpackEntriesQuery = (entriesQuery) => {
   );
 };
 
+export const unpackInfiniteEntriesQuery = (entriesQuery) => {
+  return unpackQuery(entriesQuery, (snapshot) =>
+    snapshot.pages.flatMap((page) => page.docs.map((doc) => ({ id: doc.id, ...doc.data() })))
+  );
+};
+
 export const unpackTermsQuery = (termsQuery) => {
   return unpackQuery(termsQuery, (snapshot) =>
     snapshot.docs.reduce((prev, doc) => {
