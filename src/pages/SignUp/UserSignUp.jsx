@@ -22,7 +22,7 @@ const UserSignUp = () => {
 
     createUserWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
-        navigate('/');
+        navigate('/User');
       })
       .catch((error) => {
         const initialMessage = error.code.replaceAll('-', ' ').replace('auth/', '');
@@ -36,13 +36,13 @@ const UserSignUp = () => {
       });
   };
   return (
-    <section className="max-w-[60rem]">
+    <section>
       <form id="signup-form" onSubmit={handleSignUp}>
-        <div className="flex w-[400px] mx-auto flex-col flex-wrap mb-6 md:mb-0 gap-4 pt-10">
+        <div className="flex flex-col max-w-[400px] mx-auto gap-4 pt-10">
           <Text h2 className="font-semibold p-5">
             Create Account
           </Text>
-          <div className="flex w-[400px] mx-auto flex-col flex-wrap mb-6 md:mb-0 gap-4">
+          <div className="flex flex-col w-full gap-4">
             <Input
               isRequired={true}
               variant="bordered"
