@@ -1,7 +1,8 @@
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth';
-import { Button, Card, Input } from '@nextui-org/react';
+import { Button, Input } from '@nextui-org/react';
+import Text from '../../components/Text';
 
 const UserSignUp = () => {
   const auth = getAuth();
@@ -21,7 +22,7 @@ const UserSignUp = () => {
 
     createUserWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
-        navigate('/');
+        navigate('/User');
       })
       .catch((error) => {
         const initialMessage = error.code.replaceAll('-', ' ').replace('auth/', '');
@@ -35,41 +36,52 @@ const UserSignUp = () => {
       });
   };
   return (
-    <section className="max-w-[55rem]">
-      <Card className="p-6 my-3">
-        <form id="signup-form" onSubmit={handleSignUp}>
-          <div className="flex flex-col items-center gap-4">
-            <div className="text-xl">Create Account</div>
-            <div className="flex w-full flex-col md:flex-row gap-4">
-              <Input
-                isRequired
-                variant="bordered"
-                label="Email"
-                name="email"
-                type="email"
-                placeholder="Enter Your Email"
-                errorMessage={emailError}
-                isInvalid={emailError !== ''}
-                onValueChange={() => setEmailError('')}
-              />
-              <Input
-                isRequired
-                variant="bordered"
-                label="Password"
-                name="password"
-                type="password"
-                placeholder="Enter Your Password"
-                errorMessage={passwordError}
-                isInvalid={passwordError !== ''}
-                onValueChange={() => setPasswordError('')}
-              />
-            </div>
-            <Button color="primary" type="submit" name="submit">
-              Sign Up
-            </Button>
+    <section>
+      <form id="signup-form" onSubmit={handleSignUp}>
+        <div className="flex flex-col max-w-[400px] mx-auto gap-4 pt-10">
+          <Text h2 className="font-semibold p-5">
+            Create Account
+          </Text>
+          <div className="flex flex-col w-full gap-4">
+            <Input
+              isRequired={true}
+              variant="bordered"
+              label="Email"
+              name="email"
+              type="email"
+              size="md"
+              placeholder="Enter Your Email"
+              errorMessage={emailError}
+              isInvalid={emailError !== ''}
+              onValueChange={() => setEmailError('')}
+            />
+            <Input
+              isRequired={true}
+              variant="bordered"
+              label="Password"
+              name="password"
+              type="password"
+              size="md"
+              placeholder="Enter Your Password"
+              errorMessage={passwordError}
+              isInvalid={passwordError !== ''}
+              onValueChange={() => setPasswordError('')}
+            />
           </div>
-        </form>
-      </Card>
+          <Button color="primary" type="submit" name="submit">
+            Sign Up
+          </Button>
+          <p>
+            {' '}
+            Already have an account?{' '}
+            <Link
+              to="/user"
+              className="font-bold text-md text-gray-300 hover:text-primary hover:underline">
+              Log In
+            </Link>
+          </p>
+        </div>
+      </form>
     </section>
   );
 };

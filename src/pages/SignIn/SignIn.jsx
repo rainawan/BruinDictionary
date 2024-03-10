@@ -7,16 +7,21 @@ import { Link } from 'react-router-dom';
 const SignIn = () => {
   return (
     <section className="Login">
-      <Text h1 className="font-semibold p-5">
+      <Text h1 className="font-semibold p-5 pt-10">
         Log In
       </Text>
       <div className="flex max-w-[400px] mx-auto flex-col flex-wrap mt-6 md:mt-2 gap-4">
         <GoogleSignInButton />
         <FacebookSignInButton />
         <UserSignIn />
-        <Link to="/user/create" className="font-bold text-lg text-primary hover:text-gray-300">
-          Create Account
-        </Link>
+        <p>
+          Don&apos;t have an account yet?&nbsp;
+          <Link
+            to="/user/create"
+            className="font-bold text-md text-gray-300 hover:text-primary hover:underline">
+            Sign Up
+          </Link>
+        </p>
       </div>
     </section>
   );

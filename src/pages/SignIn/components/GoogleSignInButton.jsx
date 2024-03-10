@@ -9,7 +9,7 @@ const GoogleSignInButton = () => {
     return signInWithPopup(auth, provider);
   };
   return (
-    <Button className="p-5" color="default" size="sm" onClick={userSignIn}>
+    <Button className="p-5" color="default" size="md" onClick={userSignIn}>
       <img src={Google} alt="google logo" style={{ width: '20px', height: '20px' }} />
       Continue With Google
     </Button>
