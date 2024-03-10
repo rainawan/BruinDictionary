@@ -9,20 +9,18 @@ import {
   Input,
   Button
 } from '@nextui-org/react';
-import { serverTimestamp } from 'firebase/firestore';
-import { toast } from 'sonner';
 import LoadingCard from '../Dictionary/components/LoadingCard';
-import { useNavigate } from 'react-router-dom';
 import { unpackTermsQuery } from '../../utils/unpackQuery';
 import getTermsQuery from '../../utils/getTermsQuery';
-import getEntriesMutation from '../../utils/getEntriesMutation';
 import useCurrentUserData from '../../utils/useCurrentUserData';
+import useTermsMutation from '../../utils/useTermsMutation';
+import useEntryMutation from './hooks/useEntryMutation';
 
 const Add = () => {
   const { userData } = useCurrentUserData();
-  const navigate = useNavigate();
   const selectedTermId = useRef();
-  const entryMutation = getEntriesMutation();
+  const termMutation = useTermsMutation();
+  const entryMutation = useEntryMutation();
 
   const termsQuery = getTermsQuery();
   const { status, data } = unpackTermsQuery(termsQuery);
@@ -30,13 +28,8 @@ const Add = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     const formData = new FormData(e.target);
-    let termid = selectedTermId.current;
-    if (!termid) {
-      // when term is a custom value
-      const termname = formData.get('term').trim();
-      console.log(termname);
-    }
-
+    const userid = userData.userid;
+    const name = formData.get('term').trim();
     const definition = formData.get('definition').trim();
     const example = formData.get('example').trim();
     const tags = [
@@ -48,34 +41,25 @@ const Add = () => {
           .filter((tag) => tag !== '')
       )
     ];
-    const userid = userData.userid;
-    // console.log(termid, definition);
 
-    // mutation.mutate(
-    //   {
-    //     termid,
-    //     userid,
-    //     creationDate: serverTimestamp(),
-    //     definition,
-    //     example,
-    //     tags
-    //     likes: 0,
-    //     dislikes: 0,
-    //   },
-    //   {
-    //     onSuccess: () => {
-    //       toast.success('Added successfully!');
-    //       navigate('/');
-    //     },
-    //     onError: (error) => {
-    //       console.error('Mutation error:', error);
-    //       toast.error('Error occured. Please try again.');
-    //     },
-    //     onMutate: () => {
-    //       toast('Adding...');
-    //     }
-    //   }
-    // );
+    let termid = selectedTermId.current || Object.keys(data).find((key) => data[key] === name);
+    if (!termid) {
+      // when term is a custom value, add term and then add entry
+      termMutation.mutate(
+        {
+          name,
+          termname: name.toLowerCase()
+        },
+        {
+          onSuccess: (data) => {
+            termid = data.id;
+            entryMutation(termid, userid, definition, example, tags);
+          }
+        }
+      );
+    } else {
+      entryMutation(termid, userid, definition, example, tags);
+    }
   };
 
   if (status === 'loading') {
@@ -95,6 +79,7 @@ const Add = () => {
             <Autocomplete
               isRequired
               allowsCustomValue
+              disabled={!termMutation.isSuccess}
               className="max-w-xs"
               aria-label="term-select"
               name="term"
@@ -137,7 +122,11 @@ const Add = () => {
               labelPlacement="outside"
               placeholder="A list of comma-seperated tags"
             />
-            <Button disabled={entryMutation.isLoading} color="primary" name="submit" type="submit">
+            <Button
+              disabled={entryMutation.isLoading || termMutation.isLoading}
+              color="primary"
+              name="submit"
+              type="submit">
               Submit
             </Button>
           </CardBody>

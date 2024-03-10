@@ -16,11 +16,14 @@ const Dictionary = () => {
   const { term, ...search } = searchEntries;
   const searchTerm = term !== undefined ? term.toLowerCase() : undefined;
 
-  const termsQuery = getTermsQuery(searchTerm);
+  const termsQuery = getTermsQuery({ termname: searchTerm });
   const { status: termsStatus, data: terms } = unpackTermsQuery(termsQuery);
   const termid = searchTerm && terms ? Object.keys(terms)[0] : undefined;
 
-  const entriesQuery = getInfiniteEntriesQuery(QUERY_LIMIT, { ...search, termid });
+  const entriesQuery = getInfiniteEntriesQuery(QUERY_LIMIT, {
+    ...search,
+    termid: termid ?? search.termid
+  });
   const { status: entriesStatus, data: entries } = unpackInfiniteEntriesQuery(entriesQuery);
   console.log('entries: ', entries, '\nterms: ', terms);
 
