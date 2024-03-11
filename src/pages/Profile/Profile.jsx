@@ -15,19 +15,18 @@ const Profile = () => {
     <section className="Profile">
       <div className="flex flex-row">
         {/* left-side div */}
-        <div className="flex flex-col justify-center self-start">
+        <div className="p-2 flex flex-col justify-center self-start">
           <ProfilePicture></ProfilePicture>
 
-          <div className="m-auto flex flex-col">
+          <div className="p-2 m-auto flex flex-col">
             <Text
               h3
-              className="font-bold text-blue-800 dark:text-yellow-200 cursor-pointer inline break-all">
+              className="pt-px font-bold text-blue-800 dark:text-yellow-200 inline break-all">
               {userData?.username ?? 'None'}
             </Text>
-            <Text className="font-bold text-blue-800 dark:text-yellow-200 cursor-pointer inline break-all">
+            <Text className=" font-bold text-blue-800 dark:text-yellow-200 inline break-all">
               {userData?.email ?? 'No Email'}
             </Text>
-            <p>User since {userData?.date ?? 'MM DD YYYY'}</p>
             <SignOutButton />
           </div>
         </div>

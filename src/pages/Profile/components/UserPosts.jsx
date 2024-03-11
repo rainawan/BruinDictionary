@@ -1,18 +1,16 @@
 import React from 'react';
-import { Tabs, Tab, Card, CardBody, CardHeader, Image, Button, Spinner } from '@nextui-org/react';
+import { Button, Spinner, Card } from '@nextui-org/react';
 import LoadingCard from '../../Dictionary/components/LoadingCard';
 import DictionaryCard from '../../Dictionary/components/DictionaryCard';
-import getEntriesQuery from '../../../utils/getEntriesQuery';
 import getInfiniteEntriesQuery from '../../../utils/getInfiniteEntriesQuery';
 import useCurrentUserData from '../../../utils/useCurrentUserData';
 import { unpackInfiniteEntriesQuery, unpackTermsQuery } from '../../../utils/unpackQuery';
 import { getTermsEntriesStatus } from '../../../utils/getTermsEntriesStatus';
 import getTermsQuery from '../../../utils/getTermsQuery';
-import SortDropdown from '../../Dictionary/components/SortDropdown';
 
 const UserPosts = () => {
   const { userData } = useCurrentUserData();
-  const userid = 'caxUoAUrsufL1RM371St';
+  const userid = userData.userid;
 
   const QUERY_LIMIT = 3;
 
@@ -29,7 +27,7 @@ const UserPosts = () => {
   } else if (status === 'error') {
     return <div>error occurred</div>;
   } else if (Object.keys(terms)?.length === 0 || entries?.length === 0) {
-    return <div>not found</div>;
+    return <Card>No terms found for user.</Card>;
   } else if (status === 'success') {
     return (
       <div className="inline-flex flex-col gap-4 max-w-[55rem] pt-2 px-4 w-full">
