@@ -4,7 +4,7 @@ import { LikeFilled, DislikeFilled } from '@ant-design/icons';
 import { doc, increment, arrayUnion, arrayRemove } from 'firebase/firestore';
 import { useFirestoreDocumentMutation } from '@react-query-firebase/firestore';
 import { db } from '../../../utils/firebase.js';
-import getCurrentUserDocument from '../../../utils/getCurrentUserQuery.js';
+import useCurrentUserData from '../../../utils/useCurrentUserData.js';
 
 const LIKE = true;
 const DISLIKE = false;
@@ -12,36 +12,27 @@ const DISLIKE = false;
 const LikeDislikeButtons = ({ entry }) => {
   // null action means no previous action
   const [action, setAction] = useState(null);
-  const currentUserDoc = getCurrentUserDocument();
+  const { userData } = useCurrentUserData();
 
   const entryID = entry.id;
-  const userID = entry.userid;
+  const userID = userData.userid;
 
   // Early return or handle cases where there is no current user
-  if (!currentUserDoc || !currentUserDoc.data) {
-    return <p>Loading user data...</p>; // or handle the case of no user being signed in appropriately
+  if (userData === undefined) {
+    return <p>Please Sign In</p>;
   }
 
-  const entryDocRef = doc(db, 'Entries', entry.id);
+  const entryDocRef = doc(db, 'Entries', entryID);
   const mutateEntry = useFirestoreDocumentMutation(entryDocRef, { merge: true });
 
-  const { data: userData } = currentUserDoc;
-  const userDocRef = doc(db, 'Users', userData.id);
+  const userDocRef = doc(db, 'Users', userID);
   const mutateUser = useFirestoreDocumentMutation(userDocRef, { merge: true });
 
   const handleAction = (newAction) => {
-    let updates = {};
-
     switch (newAction) {
       case LIKE:
         if (action === LIKE) {
           // unclicked like -> dec like
-          if (userData.likes[entryID] === true) {
-            updates = {
-              [`likes.${entryID}`]: false
-            };
-            mutateUser.mutate(updates);
-          }
           mutateEntry.mutate({
             likes: increment(-1)
           });
@@ -53,22 +44,9 @@ const LikeDislikeButtons = ({ entry }) => {
               likes: increment(1),
               dislikes: increment(-1)
             });
-            if (userData.dislikes[entryID] === true) {
-              updates = {
-                [`dislikes.${entryID}`]: false,
-                [`likes.${entryID}`]: true
-              };
-              mutateUser.mutate(updates);
-            }
           } else {
             // when action === null
             // no previous action -> inc like
-            if (userData.likes[entryID] === false || userData.likes[entryID] === null) {
-              updates = {
-                [`likes.${entryID}`]: true
-              };
-              mutateUser.mutate(updates);
-            }
             mutateEntry.mutate({
               likes: increment(1)
             });
