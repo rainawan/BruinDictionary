@@ -1,20 +1,28 @@
 import { useState } from 'react';
 import { Button } from '@nextui-org/react';
 import { LikeFilled, DislikeFilled } from '@ant-design/icons';
-import { doc } from 'firebase/firestore';
+import { doc, increment } from 'firebase/firestore';
 import { useFirestoreDocumentMutation } from '@react-query-firebase/firestore';
 import { db } from '../../../utils/firebase.js';
+import fetchUserById from '../../../utils/fetchData.js';
+// import useCurrentUserData from '../../../utils/useCurrentUserData';
 
-const LIKE = 'true';
-const DISLIKE = 'false';
+const LIKE = true;
+const DISLIKE = false;
 
 const LikeDislikeButtons = ({ entry }) => {
   // null action means no previous action
-  const [action, setAction] = useState(localStorage.getItem(entry.id));
+  const [action, setAction] = useState(null);
 
+  const entryID = entry.id;
+  const userID = entry.userid;
+  let updates = {};
+  const { userData, isLoading, error } = fetchUserById(userID);
+  // const { userData } = useCurrentUserData();
   const entryDocRef = doc(db, 'Entries', entry.id);
-
-  const mutation = useFirestoreDocumentMutation(entryDocRef, { merge: true });
+  const userDocRef = doc(db, 'Users', userID);
+  const mutateEntry = useFirestoreDocumentMutation(entryDocRef, { merge: true });
+  const mutateUser = useFirestoreDocumentMutation(userDocRef, { merge: true });
 
   const handleAction = (newAction) => {
     // TODO: update firebase with new action
@@ -22,51 +30,67 @@ const LikeDislikeButtons = ({ entry }) => {
       case LIKE:
         if (action === LIKE) {
           // unclicked like -> dec like
-          localStorage.removeItem(entry.id);
-          mutation.mutate({
-            likes: entry.likes - 1
+          if (userData.likes[entryID] === true) {
+            updates = {
+              [`likes.${entryID}`]: false
+            };
+            mutateUser.mutate(updates);
+          }
+          mutateEntry.mutate({
+            likes: increment(-1)
           });
           setAction(null);
         } else {
           if (action === DISLIKE) {
             // switched dislike to like -> inc like, dec dislike
-            mutation.mutate({
-              likes: entry.likes + 1,
-              dislikes: entry.dislikes - 1
+            mutateEntry.mutate({
+              likes: increment(1),
+              dislikes: increment(-1)
             });
+            if (userData.dislikes[entryID] === true) {
+              updates = {
+                [`dislikes.${entryID}`]: false,
+                [`likes.${entryID}`]: true
+              };
+              mutateUser.mutate(updates);
+            }
           } else {
-            mutation.mutate({
-              likes: entry.likes + 1
+            // when action === null
+            // no previous action -> inc like
+            if (userData.likes[entryID] === false || userData.likes[entryID] === null) {
+              updates = {
+                [`likes.${entryID}`]: true
+              };
+              mutateUser.mutate(updates);
+            }
+            mutateEntry.mutate({
+              likes: increment(1)
             });
           }
-          localStorage.setItem(entry.id, LIKE);
           setAction(LIKE);
         }
         break;
       case DISLIKE:
         if (action === DISLIKE) {
           // unclicked dislike -> dec dislike
-          localStorage.removeItem(entry.id);
-          mutation.mutate({
-            dislikes: entry.dislikes - 1
+          mutateEntry.mutate({
+            dislikes: increment(-1)
           });
           setAction(null);
         } else {
           if (action === LIKE) {
             // switched like to dislike -> inc dislike, dec like
-            mutation.mutate({
-              likes: entry.likes - 1,
-              dislikes: entry.dislikes + 1
+            mutateEntry.mutate({
+              likes: increment(-1),
+              dislikes: increment(1)
             });
-            setAction(DISLIKE);
           } else {
             // when action === null
             // no previous action -> inc dislike
-            mutation.mutate({
-              dislikes: entry.dislikes + 1
+            mutateEntry.mutate({
+              dislikes: increment(1)
             });
           }
-          localStorage.setItem(entry.id, DISLIKE);
           setAction(DISLIKE);
         }
         break;
@@ -78,19 +102,19 @@ const LikeDislikeButtons = ({ entry }) => {
   return (
     <div className="inline-flex flex-row gap-1">
       <Button
-        className={`hover:text-green-500 ${localStorage.getItem(entry.id) === LIKE ? 'bg-green-500 text-white' : ''}`}
+        className={`hover:text-green-500 ${action === LIKE ? 'bg-green-500 text-white' : ''}`}
         onClick={() => handleAction(LIKE)}>
         <LikeFilled className="text-lg" />
         <p className="text-black dark:text-white">
-          {localStorage.getItem(entry.id) === LIKE ? entry.likes + 1 : entry.likes}
+          {action === LIKE ? entry.likes + 1 : entry.likes}
         </p>
       </Button>
       <Button
-        className={`hover:text-red-500 ${localStorage.getItem(entry.id) === DISLIKE ? 'bg-red-500 text-white' : ''}`}
+        className={`hover:text-red-500 ${action === DISLIKE ? 'bg-red-500 text-white' : ''}`}
         onClick={() => handleAction(DISLIKE)}>
         <DislikeFilled className="text-lg" />
         <p className="text-black dark:text-white">
-          {localStorage.getItem(entry.id) === DISLIKE ? entry.dislikes + 1 : entry.dislikes}
+          {action === DISLIKE ? entry.dislikes + 1 : entry.dislikes}
         </p>
       </Button>
     </div>
