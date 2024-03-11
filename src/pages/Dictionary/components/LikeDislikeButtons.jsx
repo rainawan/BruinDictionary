@@ -1,11 +1,10 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Button } from '@nextui-org/react';
 import { LikeFilled, DislikeFilled } from '@ant-design/icons';
-import { doc, increment } from 'firebase/firestore';
+import { doc, increment, arrayUnion, arrayRemove } from 'firebase/firestore';
 import { useFirestoreDocumentMutation } from '@react-query-firebase/firestore';
 import { db } from '../../../utils/firebase.js';
-import fetchUserById from '../../../utils/fetchData.js';
-// import useCurrentUserData from '../../../utils/useCurrentUserData';
+import getCurrentUserDocument from '../../../utils/getCurrentUserQuery.js';
 
 const LIKE = true;
 const DISLIKE = false;
@@ -13,19 +12,26 @@ const DISLIKE = false;
 const LikeDislikeButtons = ({ entry }) => {
   // null action means no previous action
   const [action, setAction] = useState(null);
+  const currentUserDoc = getCurrentUserDocument();
 
   const entryID = entry.id;
   const userID = entry.userid;
-  let updates = {};
-  const { userData, isLoading, error } = fetchUserById(userID);
-  // const { userData } = useCurrentUserData();
+
+  // Early return or handle cases where there is no current user
+  if (!currentUserDoc || !currentUserDoc.data) {
+    return <p>Loading user data...</p>; // or handle the case of no user being signed in appropriately
+  }
+
   const entryDocRef = doc(db, 'Entries', entry.id);
-  const userDocRef = doc(db, 'Users', userID);
   const mutateEntry = useFirestoreDocumentMutation(entryDocRef, { merge: true });
+
+  const { data: userData } = currentUserDoc;
+  const userDocRef = doc(db, 'Users', userData.id);
   const mutateUser = useFirestoreDocumentMutation(userDocRef, { merge: true });
 
   const handleAction = (newAction) => {
-    // TODO: update firebase with new action
+    let updates = {};
+
     switch (newAction) {
       case LIKE:
         if (action === LIKE) {
