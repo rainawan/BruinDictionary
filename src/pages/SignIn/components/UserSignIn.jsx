@@ -3,32 +3,45 @@ import { useState } from 'react';
 import { auth } from '../../../utils/firebase';
 import { Input, Button } from '@nextui-org/react';
 import { EyeFilled, EyeInvisibleFilled } from '@ant-design/icons';
+import { doc, getDoc, serverTimestamp } from 'firebase/firestore';
+import { useFirestoreCollectionMutation } from '@react-query-firebase/firestore';
+import { db } from '../../../utils/firebase';
 
 const UserSignIn = () => {
   const [errorMessage, setErrorMessage] = useState('');
   const [isVisible, setIsVisible] = useState(false);
+  const usersCollectionRef = collection(db, 'Users');
+  const mutation = useFirestoreCollectionMutation(usersCollectionRef);
 
   const toggleVisibility = () => setIsVisible((isVisible) => !isVisible);
 
-  const signIn = (e) => {
+  const signIn = async (e) => {
     e.preventDefault();
     const formData = new FormData(e.target);
     const email = formData.get('email');
     const password = formData.get('password');
+    setErrorMessage('');
 
-    signInWithEmailAndPassword(auth, email, password).catch((error) => {
-      const message = error.code.replaceAll('-', ' ').replace('auth/', '');
-      console.log('message', message);
-      if (message === 'invalid credential') {
-        setErrorMessage('Please enter valid credentials.');
-      } else if (message === 'invalid email') {
-        setErrorMessage('Please enter a valid email.');
-      } else if (message === 'too many requests') {
-        setErrorMessage('Too many attempts. Try again later.');
-      } else {
-        setErrorMessage(message);
+    try {
+      const { user } = await signInWithEmailAndPassword(auth, email, password);
+      // Check if the user document exists
+      const docRef = doc(db, 'Users', user.uid);
+      const docSnap = await getDoc(docRef);
+
+      if (!docSnap.exists()) {
+        // Document doesn't exist, create a new one
+        mutation.mutate({
+          accountCreated: new Date(),
+          dislikes: {},
+          email: email,
+          likes: {},
+          username: ''
+        });
       }
-    });
+    } catch (error) {
+      const message = error.message.replaceAll('-', ' ').replace('auth/', '');
+      setErrorMessage(message.charAt(0).toUpperCase() + message.slice(1));
+    }
   };
 
   const handleInputClick = () => {
