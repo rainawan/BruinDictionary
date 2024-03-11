@@ -1,5 +1,5 @@
 import { GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
-import { doc, getDoc } from 'firebase/firestore';
+import { query, getDocs, where, collection } from 'firebase/firestore';
 import { useFirestoreCollectionMutation } from '@react-query-firebase/firestore';
 import { db, auth } from '../../../utils/firebase';
 import { Button } from '@nextui-org/react';
@@ -8,7 +8,6 @@ import { useState } from 'react';
 
 const GoogleSignInButton = () => {
   const [errorMessage, setErrorMessage] = useState('');
-  // Initialize the Firestore collection mutation
   const usersCollectionRef = collection(db, 'Users');
   const mutation = useFirestoreCollectionMutation(usersCollectionRef);
 
@@ -18,19 +17,22 @@ const GoogleSignInButton = () => {
       const result = await signInWithPopup(auth, provider);
       const user = result.user;
 
-      // Check if the user document already exists
-      const userDocRef = doc(db, 'Users', user.uid);
-      const docSnap = await getDoc(userDocRef);
+      // Query the Users collection for a document with the matching email
+      const usersQuery = query(usersCollectionRef, where('email', '==', user.email));
+      const querySnapshot = await getDocs(usersQuery);
 
-      if (!docSnap.exists()) {
-        // Document doesn't exist, so create a new one
+      if (querySnapshot.empty) {
+        // No existing user document with this email, create a new one
         mutation.mutate({
           accountCreated: new Date(),
           dislikes: {},
           email: user.email,
           likes: {},
-          username: ''
+          username: '' // Consider how to set or update username
         });
+      } else {
+        // User document with this email already exists
+        console.log('User already exists with this email.');
       }
     } catch (error) {
       const errorMessage = error.message;

@@ -1,11 +1,10 @@
 import { signInWithEmailAndPassword } from 'firebase/auth';
 import { useState } from 'react';
-import { auth } from '../../../utils/firebase';
+import { db, auth } from '../../../utils/firebase';
 import { Input, Button } from '@nextui-org/react';
 import { EyeFilled, EyeInvisibleFilled } from '@ant-design/icons';
-import { doc, getDoc, serverTimestamp } from 'firebase/firestore';
+import { query, getDocs, where, collection, serverTimestamp } from 'firebase/firestore';
 import { useFirestoreCollectionMutation } from '@react-query-firebase/firestore';
-import { db } from '../../../utils/firebase';
 
 const UserSignIn = () => {
   const [errorMessage, setErrorMessage] = useState('');
@@ -24,16 +23,16 @@ const UserSignIn = () => {
 
     try {
       const { user } = await signInWithEmailAndPassword(auth, email, password);
-      // Check if the user document exists
-      const docRef = doc(db, 'Users', user.uid);
-      const docSnap = await getDoc(docRef);
+      // Query for an existing document by email
+      const emailQuery = query(usersCollectionRef, where('email', '==', email));
+      const querySnapshot = await getDocs(emailQuery);
 
-      if (!docSnap.exists()) {
-        // Document doesn't exist, create a new one
+      if (querySnapshot.empty) {
+        // No user document exists for this email, create a new one
         mutation.mutate({
-          accountCreated: new Date(),
+          accountCreated: serverTimestamp(),
           dislikes: {},
-          email: email,
+          email: user.email,
           likes: {},
           username: ''
         });
