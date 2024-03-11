@@ -18,6 +18,7 @@ import { unpackTermsQuery } from '../../utils/unpackQuery';
 import getTermsQuery from '../../utils/getTermsQuery';
 import getEntriesMutation from '../../utils/getEntriesMutation';
 import useCurrentUserData from '../../utils/useCurrentUserData';
+import Text from '../../components/Text';
 
 const Add = () => {
   const { userData } = useCurrentUserData();
@@ -74,13 +75,15 @@ const Add = () => {
   return (
     <section className="max-w-[55rem]">
       {termsStatus === 'success' ? (
-        <Card className="py-4">
+        <Card className="dark:bg-slate-600 py-4">
           <CardHeader className="flex-col">
-            <p className="font-bold">New Definition</p>
+            <Text h1 className="font-semibold">
+              New Definition
+            </Text>
           </CardHeader>
           <Divider />
           <CardBody>
-            <div className="my-5">
+            <div className="my-5 flex gap-4">
               <Select
                 isRequired
                 label="Select a term"
@@ -97,6 +100,11 @@ const Add = () => {
                   </SelectItem>
                 ))}
               </Select>
+              <Input
+                label="Tags"
+                placeholder="Type a list of comma-seperated tags..."
+                ref={tagInput}
+              />
             </div>
             <Textarea
               isRequired
@@ -111,12 +119,6 @@ const Add = () => {
               className="my-5"
               placeholder="Type an example of how it's used in sentence..."
               ref={exampleInput}
-            />
-            <Input
-              label="Tags"
-              className="my-5"
-              placeholder="Type a list of comma-seperated tags..."
-              ref={tagInput}
             />
             <Button disabled={mutation.isLoading} color="primary" onClick={handleSubmit}>
               Submit
