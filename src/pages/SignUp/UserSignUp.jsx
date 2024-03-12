@@ -2,10 +2,6 @@ import { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth';
 import { Button, Input } from '@nextui-org/react';
-import { collection } from 'firebase/firestore';
-import { useFirestoreCollectionMutation } from '@react-query-firebase/firestore';
-import { db } from '../../utils/firebase.js';
-
 import Text from '../../components/Text';
 
 const UserSignUp = () => {
@@ -14,9 +10,6 @@ const UserSignUp = () => {
 
   const [emailError, setEmailError] = useState('');
   const [passwordError, setPasswordError] = useState('');
-
-  const usersCollectionRef = collection(db, 'Users');
-  const mutation = useFirestoreCollectionMutation(usersCollectionRef);
 
   const handleSignUp = (e) => {
     e.preventDefault();
@@ -29,14 +22,6 @@ const UserSignUp = () => {
 
     createUserWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
-        mutation.mutate({
-          accountCreated: new Date(),
-          dislikes: {},
-          email: email,
-          likes: {},
-          username: ''
-        });
-
         navigate('/User');
       })
       .catch((error) => {

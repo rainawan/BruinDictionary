@@ -1,7 +1,7 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { Button } from '@nextui-org/react';
 import { LikeFilled, DislikeFilled } from '@ant-design/icons';
-import { doc, increment, getDoc } from 'firebase/firestore';
+import { doc, increment } from 'firebase/firestore';
 import { useFirestoreDocumentMutation } from '@react-query-firebase/firestore';
 import { db } from '../../../utils/firebase.js';
 import useCurrentUserData from '../../../utils/useCurrentUserData.js';
@@ -14,6 +14,22 @@ const LikeDislikeButtons = ({ entry }) => {
   const [action, setAction] = useState(null);
   const { userData } = useCurrentUserData();
 
+  // Early return or handle cases where there is no current user
+  if (!userData) {
+    return (
+      <div className="inline-flex flex-row gap-1">
+        <Button className={'hover:text-green-500'} onClick={null}>
+          <LikeFilled className="text-lg" />
+          <p className="text-black dark:text-white">{entry.likes}</p>
+        </Button>
+        <Button className={'hover:text-red-500'} onClick={null}>
+          <DislikeFilled className="text-lg" />
+          <p className="text-black dark:text-white">{entry.dislikes}</p>
+        </Button>
+      </div>
+    );
+  }
+
   const entryID = entry.id;
   const userID = userData.userid;
 
@@ -22,41 +38,8 @@ const LikeDislikeButtons = ({ entry }) => {
 
   const mutateEntry = useFirestoreDocumentMutation(entryDocRef, { merge: true });
   const mutateUser = useFirestoreDocumentMutation(userDocRef, { merge: true });
-  const docSnapshot = getDoc(userDocRef);
-
-  useEffect(() => {
-    const checkUserExists = async () => {
-      if (!userData) {
-        console.log('No user data available');
-        return;
-      }
-
-      const docSnapshot = await getDoc(userDocRef);
-
-      if (!docSnapshot.exists()) {
-        mutateUser.mutate({
-          accountCreated: new Date(),
-          dislikes: {},
-          email: userData.email,
-          likes: {},
-          username: ''
-        });
-        console.log('No existing user document, consider creating one');
-      } else {
-        console.log('User already exists with this userID.');
-      }
-    };
-
-    checkUserExists();
-  }, [userData]);
-
-  // Early return or handle cases where there is no current user
-  if (!userData) {
-    return <p>Please Sign In</p>;
-  }
 
   const handleAction = (newAction) => {
-    let updateEntry = {};
     let updateUser = {
       // Initialize or retain existing likes/dislikes structure
       likes: userData.likes || {},
