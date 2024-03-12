@@ -26,12 +26,9 @@ const DictionaryCard = ({ entry, terms }) => {
             onClick={() => handleTermClick(terms[entry.termid])}>
             {terms[entry.termid]}
           </Text>
-          {editEntryid !== entry.id && (
+          {userData.userid === entry.userid && editEntryid !== entry.id && (
             <MoreDropdown entryid={entry.id} setEditEntryid={setEditEntryid} />
           )}
-          {/* {userData === entry.userid && editEntryid !== entry.id && (
-            <MoreDropdown entryid={entry.id} setEditEntryid={setEditEntryid} />
-          )} */}
         </div>
         {editEntryid === entry.id ? (
           <EditMode entry={entry} setEditEntryid={setEditEntryid} />
