@@ -19,7 +19,6 @@ function App() {
   const { setUserData } = useCurrentUserData();
 
   const bearPhotos = [BlueBear, GreenBear, RedBear, YellowBear];
-
   const randomPhoto = bearPhotos[Math.floor(Math.random() * bearPhotos.length)];
 
   useEffect(() => {
@@ -30,15 +29,12 @@ function App() {
             photoURL: randomPhoto
           });
         }
-        console.log("user's photo: ", user.photoURL);
         setUserData({
           username: user.displayName,
           email: user.email,
           userid: user.uid,
           photo: user.photoURL ?? randomPhoto
         });
-
-        console.log("user's new photo: ", user.photoURL);
       } else {
         setUserData(undefined);
       }

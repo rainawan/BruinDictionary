@@ -1,24 +1,19 @@
 import useCurrentUserData from '../../utils/useCurrentUserData';
-import ProfileAvatar from '../../components/ProfileAvatar';
+// import ProfileAvatar from '../../components/ProfileAvatar';
 import SignOutButton from './components/SignOutButton';
 import Text from '../../components/Text';
-import { Image, Avatar } from '@nextui-org/react';
-import DictionaryCard from '../Dictionary/components/DictionaryCard';
-import ProfilePicture from './components/ProfilePicture';
-import Posts from './components/Posts';
-import LoadingCard from '../Dictionary/components/LoadingCard';
+import PostTabs from './components/PostTabs';
 
 const Profile = () => {
   const { userData } = useCurrentUserData();
 
   return (
-    <section className="Profile">
-      <div className="flex flex-row">
+    <section className="max-w-[60rem]">
+      <div className="flex flex-col sm:flex-row p-5">
         {/* left-side div */}
-        <div className="p-2 flex flex-col justify-center self-start">
-          <ProfilePicture></ProfilePicture>
-
-          <div className="p-2 m-auto flex flex-col">
+        <div className="p-2 flex flex-col justify-center self-center max-w-[20rem]">
+          <img className="object-fill object-center rounded-full w-[13rem]" src={userData.photo} />
+          <div className="flex flex-col gap-1 p-2">
             <Text
               h3
               className="pt-px font-bold text-blue-800 dark:text-yellow-200 inline break-all">
@@ -32,9 +27,7 @@ const Profile = () => {
         </div>
 
         {/* right-side div */}
-        <div className="text-center">
-          <Posts></Posts>
-        </div>
+        <PostTabs />
       </div>
     </section>
   );

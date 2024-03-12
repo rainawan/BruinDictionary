@@ -1,15 +1,14 @@
 import React from 'react';
-import { Tabs, Tab, Card, CardBody, CardHeader, Image } from '@nextui-org/react';
-import LoadingCard from '../../Dictionary/components/LoadingCard';
+import { Tabs, Tab, Card, CardBody } from '@nextui-org/react';
 import UserPosts from './UserPosts';
 
-export default function Posts() {
+const PostTabs = () => {
   return (
-    <div className="flex w-full flex-col col-span-10 sm:col-span-5 lg:col-span-7  p-5 rounded text-center">
-      <Tabs aria-label="Options">
-        <Tab key="posts" title="Created Posts">
+    <div className="flex flex-1 flex-col justify-start p-5">
+      <Tabs aria-label="options">
+        <Tab key="created" title="Created Posts">
           <div className="space-y-4">
-            <UserPosts></UserPosts>
+            <UserPosts />
           </div>
         </Tab>
         <Tab key="liked" title="Liked Posts">
@@ -28,4 +27,6 @@ export default function Posts() {
       </Tabs>
     </div>
   );
-}
+};
+
+export default PostTabs;

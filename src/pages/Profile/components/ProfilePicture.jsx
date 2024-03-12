@@ -6,11 +6,7 @@ const ProfilePicture = () => {
 
   const photo = userData.photo;
 
-  return (
-    <div className="aspect-square flex justify-center w-80 h-80 overflow-hidden bg-gray-100 rounded-full dark:bg-black">
-      <img className=" object-fill object-center" src={photo}></img>
-    </div>
-  );
+  return <img className="object-fill object-center rounded-full" src={photo}></img>;
 };
 
 export default ProfilePicture;
