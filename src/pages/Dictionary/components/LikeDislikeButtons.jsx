@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Button } from '@nextui-org/react';
 import { LikeFilled, DislikeFilled } from '@ant-design/icons';
-import { doc, increment, arrayUnion, arrayRemove } from 'firebase/firestore';
+import { doc, increment, getDoc } from 'firebase/firestore';
 import { useFirestoreDocumentMutation } from '@react-query-firebase/firestore';
 import { db } from '../../../utils/firebase.js';
 import useCurrentUserData from '../../../utils/useCurrentUserData.js';
@@ -17,25 +17,65 @@ const LikeDislikeButtons = ({ entry }) => {
   const entryID = entry.id;
   const userID = userData.userid;
 
+  const entryDocRef = doc(db, 'Entries', entryID);
+  const userDocRef = doc(db, 'Users', userID);
+
+  const mutateEntry = useFirestoreDocumentMutation(entryDocRef, { merge: true });
+  const mutateUser = useFirestoreDocumentMutation(userDocRef, { merge: true });
+  const docSnapshot = getDoc(userDocRef);
+
+  useEffect(() => {
+    const checkUserExists = async () => {
+      if (!userData) {
+        console.log('No user data available');
+        return;
+      }
+
+      const docSnapshot = await getDoc(userDocRef);
+
+      if (!docSnapshot.exists()) {
+        mutateUser.mutate({
+          accountCreated: new Date(),
+          dislikes: {},
+          email: userData.email,
+          likes: {},
+          username: ''
+        });
+        console.log('No existing user document, consider creating one');
+      } else {
+        console.log('User already exists with this userID.');
+      }
+    };
+
+    checkUserExists();
+  }, [userData]);
+
   // Early return or handle cases where there is no current user
-  if (userData === undefined) {
+  if (!userData) {
     return <p>Please Sign In</p>;
   }
 
-  const entryDocRef = doc(db, 'Entries', entryID);
-  const mutateEntry = useFirestoreDocumentMutation(entryDocRef, { merge: true });
-
-  const userDocRef = doc(db, 'Users', userID);
-  const mutateUser = useFirestoreDocumentMutation(userDocRef, { merge: true });
-
   const handleAction = (newAction) => {
+    let updateEntry = {};
+    let updateUser = {
+      // Initialize or retain existing likes/dislikes structure
+      likes: userData.likes || {},
+      dislikes: userData.dislikes || {}
+    };
+
     switch (newAction) {
       case LIKE:
-        if (action === LIKE) {
+        if (action === LIKE || updateUser.likes[entryID] === true) {
           // unclicked like -> dec like
           mutateEntry.mutate({
             likes: increment(-1)
           });
+
+          updateUser.likes[entryID] = false;
+          mutateUser.mutate({
+            likes: updateUser.likes
+          });
+
           setAction(null);
         } else {
           if (action === DISLIKE) {
@@ -44,22 +84,40 @@ const LikeDislikeButtons = ({ entry }) => {
               likes: increment(1),
               dislikes: increment(-1)
             });
+
+            updateUser.likes[entryID] = true;
+            updateUser.dislikes[entryID] = false;
+            mutateUser.mutate({
+              likes: updateUser.likes,
+              dislikes: updateUser.dislikes
+            });
           } else {
             // when action === null
             // no previous action -> inc like
             mutateEntry.mutate({
               likes: increment(1)
             });
+
+            updateUser.likes[entryID] = true;
+            mutateUser.mutate({
+              likes: updateUser.likes
+            });
           }
           setAction(LIKE);
         }
         break;
       case DISLIKE:
-        if (action === DISLIKE) {
+        if (action === DISLIKE || updateUser.dislikes[entryID] === true) {
           // unclicked dislike -> dec dislike
           mutateEntry.mutate({
             dislikes: increment(-1)
           });
+
+          updateUser.dislikes[entryID] = false;
+          mutateUser.mutate({
+            dislikes: updateUser.dislikes
+          });
+
           setAction(null);
         } else {
           if (action === LIKE) {
@@ -68,11 +126,23 @@ const LikeDislikeButtons = ({ entry }) => {
               likes: increment(-1),
               dislikes: increment(1)
             });
+
+            updateUser.dislikes[entryID] = true;
+            updateUser.likes[entryID] = false;
+            mutateUser.mutate({
+              likes: updateUser.likes,
+              dislikes: updateUser.dislikes
+            });
           } else {
             // when action === null
             // no previous action -> inc dislike
             mutateEntry.mutate({
               dislikes: increment(1)
+            });
+
+            updateUser.dislikes[entryID] = true;
+            mutateUser.mutate({
+              dislikes: updateUser.dislikes
             });
           }
           setAction(DISLIKE);
