@@ -3,11 +3,11 @@ import { serverTimestamp } from 'firebase/firestore';
 import { toast } from 'sonner';
 import getEntriesMutation from '../../../utils/getEntriesMutation';
 
-const useEntryMutation = () => {
+const useEntryAddition = () => {
   const entryMutation = getEntriesMutation();
   const navigate = useNavigate();
 
-  const mutateEntry = ({ termid, userid, definition, example, tags, name }) => {
+  const addEntry = ({ termid, userid, definition, example, tags, name }) => {
     entryMutation.mutate(
       {
         termid,
@@ -36,7 +36,7 @@ const useEntryMutation = () => {
     );
   };
 
-  return mutateEntry;
+  return addEntry;
 };
 
-export default useEntryMutation;
+export default useEntryAddition;

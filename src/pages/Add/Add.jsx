@@ -14,13 +14,13 @@ import { unpackTermsQuery } from '../../utils/unpackQuery';
 import getTermsQuery from '../../utils/getTermsQuery';
 import useCurrentUserData from '../../utils/useCurrentUserData';
 import useTermsMutation from '../../utils/useTermsMutation';
-import useEntryMutation from './hooks/useEntryMutation';
+import useEntryAddition from './hooks/useEntryAddition';
 
 const Add = () => {
   const selectedTermId = useRef();
   const { userData } = useCurrentUserData();
   const termMutation = useTermsMutation();
-  const entryMutation = useEntryMutation();
+  const entryMutation = useEntryAddition();
 
   const termsQuery = getTermsQuery();
   const { status, data } = unpackTermsQuery(termsQuery);
