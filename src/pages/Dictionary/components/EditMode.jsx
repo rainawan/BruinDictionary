@@ -1,6 +1,12 @@
 import { Button, Textarea } from '@nextui-org/react';
+import { toast } from 'sonner';
+import { useNavigate } from 'react-router-dom';
+import getEditEntriesMutation from '../../../utils/getEditEntriesMutation';
 
 const EditMode = ({ entry, setEditEntryid }) => {
+  const navigate = useNavigate();
+  const mutation = getEditEntriesMutation(entry.id);
+
   const handleEditCancel = () => {
     setEditEntryid(undefined);
   };
@@ -13,6 +19,33 @@ const EditMode = ({ entry, setEditEntryid }) => {
 
     // TODO: handle edit confirm
     console.log(definition, example);
+    console.log(mutation);
+
+    if (definition === '' || example === '') {
+      toast.error('Missing required input...');
+    } else {
+      mutation.mutate(
+        {
+          ...entry,
+          definition: definition.trim(),
+          example: example.trim()
+        },
+        {
+          onSuccess: () => {
+            toast.success('Updated successfully!');
+            setEditEntryid(undefined);
+            navigate(0);
+          },
+          onError: (error) => {
+            console.error('Mutation error:', error);
+            toast.error('Error occured. Please try again.');
+          },
+          onMutate: () => {
+            toast('Updating...');
+          }
+        }
+      );
+    }
   };
 
   return (
