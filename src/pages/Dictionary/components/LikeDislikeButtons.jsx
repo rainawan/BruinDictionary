@@ -8,6 +8,8 @@ import useCurrentUserData from '../../../utils/useCurrentUserData.js';
 
 const LIKE = true;
 const DISLIKE = false;
+const LIKE = true;
+const DISLIKE = false;
 
 const LikeDislikeButtons = ({ entry }) => {
   // null action means no previous action
@@ -157,17 +159,21 @@ const LikeDislikeButtons = ({ entry }) => {
     <div className="inline-flex flex-row gap-1">
       <Button
         className={`hover:text-green-500 ${action === LIKE ? 'bg-green-500 text-white' : ''}`}
+        className={`hover:text-green-500 ${action === LIKE ? 'bg-green-500 text-white' : ''}`}
         onClick={() => handleAction(LIKE)}>
         <LikeFilled className="text-lg" />
         <p className="text-black dark:text-white">
+          {action === LIKE ? entry.likes + 1 : entry.likes}
           {action === LIKE ? entry.likes + 1 : entry.likes}
         </p>
       </Button>
       <Button
         className={`hover:text-red-500 ${action === DISLIKE ? 'bg-red-500 text-white' : ''}`}
+        className={`hover:text-red-500 ${action === DISLIKE ? 'bg-red-500 text-white' : ''}`}
         onClick={() => handleAction(DISLIKE)}>
         <DislikeFilled className="text-lg" />
         <p className="text-black dark:text-white">
+          {action === DISLIKE ? entry.dislikes + 1 : entry.dislikes}
           {action === DISLIKE ? entry.dislikes + 1 : entry.dislikes}
         </p>
       </Button>
