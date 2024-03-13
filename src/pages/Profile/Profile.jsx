@@ -17,12 +17,10 @@ const Profile = () => {
             src={userData.photo}
           />
           <div className="flex flex-col gap-1 p-2">
-            <Text
-              h3
-              className="pt-px font-bold text-blue-800 dark:text-yellow-200 inline break-all">
+            <Text h3 className="pt-px font-bold text-blue-800 dark:text-white inline break-all">
               {userData?.username ?? 'None'}
             </Text>
-            <Text className=" font-bold text-blue-800 dark:text-yellow-200 inline break-all">
+            <Text className=" font-bold text-blue-800 dark:text-white inline break-all">
               {userData?.email ?? 'No Email'}
             </Text>
             <SignOutButton />
