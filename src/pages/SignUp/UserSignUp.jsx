@@ -76,7 +76,7 @@ const UserSignUp = () => {
             Already have an account?{' '}
             <Link
               to="/user"
-              className="font-bold text-md text-gray-300 hover:text-primary hover:underline">
+              className="font-bold text-md dark:text-gray-300 hover:text-primary hover:underline">
               Log In
             </Link>
           </p>
