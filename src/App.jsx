@@ -19,12 +19,12 @@ function App() {
   const { setUserData } = useCurrentUserData();
 
   const bearPhotos = [BlueBear, GreenBear, RedBear, YellowBear];
-  const randomPhoto = bearPhotos[Math.floor(Math.random() * bearPhotos.length)];
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
+      const randomPhoto = bearPhotos[user.uid.charCodeAt(0) % bearPhotos.length];
       if (user) {
-        if (user.photoURL === null) {
+        if (user.photoURL != randomPhoto) {
           updateProfile(auth.currentUser, {
             photoURL: randomPhoto
           });
@@ -33,7 +33,7 @@ function App() {
           username: user.displayName,
           email: user.email,
           userid: user.uid,
-          photo: user.photoURL ?? randomPhoto
+          photo: randomPhoto
         });
       } else {
         setUserData(undefined);
