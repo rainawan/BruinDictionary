@@ -13,6 +13,7 @@ import LoadingCard from '../Dictionary/components/LoadingCard';
 import { unpackTermsQuery } from '../../utils/unpackQuery';
 import getTermsQuery from '../../utils/getTermsQuery';
 import useCurrentUserData from '../../utils/useCurrentUserData';
+import Text from '../../components/Text';
 import useEntryAddition from './hooks/useEntryAddition';
 
 const Add = () => {
@@ -54,38 +55,49 @@ const Add = () => {
   }
 
   return (
-    <section className="max-w-[55rem]">
-      <Card className="px-2 py-4">
+    <section className="max-w-[55rem] pt-10">
+      <Card className="dark:bg-slate-600 p-4">
         <form id="add-form" onSubmit={handleSubmit}>
           <CardHeader className="justify-center">
-            <p className="font-bold">New Definition</p>
+            <Text h1 className="font-semibold">
+              New Definition
+            </Text>
           </CardHeader>
           <CardBody className="flex flex-col gap-4">
-            <Autocomplete
-              isRequired
-              allowsCustomValue
-              disabled={entryAddition.isLoading}
-              className="max-w-xs"
-              aria-label="term-select"
-              name="term"
-              label="Term"
-              labelPlacement="outside"
-              placeholder="Select a term"
-              defaultItems={Object.entries(data)}
-              onSelectionChange={(key) => {
-                selectedTermId.current = key;
-              }}
-              popoverProps={{
-                classNames: {
-                  content: 'dark:dark'
-                }
-              }}>
-              {([termid, termname]) => (
-                <AutocompleteItem key={termid} textValue={termname}>
-                  {termname}
-                </AutocompleteItem>
-              )}
-            </Autocomplete>
+            <div className="my-5 flex gap-4">
+              <Autocomplete
+                isRequired
+                allowsCustomValue
+                disabled={entryAddition.isLoading}
+                className="max-w-xs, w-full"
+                aria-label="term-select"
+                name="term"
+                label="Term"
+                labelPlacement="outside"
+                placeholder="Select a term"
+                defaultItems={Object.entries(data)}
+                onSelectionChange={(key) => {
+                  selectedTermId.current = key;
+                }}
+                popoverProps={{
+                  classNames: {
+                    content: 'dark:dark'
+                  }
+                }}>
+                {([termid, termname]) => (
+                  <AutocompleteItem key={termid} textValue={termname}>
+                    {termname}
+                  </AutocompleteItem>
+                )}
+              </Autocomplete>
+              <Input
+                name="tags"
+                label="Tags"
+                className="w-full"
+                labelPlacement="outside"
+                placeholder="A list of comma-seperated tags"
+              />
+            </div>
             <Textarea
               isRequired
               name="definition"
@@ -101,14 +113,8 @@ const Add = () => {
               labelPlacement="outside"
               placeholder="An example of how it's used in sentence"
             />
-            <Input
-              name="tags"
-              label="Tags"
-              labelPlacement="outside"
-              placeholder="A list of comma-seperated tags"
-            />
             <Button disabled={entryAddition.isLoading} color="primary" name="submit" type="submit">
-              Submit
+              Post
             </Button>
           </CardBody>
         </form>
