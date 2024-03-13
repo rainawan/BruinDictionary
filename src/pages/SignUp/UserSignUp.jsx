@@ -1,14 +1,8 @@
 import { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
-import { getAuth, createUserWithEmailAndPassword, updateProfile } from 'firebase/auth';
+import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth';
 import { Button, Input } from '@nextui-org/react';
 import Text from '../../components/Text';
-import useCurrentUserData from '../../utils/useCurrentUserData';
-import BlueBear from '../../assets/blue_bear.png';
-import YellowBear from '../../assets/yellow_bear.png';
-import GreenBear from '../../assets/green_bear.png';
-import RedBear from '../../assets/red_bear.png';
-import user from '../../routes/User';
 
 const UserSignUp = () => {
   const auth = getAuth();
@@ -17,15 +11,11 @@ const UserSignUp = () => {
   const [emailError, setEmailError] = useState('');
   const [passwordError, setPasswordError] = useState('');
 
-  const bearPhotos = [BlueBear, GreenBear, RedBear, YellowBear];
-  const randomPhoto = bearPhotos[Math.floor(Math.random() * bearPhotos.length)];
-
   const handleSignUp = (e) => {
     e.preventDefault();
     const formData = new FormData(e.target);
     const email = formData.get('email');
     const password = formData.get('password');
-    const { setUserData } = useCurrentUserData();
 
     setEmailError('');
     setPasswordError('');
@@ -33,15 +23,6 @@ const UserSignUp = () => {
     createUserWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
         navigate('/User');
-        updateProfile(auth.currentUser, {
-          photoURL: randomPhoto
-        });
-        setUserData({
-          username: user.displayName,
-          email: user.email,
-          userid: user.uid,
-          photo: randomPhoto
-        });
       })
       .catch((error) => {
         const initialMessage = error.code.replaceAll('-', ' ').replace('auth/', '');

@@ -10,18 +10,30 @@ import Home from './routes/Home';
 import User from './routes/User';
 import Create from './routes/Create';
 import './App.css';
+import BlueBear from './assets/blue_bear.png';
+import YellowBear from './assets/yellow_bear.png';
+import GreenBear from './assets/green_bear.png';
+import RedBear from './assets/red_bear.png';
 
 function App() {
   const { setUserData } = useCurrentUserData();
 
+  const bearPhotos = [BlueBear, GreenBear, RedBear, YellowBear];
+
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
+      const randomPhoto = bearPhotos[user.uid.charCodeAt(0) % bearPhotos.length];
       if (user) {
+        if (user.photoURL != randomPhoto) {
+          updateProfile(auth.currentUser, {
+            photoURL: randomPhoto
+          });
+        }
         setUserData({
           username: user.displayName,
           email: user.email,
           userid: user.uid,
-          photo: user.photoURL
+          photo: randomPhoto
         });
       } else {
         setUserData(undefined);
