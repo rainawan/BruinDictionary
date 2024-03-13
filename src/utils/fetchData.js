@@ -1,5 +1,6 @@
+import { useState, useEffect } from 'react';
 import { useFirestoreQuery } from '@react-query-firebase/firestore';
-import { collection, query } from 'firebase/firestore';
+import { collection, query, doc, getDoc } from 'firebase/firestore';
 import { db } from './firebase';
 
 /**
