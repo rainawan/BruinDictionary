@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { Routes, Route } from 'react-router-dom';
-import { onAuthStateChanged } from 'firebase/auth';
+import { onAuthStateChanged, updateProfile } from 'firebase/auth';
 import { Toaster } from 'sonner';
 import { auth } from './utils/firebase';
 import useCurrentUserData from './utils/useCurrentUserData';
@@ -10,14 +10,31 @@ import Home from './routes/Home';
 import User from './routes/User';
 import Create from './routes/Create';
 import './App.css';
+import BlueBear from './assets/blue_bear.png';
+import YellowBear from './assets/yellow_bear.png';
+import GreenBear from './assets/green_bear.png';
+import RedBear from './assets/red_bear.png';
 
 function App() {
   const { setUserData } = useCurrentUserData();
 
+  const bearPhotos = [BlueBear, GreenBear, RedBear, YellowBear];
+  const randomPhoto = bearPhotos[Math.floor(Math.random() * bearPhotos.length)];
+
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       if (user) {
-        setUserData({ username: user.displayName, email: user.email, userid: user.uid });
+        if (user.photoURL === null) {
+          updateProfile(auth.currentUser, {
+            photoURL: randomPhoto
+          });
+        }
+        setUserData({
+          username: user.displayName,
+          email: user.email,
+          userid: user.uid,
+          photo: user.photoURL ?? randomPhoto
+        });
       } else {
         setUserData(undefined);
       }

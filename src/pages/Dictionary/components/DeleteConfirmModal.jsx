@@ -8,7 +8,7 @@ const DeleteConfirmModal = ({ entryid, isOpen, onOpenChange }) => {
   const deletion = useDeleteEntry(entryid, {
     onSuccess: () => {
       toast.success('Deleted successfully!');
-      navigate('/');
+      navigate(0);
     },
     onError: () => {
       toast.error('Error occured. Please try again.');
