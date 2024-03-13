@@ -31,7 +31,12 @@ const DictionaryCard = ({ entry, terms }) => {
           )}
         </div>
         {editEntryid === entry.id ? (
-          <EditMode entry={entry} setEditEntryid={setEditEntryid} />
+          <EditMode
+            entry={entry}
+            setEditEntryid={setEditEntryid}
+            termName={terms[entry.termid]}
+            userid={userData.userid}
+          />
         ) : (
           <DisplayMode entry={entry} />
         )}

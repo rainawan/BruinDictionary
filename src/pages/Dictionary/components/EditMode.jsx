@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import getEditEntriesMutation from '../../../utils/getEditEntriesMutation';
 import EditConfirmModal from './EditConfirmModel';
 
-const EditMode = ({ entry, setEditEntryid }) => {
+const EditMode = ({ entry, setEditEntryid, termName, userid }) => {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
   const definition = useRef(entry.definition);
   const example = useRef(entry.example);
@@ -38,6 +38,7 @@ const EditMode = ({ entry, setEditEntryid }) => {
           onSuccess: () => {
             toast.success('Updated successfully!');
             setEditEntryid(undefined);
+            navigate(`/?term=${termName}&userid=${userid}`);
             navigate(0);
           },
           onError: (error) => {
