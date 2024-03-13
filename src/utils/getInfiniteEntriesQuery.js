@@ -6,7 +6,7 @@ import { db } from './firebase';
 const getInfiniteEntriesQuery = (count = 10, { termid, userid, order = 'likes' }) => {
   const ref = query(
     collection(db, 'Entries'),
-    ...(termid ? [where('termid', '==', termid)] : []),
+    ...(termid ? [where('termid', 'in', termid)] : []),
     ...(userid ? [where('userid', '==', userid)] : []),
     ...(order ? [orderBy(order, 'desc')] : []),
     limit(count)
