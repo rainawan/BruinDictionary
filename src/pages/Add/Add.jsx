@@ -13,14 +13,12 @@ import LoadingCard from '../Dictionary/components/LoadingCard';
 import { unpackTermsQuery } from '../../utils/unpackQuery';
 import getTermsQuery from '../../utils/getTermsQuery';
 import useCurrentUserData from '../../utils/useCurrentUserData';
-import useTermsMutation from '../../utils/useTermsMutation';
 import useEntryAddition from './hooks/useEntryAddition';
 
 const Add = () => {
-  const selectedTermId = useRef();
   const { userData } = useCurrentUserData();
-  const termMutation = useTermsMutation();
-  const entryMutation = useEntryAddition();
+  const entryAddition = useEntryAddition();
+  const selectedTermId = useRef();
 
   const termsQuery = getTermsQuery();
   const { status, data } = unpackTermsQuery(termsQuery);
@@ -45,23 +43,8 @@ const Add = () => {
     let termid =
       selectedTermId.current ||
       Object.keys(data).find((key) => data[key].toLowerCase() === name.toLowerCase());
-    if (!termid) {
-      // when term is a custom value, add term and then add entry
-      termMutation.mutate(
-        {
-          name,
-          termname: name.toLowerCase()
-        },
-        {
-          onSuccess: (data) => {
-            termid = data.id;
-            entryMutation({ termid, userid, definition, example, tags, name });
-          }
-        }
-      );
-    } else {
-      entryMutation({ termid, userid, definition, example, tags, name });
-    }
+
+    entryAddition({ termid, userid, definition, example, tags, name });
   };
 
   if (status === 'loading') {
@@ -81,7 +64,7 @@ const Add = () => {
             <Autocomplete
               isRequired
               allowsCustomValue
-              disabled={!termMutation.isSuccess}
+              disabled={entryAddition.isLoading}
               className="max-w-xs"
               aria-label="term-select"
               name="term"
@@ -124,11 +107,7 @@ const Add = () => {
               labelPlacement="outside"
               placeholder="A list of comma-seperated tags"
             />
-            <Button
-              disabled={entryMutation.isLoading || termMutation.isLoading}
-              color="primary"
-              name="submit"
-              type="submit">
+            <Button disabled={entryAddition.isLoading} color="primary" name="submit" type="submit">
               Submit
             </Button>
           </CardBody>
