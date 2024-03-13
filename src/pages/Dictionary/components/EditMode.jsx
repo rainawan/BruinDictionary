@@ -23,14 +23,17 @@ const EditMode = ({ entry, setEditEntryid }) => {
   };
 
   const handleEditSubmit = () => {
-    if (definition === '' || example === '') {
+    const definitionTrim = definition.current.value.trim();
+    const exampleTrim = example.current.value.trim();
+
+    if (definitionTrim === '' || exampleTrim === '') {
       toast.error('Missing required input...');
     } else {
       mutation.mutate(
         {
           ...entry,
-          definition: definition.current.value.trim(),
-          example: example.current.value.trim()
+          definition: definitionTrim,
+          example: exampleTrim
         },
         {
           onSuccess: () => {
