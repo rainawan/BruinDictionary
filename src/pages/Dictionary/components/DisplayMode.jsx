@@ -9,7 +9,7 @@ const DisplayMode = ({ entry }) => {
       <p className="italic md:text-lg">{entry.example}</p>
       <div className="mt-5 inline-flex flex-row flex-wrap place-content-between w-full">
         <LikeDislikeButtons entry={entry} />
-        {/* <FlagButton entryid={entry.id} /> */}
+        <FlagButton entryid={entry.id} />
       </div>
     </>
   );
