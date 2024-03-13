@@ -5,7 +5,9 @@ import { db } from './firebase';
 const getEditEntriesMutation = (entryID) => {
   const entryCollection = collection(db, 'Entries');
   const ref = doc(entryCollection, entryID);
-  const mutation = useFirestoreDocumentMutation(ref);
+  const mutation = useFirestoreDocumentMutation(ref, {
+    merge: true
+  });
 
   return mutation;
 };

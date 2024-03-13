@@ -31,7 +31,6 @@ const EditMode = ({ entry, setEditEntryid }) => {
     } else {
       mutation.mutate(
         {
-          ...entry,
           definition: definitionTrim,
           example: exampleTrim
         },
