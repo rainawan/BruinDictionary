@@ -63,8 +63,10 @@ yarn start
 
 **2. Post**
 
-- App uploads data from the client to the back-end by collecting string input from user to post definitions
-- App displays dynamic data by updating each time users post
+- Uploads data from the client to the back-end by collecting string input from user to post definitions
+- Displays dynamic data by updating each time users post
+- Allows edit and delete post
+- A term can have multiple definitions
 
 <br>
 
@@ -83,9 +85,9 @@ yarn start
 
 **5. Authentication**
 
-<br>
-
-## Website Experience
+- Google Authentication
+- Facebook Authentication
+- Email Authentication
 
 ## Tools Used
 

@@ -6,7 +6,9 @@ import Google from '../../../assets/google.svg';
 const GoogleSignInButton = () => {
   const userSignIn = () => {
     const provider = new GoogleAuthProvider();
-    return signInWithPopup(auth, provider);
+    signInWithPopup(auth, provider).catch((error) => {
+      console.error(error);
+    });
   };
   return (
     <Button className="p-5" color="default" size="md" onClick={userSignIn}>

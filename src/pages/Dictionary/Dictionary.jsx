@@ -25,7 +25,7 @@ const Dictionary = () => {
     termid: termid ?? search.termid
   });
   const { status: entriesStatus, data: entries } = unpackInfiniteEntriesQuery(entriesQuery);
-  console.log('entries: ', entries, '\nterms: ', terms);
+  // console.log('entries: ', entries, '\nterms: ', terms);
 
   const status = getTermsEntriesStatus(termsStatus, entriesStatus);
 

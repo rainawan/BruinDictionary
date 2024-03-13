@@ -20,7 +20,6 @@ const UserPosts = () => {
   const { status: entriesStatus, data: entries } = unpackInfiniteEntriesQuery(entriesQuery);
 
   const status = getTermsEntriesStatus(termsStatus, entriesStatus);
-  console.log(entries);
 
   if (status === 'loading') {
     return <LoadingCard />;
