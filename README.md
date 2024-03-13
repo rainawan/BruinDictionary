@@ -31,7 +31,7 @@ Bruin Dictionary is a crowdsourced online dictionary for UCLA students and alumn
 [Raina Wan](https://www.linkedin.com/in/raina-wan-profile/) - Class of 2025, Computer Science and Linguistics <br>
 [Soyeon Kim](https://www.linkedin.com/in/sonya-kim/) - Class of 2025, Computer Science and Linguistics <br>
 [Tiana Ly](https://www.linkedin.com/in/tianaly/) - Class of 2025, Computer Science and Linguistics <br>
-William Wong - Class of 2026, Computer Science
+[William Wong(https://www.linkedin.com/in/william-w-345845261/)] - Class of 2026, Computer Science
 
 # Run Project
 1. In terminal, run the following commands:
