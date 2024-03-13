@@ -18,7 +18,6 @@ const UserSignIn = () => {
 
     signInWithEmailAndPassword(auth, email, password).catch((error) => {
       const message = error.code.replaceAll('-', ' ').replace('auth/', '');
-      console.log('message', message);
       if (message === 'invalid credential') {
         setErrorMessage('Please enter valid credentials.');
       } else if (message === 'invalid email') {

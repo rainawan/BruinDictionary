@@ -4,15 +4,11 @@ import { Button } from '@nextui-org/react';
 import Facebook from '../../../assets/facebook.svg';
 
 const FacebookSignInButton = () => {
-  const userSignIn = async () => {
+  const userSignIn = () => {
     const provider = new FacebookAuthProvider();
-    try {
-      const result = await signInWithPopup(auth, provider);
-      const user = result.user;
-      console.log(user);
-    } catch (error) {
+    signInWithPopup(auth, provider).catch((error) => {
       console.error(error);
-    }
+    });
   };
 
   return (

@@ -20,7 +20,6 @@ const UserPosts = () => {
   const { status: entriesStatus, data: entries } = unpackInfiniteEntriesQuery(entriesQuery);
 
   const status = getTermsEntriesStatus(termsStatus, entriesStatus);
-  console.log(entries);
 
   if (status === 'loading') {
     return <LoadingCard />;
@@ -30,7 +29,7 @@ const UserPosts = () => {
     return <Card className="p-4">No terms found for user</Card>;
   } else if (status === 'success') {
     return (
-      <div className="inline-flex flex-col gap-4 max-w-[55rem] pt-2 px-4 w-full">
+      <div className="inline-flex flex-col gap-4 max-w-[55rem] w-full">
         {entries.map((entry, index) => (
           <DictionaryCard key={index} entry={entry} terms={terms} />
         ))}

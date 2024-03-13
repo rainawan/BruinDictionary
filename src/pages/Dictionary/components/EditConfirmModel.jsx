@@ -1,6 +1,6 @@
 import { Modal, ModalContent, ModalBody, ModalFooter, Button } from '@nextui-org/react';
 
-const EditConfirmModal = ({ isOpen, onOpenChange, handleSubmit }) => {
+const EditConfirmModal = ({ isOpen, onOpenChange, handleConfirm }) => {
   return (
     <Modal
       isOpen={isOpen}
@@ -17,8 +17,8 @@ const EditConfirmModal = ({ isOpen, onOpenChange, handleSubmit }) => {
               <Button
                 color="danger"
                 variant="light"
-                onPress={(e) => {
-                  handleSubmit();
+                onPress={() => {
+                  handleConfirm();
                   onClose();
                 }}>
                 Yes
