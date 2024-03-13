@@ -9,10 +9,13 @@ const Profile = () => {
 
   return (
     <section className="max-w-[60rem]">
-      <div className="flex flex-col sm:flex-row p-5">
+      <div className="flex flex-col sm:flex-row p-5 justify-content justify-start">
         {/* left-side div */}
-        <div className="p-2 flex flex-col justify-center self-center max-w-[20rem]">
-          <img className="object-fill object-center rounded-full w-[13rem]" src={userData.photo} />
+        <div className="p-2 flex flex-col flex-start max-w-[20rem]">
+          <img
+            className="object-fill object-center rounded-full w-[13rem] self-center"
+            src={userData.photo}
+          />
           <div className="flex flex-col gap-1 p-2">
             <Text
               h3
