@@ -17,7 +17,7 @@ const EditConfirmModal = ({ isOpen, onOpenChange, handleSubmit }) => {
               <Button
                 color="danger"
                 variant="light"
-                onPress={() => {
+                onPress={(e) => {
                   handleSubmit();
                   onClose();
                 }}>

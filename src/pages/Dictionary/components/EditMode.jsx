@@ -19,12 +19,18 @@ const EditMode = ({ entry, setEditEntryid, termName, userid }) => {
 
   const handleUpdate = (e) => {
     e.preventDefault();
+    const formData = new FormData(e.target);
+    definition.current.value = formData.get('definition');
+    example.current.value = formData.get('example');
+
     onOpen();
   };
 
   const handleEditSubmit = () => {
     const definitionTrim = definition.current.value.trim();
     const exampleTrim = example.current.value.trim();
+
+    console.log(definitionTrim, exampleTrim);
 
     if (definitionTrim === '' || exampleTrim === '') {
       toast.error('Missing required input...');
@@ -55,7 +61,7 @@ const EditMode = ({ entry, setEditEntryid, termName, userid }) => {
 
   return (
     <>
-      <form id="dictionary-edit">
+      <form id="dictionary-edit" onSubmit={handleUpdate}>
         <Textarea
           isRequired
           minRows={1}
@@ -81,23 +87,22 @@ const EditMode = ({ entry, setEditEntryid, termName, userid }) => {
           <Button
             className="text-white bg-blue-800 dark:text-black dark:bg-yellow-200"
             name="submit"
-            type="submit"
-            onClick={handleUpdate}>
+            type="submit">
             Update
           </Button>
           <Button variant="ghost" color="danger" onClick={handleEditCancel}>
             Cancel
           </Button>
         </div>
+        {isOpen && (
+          <EditConfirmModal
+            entryid={entry.id}
+            isOpen={isOpen}
+            onOpenChange={onOpenChange}
+            handleSubmit={handleEditSubmit}
+          />
+        )}
       </form>
-      {isOpen && (
-        <EditConfirmModal
-          entryid={entry.id}
-          isOpen={isOpen}
-          onOpenChange={onOpenChange}
-          handleSubmit={handleEditSubmit}
-        />
-      )}
     </>
   );
 };
