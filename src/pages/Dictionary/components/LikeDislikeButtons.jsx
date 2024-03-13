@@ -62,11 +62,13 @@ const LikeDislikeButtons = ({ entry }) => {
       <div className="inline-flex flex-row gap-1">
         <Button className={'hover:text-green-500'} onClick={null}>
           <LikeFilled className="text-lg" />
-          <p className="text-black dark:text-white">{entryData.likes}</p>
+          <p className="text-black dark:text-white">{entryData ? entryData.likes : entry.likes}</p>
         </Button>
         <Button className={'hover:text-red-500'} onClick={null}>
           <DislikeFilled className="text-lg" />
-          <p className="text-black dark:text-white">{entryData.dislikes}</p>
+          <p className="text-black dark:text-white">
+            {entryData ? entryData.dislikes : entry.dislikes}
+          </p>
         </Button>
       </div>
     );
@@ -172,105 +174,21 @@ const LikeDislikeButtons = ({ entry }) => {
   return (
     <div className="inline-flex flex-row gap-1">
       <Button
-        className={`hover:text-green-500 ${userDoc.likes && userDoc.likes[entryID] ? 'bg-green-500 text-white' : ''}`}
+        className={`hover:text-green-500 ${userDoc.likes && userDoc.likes[entry.id] ? 'bg-green-500 text-white' : ''}`}
         onClick={() => handleAction(LIKE)}>
         <LikeFilled className="text-lg" />
-        <p className="text-black dark:text-white">{entryData.likes}</p>
+        <p className="text-black dark:text-white">{entryData ? entryData.likes : entry.likes}</p>
       </Button>
       <Button
-        className={`hover:text-red-500 ${userDoc.dislikes && userDoc.dislikes[entryID] ? 'bg-red-500 text-white' : ''}`}
+        className={`hover:text-red-500 ${userDoc.dislikes && userDoc.dislikes[entry.id] ? 'bg-red-500 text-white' : ''}`}
         onClick={() => handleAction(DISLIKE)}>
         <DislikeFilled className="text-lg" />
-        <p className="text-black dark:text-white">{entryData.dislikes}</p>
+        <p className="text-black dark:text-white">
+          {entryData ? entryData.dislikes : entry.dislikes}
+        </p>
       </Button>
     </div>
   );
 };
 
 export default LikeDislikeButtons;
-
-// sonya's solution. problem is that userData.likes[entryID] in conditional check
-// is mutated during if statement -> causes crash
-
-// const handleAction = (newAction) => {
-//   switch (newAction) {
-//     case LIKE:
-//       if (action === LIKE || userData.likes[entryID] === true) {
-//         // unclicked like -> dec like
-//         mutateEntry.mutate({
-//           likes: increment(-1)
-//         });
-
-//         mutateUser.mutate({
-//           likes: { [entryID]: false }
-//         });
-
-//         setAction(null);
-//       } else {
-//         if (action === DISLIKE) {
-//           // switched dislike to like -> inc like, dec dislike
-//           mutateEntry.mutate({
-//             likes: increment(1),
-//             dislikes: increment(-1)
-//           });
-
-//           mutateUser.mutate({
-//             likes: { [entryID]: true },
-//             dislikes: { [entryID]: false }
-//           });
-//         } else {
-//           // when action === null
-//           // no previous action -> inc like
-//           mutateEntry.mutate({
-//             likes: increment(1)
-//           });
-
-//           mutateUser.mutate({
-//             likes: { [entryID]: true }
-//           });
-//         }
-//         setAction(LIKE);
-//       }
-//       break;
-//     case DISLIKE:
-//       if (action === DISLIKE || userData.dislikes[entryID] === true) {
-//         // unclicked dislike -> dec dislike
-//         mutateEntry.mutate({
-//           dislikes: increment(-1)
-//         });
-
-//         mutateUser.mutate({
-//           dislikes: { [entryID]: false }
-//         });
-
-//         setAction(null);
-//       } else {
-//         if (action === LIKE) {
-//           // switched like to dislike -> inc dislike, dec like
-//           mutateEntry.mutate({
-//             likes: increment(-1),
-//             dislikes: increment(1)
-//           });
-
-//           mutateUser.mutate({
-//             likes: { [entryID]: false },
-//             dislikes: { [entryID]: true }
-//           });
-//         } else {
-//           // when action === null
-//           // no previous action -> inc dislike
-//           mutateEntry.mutate({
-//             dislikes: increment(1)
-//           });
-
-//           mutateUser.mutate({
-//             dislikes: { [entryID]: true }
-//           });
-//         }
-//         setAction(DISLIKE);
-//       }
-//       break;
-//     default:
-//       break;
-//   }
-// };

@@ -11,7 +11,7 @@ async function getUserByID(userId) {
       return { id: docSnapshot.id, ...docSnapshot.data() };
     } else {
       console.log('No such document!');
-      return null;
+      return { id: docSnapshot.id, likes: {}, dislikes: {} };
     }
   } catch (error) {
     console.error('Error fetching user document:', error);
