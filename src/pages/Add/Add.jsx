@@ -73,9 +73,9 @@ const Add = () => {
   };
 
   return (
-    <section className="max-w-[55rem]">
+    <section className="max-w-[55rem] pt-10">
       {termsStatus === 'success' ? (
-        <Card className="dark:bg-slate-600 py-4">
+        <Card className="dark:bg-slate-600 p-4">
           <CardHeader className="flex-col">
             <Text h1 className="font-semibold">
               New Definition
@@ -87,7 +87,7 @@ const Add = () => {
               <Select
                 isRequired
                 label="Select a term"
-                className="max-w-xs"
+                className="max-w-xs, w-full"
                 ref={termSelectBox}
                 popoverProps={{
                   classNames: {
@@ -102,6 +102,7 @@ const Add = () => {
               </Select>
               <Input
                 label="Tags"
+                className="w-full"
                 placeholder="Type a list of comma-seperated tags..."
                 ref={tagInput}
               />
@@ -121,7 +122,7 @@ const Add = () => {
               ref={exampleInput}
             />
             <Button disabled={mutation.isLoading} color="primary" onClick={handleSubmit}>
-              Submit
+              Post
             </Button>
           </CardBody>
         </Card>
