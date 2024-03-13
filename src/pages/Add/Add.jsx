@@ -113,7 +113,7 @@ const Add = () => {
               labelPlacement="outside"
               placeholder="An example of how it's used in sentence"
             />
-            <Button disabled={entryAddition.isLoading} color="primary" onClick={handleSubmit}>
+            <Button disabled={entryAddition.isLoading} color="primary" name="submit" type="submit">
               Post
             </Button>
           </CardBody>
