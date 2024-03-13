@@ -70,3 +70,5 @@ const LikeDislikeButtons = ({ entry }) => {
     </div>
   );
 };
+
+export default LikeDislikeButtons;
