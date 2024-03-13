@@ -39,8 +39,6 @@ const EditMode = ({ entry, setEditEntryid, termName, userid }) => {
         onSuccess: () => {
           toast.success('Updated successfully!');
           setEditEntryid(undefined);
-          window.focus();
-          navigate(`/?term=${termName}&userid=${userid}`);
           navigate(0);
         },
         onError: (error) => {
