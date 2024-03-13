@@ -1,6 +1,17 @@
 import React from 'react';
-import { Tabs, Tab, Card, CardBody } from '@nextui-org/react';
+import { Tabs, Tab } from '@nextui-org/react';
 import UserPosts from './UserPosts';
+import DictionaryCard from '../../Dictionary/components/DictionaryCard';
+
+const entry = {
+  id: '0',
+  termid: '0',
+  definition: 'Phonetic pronunciation of UCLA',
+  example: 'I go to OOKLA',
+  likes: 1,
+  dislikes: 0
+};
+const term = { 0: 'OOKLA' };
 
 const PostTabs = () => {
   return (
@@ -13,15 +24,7 @@ const PostTabs = () => {
         </Tab>
         <Tab key="liked" title="Liked Posts">
           <div className="space-y-4">
-            <Card>
-              <CardBody>liked</CardBody>
-            </Card>
-            <Card>
-              <CardBody>liked</CardBody>
-            </Card>
-            <Card>
-              <CardBody>liked</CardBody>
-            </Card>
+            <DictionaryCard entry={entry} terms={term} />
           </div>
         </Tab>
       </Tabs>
