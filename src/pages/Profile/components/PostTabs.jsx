@@ -6,16 +6,17 @@ import DictionaryCard from '../../Dictionary/components/DictionaryCard';
 const entry = {
   id: '0',
   termid: '0',
-  definition: 'Phonetic pronunciation of UCLA',
-  example: 'I go to OOKLA',
+  userid: 'P7OymLPDqfbjpQsahvjMM8Hmlin2',
+  definition: 'The number one public university.',
+  example: 'I love being a student at UCLA!',
   likes: 1,
   dislikes: 0
 };
-const term = { 0: 'OOKLA' };
+const term = { 0: 'UCLA' };
 
 const PostTabs = () => {
   return (
-    <div className="flex flex-1 flex-col justify-start p-5">
+    <div className="flex flex-1 flex-col justify-start p-3 sm:p-5">
       <Tabs aria-label="options">
         <Tab key="created" title="Created Posts">
           <div className="space-y-4">

@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { Routes, Route } from 'react-router-dom';
-import { onAuthStateChanged, updateProfile } from 'firebase/auth';
+import { onAuthStateChanged } from 'firebase/auth';
 import { Toaster } from 'sonner';
 import { auth } from './utils/firebase';
 import useCurrentUserData from './utils/useCurrentUserData';
@@ -22,13 +22,13 @@ function App() {
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
-      const randomPhoto = bearPhotos[user.uid.charCodeAt(0) % bearPhotos.length];
       if (user) {
-        if (user.photoURL != randomPhoto) {
-          updateProfile(auth.currentUser, {
-            photoURL: randomPhoto
-          });
-        }
+        const randomPhoto = bearPhotos[user.uid.charCodeAt(0) % bearPhotos.length];
+        // if (user.photoURL != randomPhoto) {
+        //   updateProfile(auth.currentUser, {
+        //     photoURL: randomPhoto
+        //   });
+        // }
         setUserData({
           username: user.displayName,
           email: user.email,

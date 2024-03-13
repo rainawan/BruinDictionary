@@ -26,82 +26,75 @@ const EditMode = ({ entry, setEditEntryid, termName, userid }) => {
     onOpen();
   };
 
-  const handleEditSubmit = () => {
+  const handleEditConfirm = () => {
     const definitionTrim = definition.current.value.trim();
     const exampleTrim = example.current.value.trim();
 
-    if (definitionTrim === '' || exampleTrim === '') {
-      toast.error('Missing required input...');
-    } else {
-      mutation.mutate(
-        {
-          definition: definitionTrim,
-          example: exampleTrim
+    mutation.mutate(
+      {
+        definition: definitionTrim,
+        example: exampleTrim
+      },
+      {
+        onSuccess: () => {
+          toast.success('Updated successfully!');
+          setEditEntryid(undefined);
+          window.focus();
+          navigate(`/?term=${termName}&userid=${userid}`);
+          navigate(0);
         },
-        {
-          onSuccess: () => {
-            toast.success('Updated successfully!');
-            setEditEntryid(undefined);
-            navigate(`/?term=${termName}&userid=${userid}`);
-            navigate(0);
-          },
-          onError: (error) => {
-            console.error('Mutation error:', error);
-            toast.error('Error occured. Please try again.');
-          },
-          onMutate: () => {
-            toast('Updating...');
-          }
+        onError: (error) => {
+          console.error('Mutation error:', error);
+          toast.error('Error occured. Please try again.');
+        },
+        onMutate: () => {
+          toast('Updating...');
         }
-      );
-    }
+      }
+    );
   };
 
   return (
-    <>
-      <form id="dictionary-edit" onSubmit={handleUpdate}>
-        <Textarea
-          isRequired
-          minRows={1}
-          maxRows={4}
-          size="sm"
-          name="definition"
-          defaultValue={entry.definition}
-          ref={definition}
-          classNames={{ inputWrapper: 'ring-error' }}
+    <form id="dictionary-edit" onSubmit={handleUpdate}>
+      <Textarea
+        isRequired
+        minRows={1}
+        maxRows={4}
+        size="sm"
+        name="definition"
+        defaultValue={entry.definition}
+        ref={definition}
+      />
+      <p className="mt-3 mb-1 md:text-lg font-medium">Example</p>
+      <Textarea
+        isRequired
+        minRows={1}
+        maxRows={4}
+        size="sm"
+        name="example"
+        defaultValue={entry.example}
+        ref={example}
+      />
+      <div className="mt-5 inline-flex flex-row gap-1">
+        <Button
+          className="text-white bg-blue-800 dark:text-black dark:bg-yellow-200"
+          name="submit"
+          type="submit">
+          Update
+        </Button>
+        <Button variant="ghost" color="danger" onClick={handleEditCancel}>
+          Cancel
+        </Button>
+      </div>
+      {isOpen && (
+        <EditConfirmModal
+          entryid={entry.id}
+          isOpen={isOpen}
+          onOpenChange={onOpenChange}
+          handleConfirm={handleEditConfirm}
         />
-        <p className="mt-3 mb-1 md:text-lg font-medium">Example</p>
-        <Textarea
-          isRequired
-          minRows={1}
-          maxRows={4}
-          size="sm"
-          name="example"
-          defaultValue={entry.example}
-          ref={example}
-          classNames={{ inputWrapper: 'ring-error' }}
-        />
-        <div className="mt-5 inline-flex flex-row gap-1">
-          <Button
-            className="text-white bg-blue-800 dark:text-black dark:bg-yellow-200"
-            name="submit"
-            type="submit">
-            Update
-          </Button>
-          <Button variant="ghost" color="danger" onClick={handleEditCancel}>
-            Cancel
-          </Button>
-        </div>
-        {isOpen && (
-          <EditConfirmModal
-            entryid={entry.id}
-            isOpen={isOpen}
-            onOpenChange={onOpenChange}
-            handleSubmit={handleEditSubmit}
-          />
-        )}
-      </form>
-    </>
+      )}
+    </form>
   );
 };
 
