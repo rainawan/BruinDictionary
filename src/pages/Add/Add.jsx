@@ -1,134 +1,124 @@
 import { useRef } from 'react';
 import {
   Card,
-  CardBody,
-  Input,
   CardHeader,
-  Divider,
-  Select,
-  SelectItem,
+  CardBody,
+  Autocomplete,
+  AutocompleteItem,
   Textarea,
+  Input,
   Button
 } from '@nextui-org/react';
-import { serverTimestamp } from 'firebase/firestore';
-import { toast } from 'sonner';
 import LoadingCard from '../Dictionary/components/LoadingCard';
-import { useNavigate, useSearchParams } from 'react-router-dom';
 import { unpackTermsQuery } from '../../utils/unpackQuery';
 import getTermsQuery from '../../utils/getTermsQuery';
-import getEntriesMutation from '../../utils/getEntriesMutation';
 import useCurrentUserData from '../../utils/useCurrentUserData';
 import Text from '../../components/Text';
+import useEntryAddition from './hooks/useEntryAddition';
 
 const Add = () => {
   const { userData } = useCurrentUserData();
-
-  const termSelectBox = useRef();
-  const definitionTextArea = useRef();
-  const exampleInput = useRef();
-  const tagInput = useRef();
-
-  const navigate = useNavigate();
+  const entryAddition = useEntryAddition();
+  const selectedTermId = useRef();
 
   const termsQuery = getTermsQuery();
-  const { status: termsStatus, data: terms } = unpackTermsQuery(termsQuery);
+  const { status, data } = unpackTermsQuery(termsQuery);
 
-  const mutation = getEntriesMutation();
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const formData = new FormData(e.target);
+    const userid = userData.userid;
+    const name = formData.get('term').trim();
+    const definition = formData.get('definition').trim();
+    const example = formData.get('example').trim();
+    const tags = [
+      ...new Set(
+        formData
+          .get('tags')
+          .split(',')
+          .map((tag) => tag.trim())
+          .filter((tag) => tag !== '')
+      )
+    ];
 
-  const handleSubmit = () => {
-    const definition = definitionTextArea.current.value.trim();
-    const example = exampleInput.current.value.trim();
-    const termSelect = termSelectBox.current.value.trim();
-    const tags = tagInput.current.value.split(',').map((tag) => tag.trim());
+    let termid =
+      selectedTermId.current ||
+      Object.keys(data).find((key) => data[key].toLowerCase() === name.toLowerCase());
 
-    if (definition === '' || example === '' || termSelect === '') {
-      toast.error('Missing required input...');
-    } else {
-      mutation.mutate(
-        {
-          creationDate: serverTimestamp(),
-          definition: definition,
-          example: example,
-          termid: termSelect,
-          userid: userData.userid,
-          likes: 0,
-          dislikes: 0,
-          tags: tags
-        },
-        {
-          onSuccess: () => {
-            toast.success('Added successfully!');
-            navigate('/');
-          },
-          onError: (error) => {
-            console.error('Mutation error:', error);
-            toast.error('Error occured. Please try again.');
-          },
-          onMutate: () => {
-            toast('Adding...');
-          }
-        }
-      );
-    }
+    entryAddition({ termid, userid, definition, example, tags, name });
   };
+
+  if (status === 'loading') {
+    return <LoadingCard />;
+  } else if (status === 'error') {
+    return <div>Error occurred. Try again.</div>;
+  }
 
   return (
     <section className="max-w-[55rem] pt-10">
-      {termsStatus === 'success' ? (
-        <Card className="dark:bg-slate-600 p-4">
-          <CardHeader className="flex-col">
+      <Card className="dark:bg-slate-600 p-4">
+        <form id="add-form" onSubmit={handleSubmit}>
+          <CardHeader className="justify-center">
             <Text h1 className="font-semibold">
               New Definition
             </Text>
           </CardHeader>
-          <Divider />
-          <CardBody>
+          <CardBody className="flex flex-col gap-4">
             <div className="my-5 flex gap-4">
-              <Select
+              <Autocomplete
                 isRequired
-                label="Select a term"
+                allowsCustomValue
+                disabled={entryAddition.isLoading}
                 className="max-w-xs, w-full"
-                ref={termSelectBox}
+                aria-label="term-select"
+                name="term"
+                label="Term"
+                labelPlacement="outside"
+                placeholder="Select a term"
+                defaultItems={Object.entries(data)}
+                onSelectionChange={(key) => {
+                  selectedTermId.current = key;
+                }}
                 popoverProps={{
                   classNames: {
                     content: 'dark:dark'
                   }
                 }}>
-                {Object.keys(terms).map((key, index) => (
-                  <SelectItem key={key} value={terms[key]}>
-                    {terms[key]}
-                  </SelectItem>
-                ))}
-              </Select>
+                {([termid, termname]) => (
+                  <AutocompleteItem key={termid} textValue={termname}>
+                    {termname}
+                  </AutocompleteItem>
+                )}
+              </Autocomplete>
               <Input
+                name="tags"
                 label="Tags"
                 className="w-full"
-                placeholder="Type a list of comma-seperated tags..."
-                ref={tagInput}
+                labelPlacement="outside"
+                placeholder="A list of comma-seperated tags"
               />
             </div>
             <Textarea
               isRequired
+              name="definition"
               label="Definition"
-              className="my-5"
-              placeholder="Type your definition here..."
-              ref={definitionTextArea}
+              labelPlacement="outside"
+              placeholder="Your definition of the term"
             />
-            <Input
+            <Textarea
               isRequired
+              minRows={2}
+              name="example"
               label="Example"
-              className="my-5"
-              placeholder="Type an example of how it's used in sentence..."
-              ref={exampleInput}
+              labelPlacement="outside"
+              placeholder="An example of how it's used in sentence"
             />
-            <Button disabled={mutation.isLoading} color="primary" onClick={handleSubmit}>
+            <Button disabled={entryAddition.isLoading} color="primary" onClick={handleSubmit}>
               Post
             </Button>
           </CardBody>
-        </Card>
-      ) : (
-        <LoadingCard />
-      )}
+        </form>
+      </Card>
     </section>
   );
 };

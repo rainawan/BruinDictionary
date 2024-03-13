@@ -1,5 +1,5 @@
 import useCurrentUserData from '../utils/useCurrentUserData';
-import AddPage from '../pages/Add/Add';
+import AddPage from '../pages/Add';
 import SignIn from '../pages/SignIn';
 
 const Add = () => {
