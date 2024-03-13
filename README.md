@@ -23,6 +23,8 @@ Bruin Dictionary is a crowdsourced online dictionary for UCLA students and alumn
 + Sort by recent
 + Sort by most liked
 
+**5. Authentication**
+
 # Our Team
 [Anthony Williams](https://www.linkedin.com/in/awilliamsworks/) - Class of 2025, Computer Science <br>
 [Khanh Nguyen](https://www.linkedin.com/in/khanh-nguyen-794062230/) - Class of 2025, Computer Science and Linguistics <br>
@@ -39,12 +41,12 @@ William Wong - Class of 2026, Computer Science
   ```
   cd BruinDictionary
   ```
-2. Add environment variables as .env.local in root:
+2. Add environment variables as `.env.local` in root:
   ```
   VITE_FIREBASE_KEY='your firebase key'
   VITE_FIREBASE_APP_ID='your firebase app id'
   ```
-3. In terminal, run the following commands: 
+3. In terminal, run the following commands to start project: 
   ```
   yarn install
   ```
