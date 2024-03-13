@@ -30,8 +30,6 @@ const EditMode = ({ entry, setEditEntryid, termName, userid }) => {
     const definitionTrim = definition.current.value.trim();
     const exampleTrim = example.current.value.trim();
 
-    console.log(definitionTrim, exampleTrim);
-
     if (definitionTrim === '' || exampleTrim === '') {
       toast.error('Missing required input...');
     } else {
