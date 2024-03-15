@@ -9,7 +9,7 @@ const entry = {
   userid: 'P7OymLPDqfbjpQsahvjMM8Hmlin2',
   definition: 'The number one public university.',
   example: 'I love being a student at UCLA!',
-  likes: 1,
+  likes: 37,
   dislikes: 0
 };
 const term = { 0: 'UCLA' };
