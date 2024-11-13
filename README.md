@@ -8,6 +8,8 @@ CS 35L: Software Construction Winter 2024 Project <br> Professor Eggert
 
 Bruin Dictionary is a crowdsourced online dictionary for UCLA students and alumni, defining the many acronyms, slang words, and time-honored traditions associated with being a Bruin. Inspired by the functionality of Urban Dictionary, users can use Bruin Dictionary to search and contribute definitions.
 
+## [Explore Here!](https://bruindictionary.netlify.app/)
+
 ## Our Team
 
 [Anthony Williams](https://www.linkedin.com/in/awilliamsworks/) - Class of 2025, Computer Science
